@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "chart.js": "^1.0.2",
-    "jquery": "^2.1.4"
+    "jquery": "^2.1.4",
+    "vue": "^0.12.9"
   }
 }

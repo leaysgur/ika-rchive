@@ -1,11 +1,19 @@
 'use strict';
 module.exports = RecordModel;
 
+var instance = null;
 function RecordModel() {
   this._data = [];
 
   this._init();
 }
+
+RecordModel.getInstance = function() {
+  if (instance === null) {
+    instance = new RecordModel();
+  }
+  return instance;
+};
 
 RecordModel.prototype = {
   constructor: RecordModel,
@@ -13,7 +21,7 @@ RecordModel.prototype = {
     this.fetch();
   },
   fetch: function() {
-    var data = localStorage.getItem('IKA_ANALYTICS_DATA');
+    var data = localStorage.getItem('IA_RECORD');
     if (data === null) {
       this._data = [
         {
@@ -57,7 +65,7 @@ RecordModel.prototype = {
     }
   },
   save: function() {
-    localStorage.setItem('IKA_ANALYTICS_DATA', JSON.stringify(this._data));
+    localStorage.setItem('IA_RECORD', JSON.stringify(this._data));
   },
   set: function(record) {
     record;
