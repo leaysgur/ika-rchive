@@ -24,5 +24,6 @@ var options = {
   scaleLabel: Util.getRankStr,
   tooltipTemplate: Util.getRankStr
 };
-this.myLineChart = new Chart(ctx).Line(data, options);
+new Chart(ctx).Line(data, options);
 
+window.record = record;
