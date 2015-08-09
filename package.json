@@ -1,0 +1,16 @@
+{
+  "name": "ika-analytics",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify src/script/main.js -o dist/script.js"
+  },
+  "author": "leader22",
+  "license": "MIT",
+  "dependencies": {
+    "chart.js": "^1.0.2",
+    "jquery": "^2.1.4"
+  }
+}
