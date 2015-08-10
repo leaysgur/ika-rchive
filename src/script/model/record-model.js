@@ -74,8 +74,7 @@ RecordModel.prototype = {
     })._id;
 
     record._id = latestId + 1;
-    this.data.$set(this.data.length, record);
-    console.log(this.data);
+    this.data.push(record);
   },
   toGraphData: function() {
     return this.data.map(function(item) {

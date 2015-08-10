@@ -1,15 +1,29 @@
 'use strict';
 var Vue   = require('vue');
-var $     = require('jquery');
 var Chart = require('chart.js');
 var Util  = require('../util');
 var RecordModel = require('../model/record-model').getInstance();
 
 module.exports = Vue.extend({
   el: function() { return '#js-view-graph'; },
+  data: function() {
+    return {
+      records: RecordModel.data
+    };
+  },
+  watch: {
+    records: function() {
+      this.drawGraph();
+    }
+  },
   events: {
-    'hook:created': function() {
-      var ctx = $('#js-graph-area')[0].getContext('2d');
+    'hook:ready': function() {
+      this._ctx = this.$$.graph.getContext('2d');
+      this.drawGraph();
+    }
+  },
+  methods: {
+    drawGraph: function() {
       var data = {
         labels: RecordModel.toGraphLabel(),
         datasets: [
@@ -26,7 +40,7 @@ module.exports = Vue.extend({
         scaleLabel:      Util.getRateStr,
         tooltipTemplate: Util.getRateStr
       };
-      new Chart(ctx).Line(data, options);
+      new Chart(this._ctx).Line(data, options);
     }
   }
 });
