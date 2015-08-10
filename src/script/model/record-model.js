@@ -40,5 +40,9 @@ RecordModel.prototype = {
     record._id = latestId + 1;
     this.data.push(record);
     this.save();
+  },
+  remove: function(idx) {
+    this.data.splice(idx, 1);
+    this.save();
   }
 };

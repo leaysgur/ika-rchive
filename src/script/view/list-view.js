@@ -8,5 +8,10 @@ module.exports = Vue.extend({
     return {
       records: RecordModel.data
     };
+  },
+  methods: {
+    onClickDel: function(idx) {
+      RecordModel.remove(idx);
+    }
   }
 });
