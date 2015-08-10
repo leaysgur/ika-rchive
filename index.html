@@ -2,17 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>イカアナリティクス</title>
+  <title>Ika-nalytics</title>
 </head>
 <body>
   <div id="js-view-graph">
     <h1>グラフ画面</h1>
     <canvas v-el="graph" width="320px" height="400px"></canvas>
+    <div v-show="records.length === 0">まだデータがないよ</div>
   </div>
 
   <div id="js-view-list">
     <h1>リスト画面</h1>
     <ul>
+      <li v-show="records.length === 0">まだデータがないよ</li>
       <li v-repeat="item in records | listRecords | orderBy 'id' -1">
         {{item.id}}: {{item.rule}} in {{item.stage}} -> {{item.result}} -> {{item.rate}}
       </li>
@@ -44,7 +46,6 @@
 
     <button v-on="click: onClickSet">Set</button>
   </div>
-
 
   <script src="./dist/script.js"></script>
 </body>
