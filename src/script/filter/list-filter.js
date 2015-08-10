@@ -3,7 +3,7 @@ var Vue   = require('vue');
 var Const = require('../const');
 var Util  = require('../util');
 
-Vue.filter('listFilter', function (records) {
+Vue.filter('listRecords', function (records) {
   return records.map(function(item) {
     return {
       id:     item._id,

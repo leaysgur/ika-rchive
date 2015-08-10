@@ -13,7 +13,7 @@
   <div id="js-view-list">
     <h1>リスト画面</h1>
     <ul>
-      <li v-repeat="item in records | listFilter | orderBy 'id' -1">
+      <li v-repeat="item in records | listRecords | orderBy 'id' -1">
         {{item.id}}: {{item.rule}} in {{item.stage}} -> {{item.result}} -> {{item.rate}}
       </li>
     </ul>
