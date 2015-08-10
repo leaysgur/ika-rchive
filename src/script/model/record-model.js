@@ -1,9 +1,10 @@
 'use strict';
+
 module.exports = RecordModel;
 
 var instance = null;
 function RecordModel() {
-  this._data = [];
+  this.data = [];
 
   this._init();
 }
@@ -23,7 +24,7 @@ RecordModel.prototype = {
   fetch: function() {
     var data = localStorage.getItem('IA_RECORD');
     if (data === null) {
-      this._data = [
+      this.data = [
         {
           _id: 1,
           result: 1,
@@ -61,22 +62,28 @@ RecordModel.prototype = {
         },
       ];
     } else {
-      this._data = data;
+      this.data = data;
     }
   },
   save: function() {
-    localStorage.setItem('IA_RECORD', JSON.stringify(this._data));
+    localStorage.setItem('IA_RECORD', JSON.stringify(this.data));
   },
   set: function(record) {
-    record;
+    var latestId = this.data.reduce(function(item, cur) {
+      return (item._id < cur._id) ? cur : item;
+    })._id;
+
+    record._id = latestId + 1;
+    this.data.$set(this.data.length, record);
+    console.log(this.data);
   },
-  toChartData: function() {
-    return this._data.map(function(item) {
+  toGraphData: function() {
+    return this.data.map(function(item) {
       return item.rate;
     });
   },
-  toChartLabel: function() {
-    return this._data.map(function(item) {
+  toGraphLabel: function() {
+    return this.data.map(function(item) {
       return item._id;
     });
   }

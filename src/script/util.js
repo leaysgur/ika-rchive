@@ -18,5 +18,24 @@ module.exports = {
     }
 
     return label + rate;
+  },
+
+  objToOptionsArr: function(obj, isReverse) {
+    var ret = [];
+    for (var key in obj) {
+      if (isReverse) {
+        ret.push({
+          text:  key,
+          value: obj[key]
+        });
+      } else {
+        ret.push({
+          text:  obj[key],
+          value: key
+        });
+      }
+    }
+
+    return ret;
   }
 };

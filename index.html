@@ -13,68 +13,37 @@
   <div id="js-view-list">
     <h1>リスト画面</h1>
     <ul>
-      <li v-repeat="item in record | orderBy 'id' -1">
+      <li v-repeat="item in records | listFilter | orderBy 'id' -1">
         {{item.id}}: {{item.rule}} in {{item.stage}} -> {{item.result}} -> {{item.rate}}
       </li>
     </ul>
   </div>
 
 
-  <h1>入力画面</h1>
-  <label>
-    <input name="result" type="radio" value="1">勝ち
-  </label>
-  <label>
-    <input name="result" type="radio" value="2">負け
-  </label>
-  <label>
-    <input name="result" type="radio" value="3">KO勝ち
-  </label>
-  <label>
-    <input name="result" type="radio" value="4">KO負け
-  </label>
+  <div id="js-view-input">
+    <h1>入力画面</h1>
+    <label v-repeat="results">
+      <input name="result" type="radio" v-model="result" value="{{$key}}">{{$value}}
+    </label>
 
-  <hr>
+    <hr>
 
-  <label>
-  <input name="rule" type="radio" value="1">エリア
-  </label>
-  <label>
-  <input name="rule" type="radio" value="2">ヤグラ
-  </label>
+    <label v-repeat="rules">
+      <input name="rule" type="radio" v-model="rule" value="{{$key}}">{{$value}}
+    </label>
 
-  <hr>
+    <hr>
 
-  <select name="stage">
-    <option value="1">アロワナモール</option>
-    <option value="2">Bバスパーク</option>
-    <option value="3">シオノメ油田</option>
-    <option value="4">デカライン高架下</option>
-    <option value="5">ハコフグ倉庫</option>
-    <option value="6">ホッケふ頭</option>
-    <option value="7">モズク農園</option>
-    <option value="8">ネギトロ炭鉱</option>
-    <option value="9">タチウオパーキング</option>
-    <option value="10">モンガラキャンプ場</option>
-  </select>
+    <select v-model="stage" options="stages"></select>
 
-  <hr>
+    <hr>
 
+    <select v-model="rate_rank" options="rates"></select>
 
-  <select name="rate_rank">
-    <option value="1000">S+</option>
-    <option value="900">S</option>
-    <option value="800">A+</option>
-    <option value="700">A</option>
-    <option value="600">A-</option>
-    <option value="500">B+</option>
-    <option value="400">B</option>
-    <option value="300">B-</option>
-    <option value="200">C+</option>
-    <option value="100">C</option>
-    <option value="0">C-</option>
-  </select>
-  <input name="rate_score" type="number" min="0" max="100">
+    <input v-model="rate_score" type="number" min="0" max="100">
+
+    <button v-on="click: onClickSet">Set</button>
+  </div>
 
 
   <script src="./dist/script.js"></script>
