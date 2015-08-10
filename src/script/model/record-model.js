@@ -75,15 +75,5 @@ RecordModel.prototype = {
 
     record._id = latestId + 1;
     this.data.push(record);
-  },
-  toGraphData: function() {
-    return this.data.map(function(item) {
-      return item.rate;
-    });
-  },
-  toGraphLabel: function() {
-    return this.data.map(function(item) {
-      return item._id;
-    });
   }
 };

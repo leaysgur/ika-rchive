@@ -25,13 +25,13 @@ module.exports = Vue.extend({
   methods: {
     drawGraph: function() {
       var data = {
-        labels: RecordModel.toGraphLabel(),
+        labels: this._toGraphLabel(this.records),
         datasets: [
           {
             fillColor: 'rgba(151,187,205,0.2)',
             strokeColor: 'rgba(151,187,205,1)',
             pointColor: 'rgba(151,187,205,1)',
-            data: RecordModel.toGraphData()
+            data: this._toGraphData(this.records)
           }
         ]
       };
@@ -41,6 +41,16 @@ module.exports = Vue.extend({
         tooltipTemplate: Util.getRateStr
       };
       new Chart(this._ctx).Line(data, options);
+    },
+    _toGraphData: function(records) {
+      return records.map(function(item) {
+        return item.rate;
+      });
+    },
+    _toGraphLabel: function(records) {
+      return records.map(function(item) {
+        return item._id;
+      });
     }
   }
 });
