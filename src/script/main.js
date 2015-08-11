@@ -1,7 +1,5 @@
 'use strict';
 
-require('./filter/list-filter');
-
 var GraphView = require('./view/graph-view');
 var ListView  = require('./view/list-view');
 var UserView  = require('./view/user-view');

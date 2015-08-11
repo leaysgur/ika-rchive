@@ -16,7 +16,7 @@
     <h1>リスト画面</h1>
     <ul>
       <li v-show="records.length === 0">まだデータがないよ</li>
-      <li v-repeat="item in records | listRecords | orderBy 'id' -1">
+      <li v-repeat="item in recordsList | orderBy 'id' -1">
         {{item.id}}: {{item.rule}} in {{item.stage}} -> {{item.result}} -> {{item.rate}}
         <span v-on="click: onClickDel(item.idx)">[x]</span>
       </li>
