@@ -8,7 +8,9 @@ module.exports = Vue.extend({
   el: function() { return '#js-view-graph'; },
   data: function() {
     return {
-      records: RecordModel.data
+      records: RecordModel.data,
+      canvasW: ((window.innerWidth * 0.9)|0) + 'px',
+      canvasH: ((window.innerHeight * 0.25)|0) + 'px',
     };
   },
   watch: {

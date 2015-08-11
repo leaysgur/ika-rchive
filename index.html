@@ -8,7 +8,7 @@
 <body>
   <div id="js-view-graph">
     <h1>グラフ画面</h1>
-    <canvas v-el="graph" width="320px" height="400px"></canvas>
+    <canvas v-el="graph" v-attr="width: canvasW, height: canvasH"></canvas>
     <div v-show="records.length === 0">まだデータがないよ</div>
   </div>
 
