@@ -40,7 +40,8 @@ module.exports = Vue.extend({
         scaleLabel:      Util.getRateStr,
         tooltipTemplate: Util.getRateStr
       };
-      new Chart(this._ctx).Line(data, options);
+      if (this._graph) { this._graph.destroy(); }
+      this._graph = new Chart(this._ctx).Line(data, options);
     },
     _toGraphData: function(records) {
       return records.map(function(item) {
