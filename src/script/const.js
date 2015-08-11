@@ -38,6 +38,9 @@ module.exports = {
     'C+':  200,
     'C':   100,
     'C-':    0
-  }
+  },
+
+  RECORD_LIMIT: 25
+  // RECORD_LIMIT: 100
 
 };

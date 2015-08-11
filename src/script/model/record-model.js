@@ -1,4 +1,6 @@
 'use strict';
+var Const = require('../const');
+
 module.exports = RecordModel;
 
 var instance = null;
@@ -18,31 +20,27 @@ RecordModel.getInstance = function() {
 RecordModel.prototype = {
   constructor: RecordModel,
   _init: function() {
-    this.fetch();
+    this._fetch();
   },
-  fetch: function() {
+  _fetch: function() {
     var data = localStorage.getItem('IA_RECORD');
     if (data !== null) {
       this.data = JSON.parse(data);
     }
   },
-  save: function() {
+  _save: function() {
     localStorage.setItem('IA_RECORD', JSON.stringify(this.data));
   },
   set: function(record) {
-    var latestId = 0;
-    if (this.data.length) {
-      latestId = this.data.reduce(function(item, cur) {
-        return (item._id < cur._id) ? cur : item;
-      })._id;
-    }
-
-    record._id = latestId + 1;
     this.data.push(record);
-    this.save();
+    // data.lengthはLIMITを超えないし、超えたら先頭が消える
+    while (this.data.length > Const.RECORD_LIMIT) {
+      this.data.shift();
+    }
+    this._save();
   },
   remove: function(idx) {
     this.data.splice(idx, 1);
-    this.save();
+    this._save();
   }
 };

@@ -48,8 +48,8 @@ module.exports = Vue.extend({
       });
     },
     _toGraphLabel: function(records) {
-      return records.map(function(item) {
-        return item._id;
+      return records.map(function(item, idx) {
+        return idx + 1;
       });
     }
   }
