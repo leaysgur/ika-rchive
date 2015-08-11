@@ -28,6 +28,10 @@
     <hr>
     勝率: {{winRate}}%
     <hr>
+    連勝記録: {{winStreak}}連勝
+    <hr>
+    連敗記録: {{loseStreak}}連敗
+    <hr>
     KOした率: {{koWinRate}}%
     <hr>
     KOされ率: {{koLoseRate}}%
@@ -46,23 +50,15 @@
     <label v-repeat="results">
       <input name="result" type="radio" v-model="result" value="{{$key}}">{{$value}}
     </label>
-
     <hr>
-
     <label v-repeat="rules">
       <input name="rule" type="radio" v-model="rule" value="{{$key}}">{{$value}}
     </label>
-
     <hr>
-
     <select v-model="stage" options="stages"></select>
-
     <hr>
-
     <select v-model="rate_rank" options="rates"></select>
-
     <input v-model="rate_score" type="number" min="0" max="100">
-
     <button v-on="click: onClickSet">Set</button>
   </div>
 

@@ -37,5 +37,10 @@ module.exports = {
     }
 
     return ret;
+  },
+
+  percentage: function(c, p) {
+    if (c === 0 || p === 0) { return 0; }
+    return ((c / p) * 100).toFixed(2);
   }
 };

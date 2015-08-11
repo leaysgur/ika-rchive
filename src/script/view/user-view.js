@@ -12,6 +12,8 @@ module.exports = Vue.extend({
 
       bestRate:   null,
       winRate:    null,
+      winStreak:  null,
+      loseStreak: null,
       koWinRate:  null,
       koLoseRate: null,
       goodRule:   null,
@@ -31,6 +33,8 @@ module.exports = Vue.extend({
       var userData = this._toUserData(this.records);
       this.bestRate   = userData.bestRate;
       this.winRate    = userData.winRate;
+      this.winStreak  = userData.winStreak;
+      this.loseStreak = userData.loseStreak;
       this.koWinRate  = userData.koWinRate;
       this.koLoseRate = userData.koLoseRate;
       this.goodRule   = userData.goodRule;
@@ -40,6 +44,10 @@ module.exports = Vue.extend({
     },
     _toUserData: function(records) {
       var recordsLen = records.length;
+      var winStreakCount = 0;
+      var loseStreakCount = 0;
+      var longestWinStreakCount = 0;
+      var longestLoseStreakCount = 0;
       var bestRate = 0;
       var winCount = 0;
       var koWinCount  = 0;
@@ -64,14 +72,25 @@ module.exports = Vue.extend({
         // 勝った
         if (item.result % 2)   {
           winCount++;
+
           stageStat[item.stage].w++;
           ruleStat[item.rule].w++;
+
+          winStreakCount++;
+          loseStreakCount = 0;
         }
         // 負けた
         else {
           stageStat[item.stage].l++;
           ruleStat[item.rule].l++;
+
+          loseStreakCount++;
+          winStreakCount = 0;
         }
+
+        // 連勝と連敗を記録
+        longestLoseStreakCount = longestLoseStreakCount < loseStreakCount ? loseStreakCount : longestLoseStreakCount;
+        longestWinStreakCount = longestWinStreakCount < winStreakCount ? winStreakCount : longestWinStreakCount;
         // KO勝ちとKO負け
         if (item.result === 3) { koWinCount++; }
         if (item.result === 4) { koLoseCount++; }
@@ -129,13 +148,15 @@ module.exports = Vue.extend({
 
       return {
         bestRate:   Util.getRateStr(bestRate),
-        winRate:    (winCount / recordsLen) * 100,
-        koWinRate:  (koWinCount / recordsLen) * 100,
-        koLoseRate: (koLoseCount / recordsLen) * 100,
+        winRate:    Util.percentage(winCount, recordsLen),
+        koWinRate:  Util.percentage(koWinCount, recordsLen),
+        koLoseRate: Util.percentage(koLoseCount, recordsLen),
         goodStage:  goodStageName,
         badStage:   badStageName,
         goodRule:   goodRuleName,
         badRule:    badRuleName,
+        winStreak:  longestWinStreakCount,
+        loseStreak: longestLoseStreakCount
       };
     }
   }
