@@ -13,6 +13,7 @@ module.exports = Vue.extend({
       stage:      null,
       rate_rank:  null,
       rate_score: null,
+      missmatch:  null,
 
       results: Const.RESULT,
       rules:   Const.RULE,
@@ -23,10 +24,11 @@ module.exports = Vue.extend({
   methods: {
     onClickSet: function() {
       var record = {
-        result: this.result|0,
-        rule:   this.rule|0,
-        stage:  this.stage|0,
-        rate:   (this.rate_rank|0) + (this.rate_score|0)
+        result:    this.result|0,
+        missmatch: this.missmatch|0,
+        rule:      this.rule|0,
+        stage:     this.stage|0,
+        rate:      (this.rate_rank|0) + (this.rate_score|0)
       };
       RecordModel.set(record);
     }

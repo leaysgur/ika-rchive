@@ -12,6 +12,7 @@ module.exports = Vue.extend({
 
       bestRate:   null,
       winRate:    null,
+      missmatch:  null,
       winStreak:  null,
       loseStreak: null,
       koWinRate:  null,
@@ -33,6 +34,7 @@ module.exports = Vue.extend({
       var userData = this._toUserData(this.records);
       this.bestRate   = userData.bestRate;
       this.winRate    = userData.winRate;
+      this.missmatch  = userData.missmatch;
       this.winStreak  = userData.winStreak;
       this.loseStreak = userData.loseStreak;
       this.koWinRate  = userData.koWinRate;
@@ -44,12 +46,14 @@ module.exports = Vue.extend({
     },
     _toUserData: function(records) {
       var recordsLen = records.length;
-      var winStreakCount = 0;
+      var winStreakCount  = 0;
       var loseStreakCount = 0;
-      var longestWinStreakCount = 0;
+      var longestWinStreakCount  = 0;
       var longestLoseStreakCount = 0;
+      var missmatchCount = 0;
       var bestRate = 0;
-      var winCount = 0;
+      var winCount  = 0;
+      var loseCount = 0;
       var koWinCount  = 0;
       var koLoseCount = 0;
       var stageStat = {};
@@ -59,6 +63,8 @@ module.exports = Vue.extend({
       records.forEach(function(item) {
         // 勝率は計算するだけなので簡単
         bestRate = (item.rate > bestRate) ? item.rate : bestRate;
+        // マッチングがクソなやつも簡単
+        if (item.missmatch) { missmatchCount++; }
 
         // ステージ別の勝ち負け
         if (item.stage in stageStat === false) {
@@ -81,6 +87,8 @@ module.exports = Vue.extend({
         }
         // 負けた
         else {
+          loseCount++;
+
           stageStat[item.stage].l++;
           ruleStat[item.rule].l++;
 
@@ -151,6 +159,7 @@ module.exports = Vue.extend({
         winRate:    Util.percentage(winCount, recordsLen),
         koWinRate:  Util.percentage(koWinCount, recordsLen),
         koLoseRate: Util.percentage(koLoseCount, recordsLen),
+        missmatch:  Util.percentage(missmatchCount, loseCount),
         goodStage:  goodStageName,
         badStage:   badStageName,
         goodRule:   goodRuleName,

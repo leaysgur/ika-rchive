@@ -29,6 +29,8 @@
     <hr>
     勝率: {{winRate}}%
     <hr>
+    クソマッチングで負け率: {{missmatch}}%
+    <hr>
     連勝記録: {{winStreak}}連勝
     <hr>
     連敗記録: {{loseStreak}}連敗
@@ -50,6 +52,10 @@
     <h1>入力画面</h1>
     <label v-repeat="results">
       <input name="result" type="radio" v-model="result" value="{{$key}}">{{$value}}
+    </label>
+    <hr>
+    <label>
+      <input type="checkbox" v-model="missmatch">マッチングがクソ
     </label>
     <hr>
     <label v-repeat="rules">
