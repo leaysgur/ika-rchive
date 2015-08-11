@@ -6,67 +6,84 @@
   <title>Ika-rchive</title>
 </head>
 <body>
-  <div id="js-view-graph">
-    <h1>グラフ画面</h1>
-    <canvas v-el="graph" v-attr="width: canvasW, height: canvasH"></canvas>
-    <div v-show="records.length === 0">まだデータがないよ</div>
+  <div id="js-view-intro" v-show="!showApp">
+    イカアーカイブとは・・
   </div>
-
-  <div id="js-view-list">
-    <h1>リスト画面</h1>
+  <div id="js-view-app" v-show="!showApp">
     <ul>
-      <li v-show="records.length === 0">まだデータがないよ</li>
-      <li v-repeat="item in recordsList | orderBy 'id' -1">
-        {{item.id}}: {{item.rule}} in {{item.stage}} -> {{item.result}} -> {{item.rate}}
-        <span v-on="click: onClickDel(item.idx)">[x]</span>
-      </li>
+      <li v-on="click: showPane('record')">アーカイブ</li>
+      <li v-on="click: showPane('user')">個人の記録</li>
+      <li v-on="click: showPane('input')">戦績入力</li>
     </ul>
-  </div>
+    <div v-show="activePane === 'record'">
+      <div id="js-view-graph">
+        <h1>グラフ画面</h1>
+        <canvas v-el="graph" v-attr="width: canvasW, height: canvasH"></canvas>
+        <div v-show="records.length === 0">まだデータがないよ</div>
+      </div>
 
-  <div id="js-view-user">
-    <h1>個人の記録画面</h1>
-    最高ウデマエ: {{bestRate}}
-    <hr>
-    勝率: {{winRate}}%
-    <hr>
-    クソマッチングで負け率: {{missmatch}}%
-    <hr>
-    連勝記録: {{winStreak}}連勝
-    <hr>
-    連敗記録: {{loseStreak}}連敗
-    <hr>
-    KOした率: {{koWinRate}}%
-    <hr>
-    KOされ率: {{koLoseRate}}%
-    <hr>
-    勝ってるルール: {{goodRule}}
-    <hr>
-    負けてるルール: {{badRule}}
-    <hr>
-    勝ってるステージ: {{goodStage}}
-    <hr>
-    負けてるステージ: {{badStage}}
-  </div>
+      <div id="js-view-list">
+        <h1>リスト画面</h1>
+        <ul>
+          <li v-show="records.length === 0">まだデータがないよ</li>
+          <li v-repeat="item in recordsList | orderBy 'id' -1">
+            {{item.id}}: {{item.rule}} in {{item.stage}} -> {{item.result}} -> {{item.rate}}
+            <span v-on="click: onClickDel(item.idx)">[x]</span>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-  <div id="js-view-input">
-    <h1>入力画面</h1>
-    <label v-repeat="results">
-      <input name="result" type="radio" v-model="result" value="{{$key}}">{{$value}}
-    </label>
-    <hr>
-    <label>
-      <input type="checkbox" v-model="missmatch">マッチングがクソ
-    </label>
-    <hr>
-    <label v-repeat="rules">
-      <input name="rule" type="radio" v-model="rule" value="{{$key}}">{{$value}}
-    </label>
-    <hr>
-    <select v-model="stage" options="stages"></select>
-    <hr>
-    <select v-model="rate_rank" options="rates"></select>
-    <input v-model="rate_score" type="number" min="0" max="100">
-    <button v-on="click: onClickSet">Set</button>
+    <div v-show="activePane === 'user'">
+      <div id="js-view-user">
+        <h1>個人の記録画面</h1>
+        最高ウデマエ: {{bestRate}}
+        <hr>
+        勝率: {{winRate}}%
+        <hr>
+        クソマッチングで負け率: {{missmatch}}%
+        <hr>
+        連勝記録: {{winStreak}}連勝
+        <hr>
+        連敗記録: {{loseStreak}}連敗
+        <hr>
+        KOした率: {{koWinRate}}%
+        <hr>
+        KOされ率: {{koLoseRate}}%
+        <hr>
+        勝ってるルール: {{goodRule}}
+        <hr>
+        負けてるルール: {{badRule}}
+        <hr>
+        勝ってるステージ: {{goodStage}}
+        <hr>
+        負けてるステージ: {{badStage}}
+      </div>
+    </div>
+
+    <div v-show="activePane === 'input'">
+      <div id="js-view-input">
+        <h1>入力画面</h1>
+        <label v-repeat="results">
+          <input name="result" type="radio" v-model="result" value="{{$key}}">{{$value}}
+        </label>
+        <hr>
+        <label>
+          <input type="checkbox" v-model="missmatch">マッチングがクソ
+        </label>
+        <hr>
+        <label v-repeat="rules">
+          <input name="rule" type="radio" v-model="rule" value="{{$key}}">{{$value}}
+        </label>
+        <hr>
+        <select v-model="stage" options="stages"></select>
+        <hr>
+        <select v-model="rate_rank" options="rates"></select>
+        <input v-model="rate_score" type="number" min="0" max="100">
+        <button v-on="click: onClickSet">Set</button>
+      </div>
+    </div>
+
   </div>
 
   <script src="./dist/script.js"></script>
