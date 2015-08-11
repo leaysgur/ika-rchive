@@ -2,10 +2,12 @@
 
 require('./filter/list-filter');
 
-var ListView  = require('./view/list-view');
 var GraphView = require('./view/graph-view');
+var ListView  = require('./view/list-view');
+var UserView  = require('./view/user-view');
 var InputView = require('./view/input-view');
 
-new ListView();
 new GraphView();
+new ListView();
+new UserView();
 new InputView();
