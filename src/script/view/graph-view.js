@@ -1,17 +1,14 @@
 'use strict';
-var Vue   = require('vue');
 var Chart = require('chart.js');
 var Util  = require('../util');
 var RecordModel = require('../model/record-model').getInstance();
 
-module.exports = Vue.extend({
-  el: function() { return '#js-view-graph'; },
-  data: function() {
-    return {
-      records: RecordModel.data,
-      canvasW: ((window.innerWidth * 0.9)|0) + 'px',
-      canvasH: ((window.innerHeight * 0.25)|0) + 'px',
-    };
+module.exports = {
+  el: '#js-view-graph',
+  data: {
+    records: RecordModel.data,
+    canvasW: ((window.innerWidth * 0.9)|0) + 'px',
+    canvasH: ((window.innerHeight * 0.25)|0) + 'px',
   },
   watch: {
     records: function() {
@@ -56,7 +53,4 @@ module.exports = Vue.extend({
       });
     }
   }
-});
-
-
-
+};

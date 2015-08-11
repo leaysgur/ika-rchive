@@ -1,27 +1,24 @@
 'use strict';
-var Vue   = require('vue');
 var Const = require('../const');
 var Util  = require('../util');
 var RecordModel = require('../model/record-model').getInstance();
 
-module.exports = Vue.extend({
-  el: function() { return '#js-view-user'; },
-  data: function() {
-    return {
-      records: RecordModel.data,
+module.exports = {
+  el: '#js-view-user',
+  data: {
+    records: RecordModel.data,
 
-      bestRate:   null,
-      winRate:    null,
-      missmatch:  null,
-      winStreak:  null,
-      loseStreak: null,
-      koWinRate:  null,
-      koLoseRate: null,
-      goodRule:   null,
-      badRule:    null,
-      goodStage:  null,
-      badStage:   null
-    };
+    bestRate:   null,
+    winRate:    null,
+    missmatch:  null,
+    winStreak:  null,
+    loseStreak: null,
+    koWinRate:  null,
+    koLoseRate: null,
+    goodRule:   null,
+    badRule:    null,
+    goodStage:  null,
+    badStage:   null
   },
   events: {
     'hook:created': function() { this._syncUserData(); }
@@ -169,4 +166,4 @@ module.exports = Vue.extend({
       };
     }
   }
-});
+};

@@ -1,16 +1,13 @@
 'use strict';
-var Vue   = require('vue');
 var Const = require('../const');
 var Util  = require('../util');
 var RecordModel = require('../model/record-model').getInstance();
 
-module.exports = Vue.extend({
-  el: function() { return '#js-view-list'; },
-  data: function() {
-    return {
-      records: RecordModel.data,
-      recordsList: []
-    };
+module.exports = {
+  el: '#js-view-list',
+  data: {
+    records: RecordModel.data,
+    recordsList: []
   },
   events: {
     'hook:created': function() { this._syncListData(); }
@@ -39,4 +36,4 @@ module.exports = Vue.extend({
       });
     }
   }
-});
+};

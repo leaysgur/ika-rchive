@@ -1,25 +1,22 @@
 'use strict';
-var Vue   = require('vue');
 var Const = require('../const');
 var Util  = require('../util');
 var RecordModel = require('../model/record-model').getInstance();
 
-module.exports = Vue.extend({
-  el: function() { return '#js-view-input'; },
-  data: function() {
-    return {
-      result:     null,
-      rule:       null,
-      stage:      null,
-      rate_rank:  null,
-      rate_score: null,
-      missmatch:  null,
+module.exports = {
+  el: '#js-view-input',
+  data: {
+    result:     null,
+    rule:       null,
+    stage:      null,
+    rate_rank:  null,
+    rate_score: null,
+    missmatch:  null,
 
-      results: Const.RESULT,
-      rules:   Const.RULE,
-      stages:  Util.objToOptionsArr(Const.STAGE),
-      rates:   Util.objToOptionsArr(Const.RATE_WAIT, 'REVERSE')
-    };
+    results: Const.RESULT,
+    rules:   Const.RULE,
+    stages:  Util.objToOptionsArr(Const.STAGE),
+    rates:   Util.objToOptionsArr(Const.RATE_WAIT, 'REVERSE')
   },
   methods: {
     onClickSet: function() {
@@ -33,4 +30,4 @@ module.exports = Vue.extend({
       RecordModel.set(record);
     }
   }
-});
+};
