@@ -5,15 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ika-rchive</title>
 </head>
-<body>
-  <div id="js-view-intro" v-show="!showApp">
+<body id="js-view-app">
+  <div v-show="isFirstTime">
     イカアーカイブとは・・
+    <button v-on="click: onClickOk">わかった</button>
   </div>
-  <div id="js-view-app" v-show="!showApp">
+  <div v-show="!isFirstTime">
     <ul>
       <li v-on="click: showPane('record')">アーカイブ</li>
       <li v-on="click: showPane('user')">個人の記録</li>
       <li v-on="click: showPane('input')">戦績入力</li>
+      <li v-on="click: showPane('about')">このサイトについて</li>
     </ul>
     <div v-show="activePane === 'record'">
       <div id="js-view-graph">
@@ -82,6 +84,11 @@
         <input v-model="rate_score" type="number" min="0" max="100">
         <button v-on="click: onClickSet">Set</button>
       </div>
+    </div>
+
+    <div v-show="activePane === 'about'">
+      <h1>このサイトについて</h1>
+      <p>むにゃむにゃ</p>
     </div>
 
   </div>
