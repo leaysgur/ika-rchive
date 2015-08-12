@@ -3,6 +3,7 @@
   position: relative;
   height: auto;
   min-height: 100%;
+  padding-bottom: 40px;
 
   .footer {
     position: absolute;
@@ -23,4 +24,9 @@
 }
 
 .view-app {
+  .tab {
+  }
+  .tab-item {
+    width: 25%;
+  }
 }
