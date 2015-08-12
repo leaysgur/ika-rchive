@@ -30,10 +30,12 @@
       <li class="tab-item" v-class="{ 'is-active': activePane === 'input' }" v-on="click: showPane('input')">トウロク</li>
       <li class="tab-item" v-class="{ 'is-active': activePane === 'about' }" v-on="click: showPane('about')">ヘルプ</li>
     </ul>
-    <div v-show="activePane === 'record'">
-      <div id="js-view-graph">
-        <canvas v-el="graph" v-attr="width: canvasW, height: canvasH"></canvas>
-        <div v-show="records.length === 0">まだデータがないよ</div>
+    <div v-show="activePane === 'record'" class="view-record">
+      <div id="js-view-graph" class="graph-wrap">
+        <canvas class="graph" v-el="graph" v-attr="width: canvasW, height: canvasH"></canvas>
+        <div v-show="records.length === 0" class="graph-cover">
+          <p>まだデータが<span class="ft-ika">トウロク</span>されてないぞ！</p>
+        </div>
       </div>
 
       <div id="js-view-list">
