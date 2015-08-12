@@ -6,12 +6,12 @@ var RecordModel = require('../model/record-model').getInstance();
 module.exports = {
   el: '#js-view-input',
   data: {
-    result:     null,
-    rule:       null,
-    stage:      null,
-    rate_rank:  null,
-    rate_score: null,
-    missmatch:  null,
+    result:     1,
+    rule:       1,
+    stage:      1,
+    rate_rank:  600,
+    rate_score: 50,
+    missmatch:  0,
 
     results: Const.RESULT,
     rules:   Const.RULE,
