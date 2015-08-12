@@ -9,13 +9,17 @@
 <body id="js-view-app">
   <div v-show="isFirstTime" class="view-intro">
     <h1 class="ft-ika">イカアーカイブ</h1>
-    <p><span class="ft-ika">ガチマッチ</span>の<span class="ft-ika">ウデマエ</span>を記録できるサービスだぞ！</p>
-    <p>1戦ごとに勝敗を記録して、グラフを眺めてニヤニヤしたり、苦手なステージを把握したり、連敗の兆候を感じ取ったりしよう！</p>
+    <div class="wrap">
+      <p><span class="ft-ika">ガチマッチ</span>の<span class="ft-ika">ウデマエ</span>を記録できるサービスだぞ！</p>
+      <p>1戦ごとに勝敗を記録して、グラフを眺めてニヤニヤしたり、苦手なステージを把握したり、連敗の兆候を感じ取ったりしよう！</p>
+    </div>
 
     <h2 class="ft-ika">チュウイ</h2>
-    <p>記録できるデータは直近の100戦分で、データは"このブラウザに"保存されます。(localStorage)</p>
-    <p>うまく動かない環境もあるかもしれません・・。</p>
-    <p>そんな感じで<span class="ft-ika">イカ、よろしく〜〜〜</span></p>
+    <div class="wrap">
+      <p>記録できるデータは直近の100戦分で、データは"このブラウザに"保存されます。(localStorage)</p>
+      <p>うまく動かない環境もあるかもしれません・・。</p>
+      <p>そんな感じで<span class="ft-ika">イカ、よろしく〜〜〜</span></p>
+    </div>
 
     <button class="intro-button ft-ika" v-on="click: onClickOk">わかった！</button>
 
@@ -35,12 +39,12 @@
       <div id="js-view-graph" class="graph-wrap">
         <canvas class="graph" v-el="graph" v-attr="width: canvasW, height: canvasH"></canvas>
         <div v-show="records.length === 0" class="graph-cover">
-          <p>まだデータが<span class="ft-ika">トウロク</span>されてないぞ！</p>
+          <p class="wrap">まだデータが<span class="ft-ika">トウロク</span>されてないぞ！</p>
         </div>
       </div>
 
       <div id="js-view-list">
-        <ul class="record-list">
+        <ul class="record-list wrap" v-show="recordsList.length !== 0">
           <li class="record-list-item" v-repeat="item in recordsList | orderBy 'id' -1">
             <div>{{item.id}}</div>
             <div>
@@ -59,7 +63,7 @@
 
     <div v-show="activePane === 'user'" class="view-user">
       <div id="js-view-user">
-        <table class="user-stat">
+        <table class="user-stat wrap">
           <tbody>
             <tr>
               <td>最高ウデマエ</td>
@@ -112,7 +116,7 @@
 
     <div v-show="activePane === 'input'" class="view-input">
       <div id="js-view-input">
-        <ul class="input-wrap">
+        <ul class="input-wrap wrap">
           <li class="input-item">
             <label v-repeat="rules">
               <input name="rule" type="radio" v-model="rule" value="{{$key}}">{{$value}}
@@ -141,9 +145,20 @@
     </div>
 
     <div v-show="activePane === 'about'">
-      <h1>このサイトについて</h1>
-      <p>むにゃむにゃ</p>
-      <p>Special thanks イカモドキ</p>
+      <h2 class="ft-ika">つかいかた</h2>
+      <div class="wrap">
+        <p>試合が終わったら結果を<span class="ft-ika">トウロク</span>するだけだ！</p>
+        <p>データは<span class="ft-ika">キロク</span>や<span class="ft-ika">セイセキ</span>から見れるぞ！</p>
+      </div>
+
+      <h2 class="ft-ika">これナニ？</h2>
+      <div class="wrap">
+        <p>にわかガチ勢の<a href="https://twitter.com/leader22" target="_blank">@leader22</a>が、ウデマエの上下を可視化するために個人的に作ったものだ！</p>
+        <p>なんか変な動きするとか動かないとか、報告すれば直るかもしれないぞ！</p>
+        <p>もしくは<a href="https://github.com/leader22/ika-rchive" target="_blank">プルリクエスト</a>だ！</p>
+        <p>フォントは<a class="ft-ika" href="http://aramugi.com/?page_id=807" target="_blank">イカモドキ</a>をお借りした！イカしてるぜ！</p>
+      </div>
+
     </div>
 
     <footer class="footer">&copy; 2015 <a href="https://twitter.com/leader22" target="_blank">leader22</a></footer>
