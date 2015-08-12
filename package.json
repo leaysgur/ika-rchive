@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "browserify src/script/main.js -o dist/script.js"
+    "build": "npm run build-js && npm run build-css",
+    "build-js": "browserify src/script/main.js -o dist/script.js",
+    "build-css": "node-sass --output-style compressed src/style/main.scss dist/style.css"
   },
   "author": "leader22",
   "license": "MIT",
