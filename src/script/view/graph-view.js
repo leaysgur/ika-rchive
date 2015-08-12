@@ -27,15 +27,16 @@ module.exports = {
         labels: this._toGraphLabel(this.records),
         datasets: [
           {
-            fillColor: 'rgba(151,187,205,0.2)',
-            strokeColor: 'rgba(151,187,205,1)',
-            pointColor: 'rgba(151,187,205,1)',
+            fillColor:   'rgba(0, 0, 0, .5)',
+            strokeColor: '#FF6E00',
+            pointColor:  '#FF6E00',
             data: this._toGraphData(this.records)
           }
         ]
       };
       var options = {
         bezierCurve:     false,
+        scaleFontColor:  '#fff',
         scaleLabel:      Util.getRateStr,
         tooltipTemplate: Util.getRateStr
       };
