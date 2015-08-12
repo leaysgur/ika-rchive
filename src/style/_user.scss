@@ -3,5 +3,7 @@
   .user-stat {
     margin: 1em auto;
     width: 90%;
+
+    td + td { text-indent: .5em; }
   }
 }
