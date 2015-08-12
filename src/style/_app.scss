@@ -25,8 +25,15 @@
 
 .view-app {
   .tab {
+    text-align: center;
+    margin: 1em auto .5em;
+    font-size: 1.5em;
   }
   .tab-item {
-    width: 25%;
+    display: inline-block;
+    width: 24%;
+  }
+  .is-active {
+    color: #77EF00;
   }
 }

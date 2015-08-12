@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ika-rchive</title>
+  <title>イカアーカイブ</title>
   <link rel="stylesheet" href="./dist/style.css">
 </head>
 <body id="js-view-app">
@@ -25,10 +25,10 @@
   <div v-show="!isFirstTime" class="view-app">
     <h1 class="ft-ika">イカアーカイブ</h1>
     <ul class="tab ft-ika">
-      <li class="tab-item" v-on="click: showPane('record')">キロク</li>
-      <li class="tab-item" v-on="click: showPane('user')">セイセキ</li>
-      <li class="tab-item" v-on="click: showPane('input')">トウロク</li>
-      <li class="tab-item" v-on="click: showPane('about')">ヘルプ</li>
+      <li class="tab-item" v-class="{ 'is-active': activePane === 'record' }" v-on="click: showPane('record')">キロク</li>
+      <li class="tab-item" v-class="{ 'is-active': activePane === 'user' }" v-on="click: showPane('user')">セイセキ</li>
+      <li class="tab-item" v-class="{ 'is-active': activePane === 'input' }" v-on="click: showPane('input')">トウロク</li>
+      <li class="tab-item" v-class="{ 'is-active': activePane === 'about' }" v-on="click: showPane('about')">ヘルプ</li>
     </ul>
     <div v-show="activePane === 'record'">
       <div id="js-view-graph">
@@ -100,6 +100,7 @@
     <div v-show="activePane === 'about'">
       <h1>このサイトについて</h1>
       <p>むにゃむにゃ</p>
+      <p>Special thanks イカモドキ</p>
     </div>
 
     <footer class="footer">&copy; 2015 <a href="https://twitter.com/leader22" target="_blank">leader22</a></footer>
