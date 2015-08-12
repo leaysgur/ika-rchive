@@ -30,6 +30,7 @@
       <li class="tab-item" v-class="{ 'is-active': activePane === 'input' }" v-on="click: showPane('input')">トウロク</li>
       <li class="tab-item" v-class="{ 'is-active': activePane === 'about' }" v-on="click: showPane('about')">ヘルプ</li>
     </ul>
+
     <div v-show="activePane === 'record'" class="view-record">
       <div id="js-view-graph" class="graph-wrap">
         <canvas class="graph" v-el="graph" v-attr="width: canvasW, height: canvasH"></canvas>
@@ -39,13 +40,28 @@
       </div>
 
       <div id="js-view-list">
-        <ul>
-          <li v-show="records.length === 0">まだデータがないよ</li>
-          <li v-repeat="item in recordsList | orderBy 'id' -1">
-            {{item.id}}: {{item.rule}} in {{item.stage}} -> {{item.result}} -> {{item.rate}}
-            <span v-on="click: onClickDel(item.idx)">[x]</span>
-          </li>
-        </ul>
+        <table class="record-list">
+          <tbody>
+            <tr class="ft-ika" v-show="recordsList.length">
+              <td>&nbsp;</td>
+              <td>ルール</td>
+              <td>ステージ</td>
+              <td>ケッカ</td>
+              <td>ウデマエ</td>
+              <td>サクジョ</td>
+            </tr>
+            <tr v-repeat="item in recordsList | orderBy 'id' -1">
+              <td>{{item.id}}</td>
+              <td>{{item.rule}}</td>
+              <td>{{item.stage}}</td>
+              <td>{{item.result}}</td>
+              <td>{{item.rate}}</td>
+              <td class="ft-ika">
+                <span v-on="click: onClickDel(item.idx)">-</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
