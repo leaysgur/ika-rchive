@@ -24,12 +24,12 @@
 
   <div v-show="!isFirstTime" class="view-app">
     <h1 class="ft-ika">イカアーカイブ</h1>
-    <ul class="tab ft-ika">
-      <li class="tab-item" v-class="{ 'is-active': activePane === 'record' }" v-on="click: showPane('record')">キロク</li>
-      <li class="tab-item" v-class="{ 'is-active': activePane === 'user' }" v-on="click: showPane('user')">セイセキ</li>
-      <li class="tab-item" v-class="{ 'is-active': activePane === 'input' }" v-on="click: showPane('input')">トウロク</li>
-      <li class="tab-item" v-class="{ 'is-active': activePane === 'about' }" v-on="click: showPane('about')">ヘルプ</li>
-    </ul>
+    <ul class="tab ft-ika"><!--
+      --><li class="tab-item" v-class="{ 'is-active': activePane === 'record' }" v-on="click: showPane('record')">キロク</li><!--
+      --><li class="tab-item" v-class="{ 'is-active': activePane === 'user' }" v-on="click: showPane('user')">セイセキ</li><!--
+      --><li class="tab-item" v-class="{ 'is-active': activePane === 'input' }" v-on="click: showPane('input')">トウロク</li><!--
+      --><li class="tab-item" v-class="{ 'is-active': activePane === 'about' }" v-on="click: showPane('about')">ヘルプ</li><!--
+    --></ul>
 
     <div v-show="activePane === 'record'" class="view-record">
       <div id="js-view-graph" class="graph-wrap">
@@ -40,55 +40,73 @@
       </div>
 
       <div id="js-view-list">
-        <table class="record-list">
-          <tbody>
-            <tr class="ft-ika" v-show="recordsList.length">
-              <td>&nbsp;</td>
-              <td>ルール</td>
-              <td>ステージ</td>
-              <td>ケッカ</td>
-              <td>ウデマエ</td>
-              <td>サクジョ</td>
-            </tr>
-            <tr v-repeat="item in recordsList | orderBy 'id' -1">
-              <td>{{item.id}}</td>
-              <td>{{item.rule}}</td>
-              <td>{{item.stage}}</td>
-              <td>{{item.result}}</td>
-              <td>{{item.rate}}</td>
-              <td class="ft-ika">
-                <span class="del-mark" v-on="click: onClickDel(item.idx)">-</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <ul class="record-list">
+          <li class="record-list-item" v-repeat="item in recordsList | orderBy 'id' -1">
+            <div>{{item.id}}</div>
+            <div>
+              {{item.rule}} in {{item.stage}}
+            </div>
+            <div>
+              {{item.result}} <span class="ft-ika">-</span> {{item.rate}}
+            </div>
+            <div class="del-wrap">
+              <span class="del-mark" v-on="click: onClickDel(item.idx)">[このキロクをサクジョ]</span>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
 
-    <div v-show="activePane === 'user'">
+    <div v-show="activePane === 'user'" class="view-user">
       <div id="js-view-user">
-        <h1>個人の記録画面</h1>
-        最高ウデマエ: {{bestRate}}
-        <hr>
-        勝率: {{winRate}}%
-        <hr>
-        クソマッチングで負け率: {{missmatch}}%
-        <hr>
-        連勝記録: {{winStreak}}連勝
-        <hr>
-        連敗記録: {{loseStreak}}連敗
-        <hr>
-        KOした率: {{koWinRate}}%
-        <hr>
-        KOされ率: {{koLoseRate}}%
-        <hr>
-        勝ってるルール: {{goodRule}}
-        <hr>
-        負けてるルール: {{badRule}}
-        <hr>
-        勝ってるステージ: {{goodStage}}
-        <hr>
-        負けてるステージ: {{badStage}}
+        <table class="user-stat">
+          <tbody>
+            <tr>
+              <td>最高<span class="ft-ika">ウデマエ</span></td>
+              <td>{{bestRate}}</td>
+            </tr>
+            <tr>
+              <td>勝率</td>
+              <td><span class="ft-ika">{{winRate}}%</span></td>
+            </tr>
+            <tr>
+              <td>クソマッチングで負率</td>
+              <td>{{missmatch}}%</td>
+            </tr>
+            <tr>
+              <td>連勝記録</td>
+              <td>{{winStreak}}連勝</td>
+            </tr>
+            <tr>
+              <td>連敗記録</td>
+              <td>{{loseStreak}}連敗</td>
+            </tr>
+            <tr>
+              <td>KOした率</td>
+              <td>{{koWinRate}}%</td>
+            </tr>
+            <tr>
+              <td>KOされ率</td>
+              <td>{{koLoseRate}}%</td>
+            </tr>
+            <tr>
+              <td>得意なルール</td>
+              <td>{{goodRule}}</td>
+            </tr>
+            <tr>
+              <td>苦手なルール</td>
+              <td>{{badRule}}</td>
+            </tr>
+            <tr>
+              <td>得意なステージ</td>
+              <td>{{goodStage}}</td>
+            </tr>
+            <tr>
+              <td>苦手なステージ</td>
+              <td>{{badStage}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 

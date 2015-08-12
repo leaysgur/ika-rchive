@@ -19,10 +19,19 @@
   .record-list {
     margin: 1em auto;
     width: 90%;
-    text-align: center;
+  }
+  .record-list-item {
+    & + .record-list-item {
+      margin-top: 1em;
+    }
   }
 
+  .del-wrap {
+    text-align: right;
+  }
   .del-mark {
     cursor: pointer;
+    text-decoration: underline;
+    font-size: .5em;
   }
 }
