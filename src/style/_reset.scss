@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  background-color: #000;
+  color: #fff;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+h1 {
+  padding-top: .5em;
+  text-align: center;
+}
+
+h2 {
+  margin: .25em auto;
+  text-align: center;
+}
+
+p {
+  margin: .25em 1em;
+}
+
+a {
+  color: #fff!important;
+}

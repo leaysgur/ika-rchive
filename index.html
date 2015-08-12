@@ -7,11 +7,21 @@
   <link rel="stylesheet" href="./dist/style.css">
 </head>
 <body id="js-view-app">
-  <div v-show="isFirstTime">
-    イカアーカイブとは・・
-    <button v-on="click: onClickOk">わかった</button>
+  <div v-show="isFirstTime" class="view-intro">
+    <h1><img src="./img/logo.png" width="200" height="43" art="イカアーカイブ"></h1>
+    <p>ガチマッチのウデマエを記録するサービスです。</p>
+    <p>1戦ごとに勝敗を記録して、グラフを眺めてニヤニヤしたり、苦手なステージを把握したり、連敗の兆候を感じ取ったりしましょう。</p>
+
+    <h2>注意</h2>
+    <p>記録できるデータは直近の100戦分で、データは"このブラウザに"保存されます。(localStorage)</p>
+    <p>うまく動かない環境もあるかもしれません・・。</p>
+
+    <button class="intro-button" v-on="click: onClickOk">わかった！</button>
+
+    <footer class="footer">&copy; 2015 <a href="https://twitter.com/leader22" target="_blank">leader22</a></footer>
   </div>
-  <div v-show="!isFirstTime">
+  <div v-show="!isFirstTime" class="view-app">
+    <h1><img src="./img/logo.png" width="200" height="43" art="イカアーカイブ"></h1>
     <ul>
       <li v-on="click: showPane('record')">アーカイブ</li>
       <li v-on="click: showPane('user')">個人の記録</li>

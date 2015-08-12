@@ -1,3 +1,6 @@
-%hoge { color: red }
+@import "reset";
 
-* { @extend %hoge; }
+@import "common";
+
+@import
+  "app";
