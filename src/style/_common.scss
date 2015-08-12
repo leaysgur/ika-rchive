@@ -8,4 +8,11 @@
   color: #fff;
   font-size: 1.3em;
   font-weight: bold;
+
+  &:hover {
+    opacity: .8;
+  }
+  &:active {
+    transform: translateY(1px);
+  }
 }
