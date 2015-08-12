@@ -110,26 +110,33 @@
       </div>
     </div>
 
-    <div v-show="activePane === 'input'">
+    <div v-show="activePane === 'input'" class="view-input">
       <div id="js-view-input">
-        <h1>入力画面</h1>
-        <label v-repeat="results">
-          <input name="result" type="radio" v-model="result" value="{{$key}}">{{$value}}
-        </label>
-        <hr>
-        <label>
-          <input type="checkbox" v-model="missmatch">マッチングがクソ
-        </label>
-        <hr>
-        <label v-repeat="rules">
-          <input name="rule" type="radio" v-model="rule" value="{{$key}}">{{$value}}
-        </label>
-        <hr>
-        <select v-model="stage" options="stages"></select>
-        <hr>
-        <select v-model="rate_rank" options="rates"></select>
-        <input v-model="rate_score" type="number" min="0" max="100">
-        <button v-on="click: onClickSet">Set</button>
+        <ul class="input-wrap">
+          <li class="input-item">
+            <label v-repeat="rules">
+              <input name="rule" type="radio" v-model="rule" value="{{$key}}">{{$value}}
+            </label>
+          </li>
+          <li class="input-item">
+            <select v-model="stage" options="stages"></select>
+          </li>
+          <li class="input-item">
+            <label v-repeat="results">
+              <input name="result" type="radio" v-model="result" value="{{$key}}">{{$value}}
+            </label>
+          </li>
+          <li class="input-item">
+            <label>
+              <input type="checkbox" v-model="missmatch">マッチング事故
+            </label>
+          </li>
+          <li class="input-item">
+            <select v-model="rate_rank" options="rates"></select>
+            <input v-model="rate_score" type="number" min="0" max="100">
+          </li>
+        </ul>
+        <button class="set-button ft-ika" v-on="click: onClickSet">トウロク！</button>
       </div>
     </div>
 

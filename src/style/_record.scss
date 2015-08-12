@@ -17,8 +17,7 @@
   }
 
   .record-list {
-    margin: 1em auto;
-    width: 90%;
+    @extend %content;
   }
   .record-list-item {
     & + .record-list-item {
