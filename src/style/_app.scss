@@ -31,7 +31,12 @@
   }
   .tab-item {
     display: inline-block;
+    cursor: pointer;
     width: 24%;
+
+    &:active {
+      transform: scale(1.1);
+    }
   }
   .is-active {
     color: #77EF00;
