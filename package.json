@@ -1,6 +1,6 @@
 {
   "name": "ika-rchive",
-  "version": "1.1.1",
+  "version": "1.2.1",
   "description": "Archive your UDEMAE!",
   "private": "true",
   "main": "index.js",
@@ -15,7 +15,6 @@
   "dependencies": {
     "chart.js": "^1.0.2",
     "eventemitter2": "^0.4.14",
-    "jquery": "^2.1.4",
     "vue": "^0.12.9"
   }
 }
