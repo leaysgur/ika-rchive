@@ -1,11 +1,13 @@
 'use strict';
-var Eve = require('../eve');
+var Eve   = require('../eve');
+var Const = require('../const');
 var UserModel = require('../model/user-model').getInstance();
 
 module.exports = {
   el: '#js-view-app',
   data: {
     isFirstTime: UserModel.get('isFirstTime'),
+    limit:      Const.RECORD_LIMIT,
     activePane: 'record'
   },
   methods: {

@@ -16,7 +16,7 @@
 
     <h2 class="ft-ika">チュウイ</h2>
     <div class="wrap">
-      <p>記録できるデータは直近の100戦分で、データは"このブラウザに"保存されます。(localStorage)</p>
+      <p>記録できるデータは直近の{{limit}}戦分で、データは"このブラウザに"保存されます。(localStorage)</p>
       <p>うまく動かない環境もあるかもしれません・・。</p>
       <p>そんな感じで<span class="ft-ika">イカ、よろしく〜〜〜</span></p>
     </div>
@@ -143,7 +143,8 @@
             <input v-model="rate_score" type="number" min="0" max="100">
           </li>
         </ul>
-        <button class="set-button ft-ika" v-on="click: onClickSet">トウロク！</button>
+        <button v-show="!showSetReaction" class="set-button ft-ika" v-on="click: onClickSet">トウロク！</button>
+        <button v-show="showSetReaction" disabled class="reaction-button ft-ika">トウロクカンリョウ！</button>
       </div>
     </div>
 

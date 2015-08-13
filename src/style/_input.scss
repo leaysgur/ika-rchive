@@ -32,8 +32,12 @@
     margin: 0 .1em;
   }
 
-  .set-button {
+  .set-button,
+  .reaction-button {
     @extend %button;
     margin: 1em auto;
+  }
+  .reaction-button {
+    background-color: #77EF00;
   }
 }

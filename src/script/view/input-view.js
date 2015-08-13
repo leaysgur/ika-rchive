@@ -16,7 +16,10 @@ module.exports = {
     results: Const.RESULT,
     rules:   Const.RULE,
     stages:  Util.objToOptionsArr(Const.STAGE),
-    rates:   Util.objToOptionsArr(Const.RATE_WAIT, 'REVERSE')
+    rates:   Util.objToOptionsArr(Const.RATE_WAIT, 'REVERSE'),
+
+    _timer:          null,
+    showSetReaction: false
   },
   computed: {
     isResultWin: function() {
@@ -34,6 +37,15 @@ module.exports = {
         rate:      (this.rate_rank|0) + (this.rate_score|0)
       };
       RecordModel.set(record);
+
+      this._showReaction();
+    },
+    _showReaction: function() {
+      var that = this;
+      this.showSetReaction = true;
+      this._timer = setTimeout(function() {
+        that.showSetReaction = false;
+      }, 750);
     }
   }
 };
