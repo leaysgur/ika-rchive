@@ -53,6 +53,9 @@
             <div>
               {{item.result}} <span class="ft-ika">-</span> {{item.rate}}
             </div>
+            <div>
+              {{item.missmatch ? 'マッチング事故' : ''}}
+            </div>
             <div class="del-wrap">
               <span class="del-mark" v-on="click: onClickDel(item.idx)">[このキロクをサクジョ]</span>
             </div>
@@ -132,7 +135,7 @@
           </li>
           <li class="input-item">
             <label>
-              <input type="checkbox" v-model="missmatch">マッチング事故
+              <input type="checkbox" v-model="missmatch" v-attr="disabled: isResultWin">マッチング事故
             </label>
           </li>
           <li class="input-item">

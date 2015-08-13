@@ -18,11 +18,17 @@ module.exports = {
     stages:  Util.objToOptionsArr(Const.STAGE),
     rates:   Util.objToOptionsArr(Const.RATE_WAIT, 'REVERSE')
   },
+  computed: {
+    isResultWin: function() {
+      var isWin = (this.result|0) % 2;
+      return !!isWin;
+    }
+  },
   methods: {
     onClickSet: function() {
       var record = {
         result:    this.result|0,
-        missmatch: this.missmatch|0,
+        missmatch: (this.isResultWin ? false : (this.missmatch|0)),
         rule:      this.rule|0,
         stage:     this.stage|0,
         rate:      (this.rate_rank|0) + (this.rate_score|0)
