@@ -12,3 +12,7 @@ window.IA = {
     av: new Vue(require('./view/app-view'))
   }
 };
+
+window.onerror = function() {
+  alert('何やらエラーが出たようです。\nごめんなさい・・。');
+};
