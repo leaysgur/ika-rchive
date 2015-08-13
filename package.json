@@ -13,6 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "chart.js": "^1.0.2",
+    "eventemitter2": "^0.4.14",
     "jquery": "^2.1.4",
     "vue": "^0.12.9"
   }

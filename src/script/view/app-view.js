@@ -1,5 +1,5 @@
 'use strict';
-
+var Eve = require('../eve');
 var UserModel = require('../model/user-model').getInstance();
 
 module.exports = {
@@ -11,6 +11,7 @@ module.exports = {
   methods: {
     showPane: function(willActivePane) {
       this.activePane = willActivePane;
+      Eve.emit('showPane', willActivePane);
     },
     onClickOk: function() {
       this.isFirstTime = false;
