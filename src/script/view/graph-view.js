@@ -9,7 +9,7 @@ module.exports = {
   data: {
     records:   RecordModel.data,
     canvasW:   ((window.innerWidth * 0.9)|0) + 'px',
-    canvasH:   ((window.innerHeight * 0.25)|0) + 'px',
+    canvasH:   ((window.innerHeight * 0.4)|0) + 'px',
     _isHidden: false,
     _timer:    null
   },
@@ -52,10 +52,12 @@ module.exports = {
         ]
       };
       var options = {
-        bezierCurve:     false,
-        scaleFontColor:  '#fff',
-        scaleLabel:      Util.getRateStr,
-        tooltipTemplate: Util.getRateStr
+        bezierCurve:        false,
+        scaleFontColor:     '#fff',
+        scaleShowGridLines: false,
+        pointDotRadius :    2,
+        scaleLabel:         Util.getRateStr,
+        tooltipTemplate:    Util.getRateStr
       };
       if (this._graph) { this._graph.destroy(); }
       this._graph = new Chart(this._ctx).Line(data, options);

@@ -10,8 +10,8 @@ module.exports = {
     rule:       1,
     stage:      1,
     rate_rank:  600,
-    rate_score: 50,
-    missmatch:  0,
+    rate_score: '',
+    missmatch:  false,
 
     results: Const.RESULT,
     rules:   Const.RULE,
@@ -38,7 +38,12 @@ module.exports = {
       };
       RecordModel.set(record);
 
+      this._cleanUpInput();
       this._showReaction();
+    },
+    _cleanUpInput: function() {
+      this.rate_score = '';
+      this.missmatch  = false;
     },
     _showReaction: function() {
       var that = this;
