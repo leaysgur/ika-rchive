@@ -1,7 +1,8 @@
 {
-  "name": "ika-analytics",
+  "name": "ika-rchive",
   "version": "1.0.0",
-  "description": "",
+  "description": "Archive your UDEMAE!",
+  "private": "true",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
