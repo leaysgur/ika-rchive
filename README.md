@@ -8,8 +8,6 @@
 ## How to install
 ```sh
 # git cloneして
-npm i -g browserify
-npm i -g node-sass
 npm i
 npm run build
 ```
