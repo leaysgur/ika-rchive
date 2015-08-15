@@ -36,7 +36,6 @@ module.exports = {
         stage:     this[this.chosen_stage]|0,
         rate:      (this.rate_rank|0) + (this.rate_score|0)
       };
-      console.log('this.chosen_stage', this.chosen_stage);
       RecordModel.set(record);
 
       this._cleanUpInput();
