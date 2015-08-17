@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build-js && npm run build-css",
-    "build-js": "browserify src/script/main.js -o dist/script.js",
+    "build-js": "mkdir -p ./dist && browserify src/script/main.js -o dist/script.js",
     "build-css": "node-sass --output-style compressed src/style/main.scss dist/style.css"
   },
   "author": "leader22",
@@ -16,5 +16,9 @@
     "chart.js": "^1.0.2",
     "eventemitter2": "^0.4.14",
     "vue": "^0.12.9"
+  },
+  "devDependencies": {
+    "browserify": "^11.0.1",
+    "node-sass": "^3.2.0"
   }
 }

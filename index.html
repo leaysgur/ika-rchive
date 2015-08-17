@@ -127,7 +127,8 @@
             </label>
           </li>
           <li class="input-item">
-            <select v-model="stage" options="stages"></select>
+            <input type="radio" name="chosen_stage" value="stage_a" v-model="chosen_stage"><select v-model="stage_a" options="stages"></select><br>
+            <input type="radio" name="chosen_stage" value="stage_b" v-model="chosen_stage"><select v-model="stage_b" options="stages"></select>
           </li>
           <li class="input-item">
             <label v-repeat="results">

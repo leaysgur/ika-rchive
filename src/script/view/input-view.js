@@ -33,7 +33,7 @@ module.exports = {
         result:    this.result|0,
         missmatch: (this.isResultWin ? false : (this.missmatch|0)),
         rule:      this.rule|0,
-        stage:     this.stage|0,
+        stage:     this[this.chosen_stage]|0,
         rate:      (this.rate_rank|0) + (this.rate_score|0)
       };
       RecordModel.set(record);
