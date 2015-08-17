@@ -6,12 +6,14 @@ var RecordModel = require('../model/record-model').getInstance();
 module.exports = {
   el: '#js-view-input',
   data: {
-    result:     1,
-    rule:       1,
-    stage:      1,
-    rate_rank:  600,
-    rate_score: '',
-    missmatch:  false,
+    result:      1,
+    rule:        1,
+    rateRank:    600,
+    rateScore:   '',
+    stageA:      1,
+    stageB:      2,
+    chosenStage: 'stageA',
+    missmatch:   false,
 
     results: Const.RESULT,
     rules:   Const.RULE,
@@ -33,8 +35,8 @@ module.exports = {
         result:    this.result|0,
         missmatch: (this.isResultWin ? false : (this.missmatch|0)),
         rule:      this.rule|0,
-        stage:     this[this.chosen_stage]|0,
-        rate:      (this.rate_rank|0) + (this.rate_score|0)
+        stage:     this[this.chosenStage]|0,
+        rate:      (this.rateRank|0) + (this.rateScore|0)
       };
       RecordModel.set(record);
 
@@ -42,8 +44,8 @@ module.exports = {
       this._showReaction();
     },
     _cleanUpInput: function() {
-      this.rate_score = '';
-      this.missmatch  = false;
+      this.rateScore = '';
+      this.missmatch = false;
     },
     _showReaction: function() {
       var that = this;
