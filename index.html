@@ -127,8 +127,12 @@
             </label>
           </li>
           <li class="input-item">
-            <input type="radio" name="chosen_stage" value="stage_a" v-model="chosen_stage"><select v-model="stage_a" options="stages"></select><br>
-            <input type="radio" name="chosen_stage" value="stage_b" v-model="chosen_stage"><select v-model="stage_b" options="stages"></select>
+            <div class="stage-select">
+              <input type="radio" name="chosenStage" value="stageA" v-model="chosenStage"><select v-model="stageA" options="stages"></select>
+            </div>
+            <div class="stage-select">
+              <input type="radio" name="chosenStage" value="stageB" v-model="chosenStage"><select v-model="stageB" options="stages"></select>
+            </div>
           </li>
           <li class="input-item">
             <label v-repeat="results">
@@ -141,12 +145,13 @@
             </label>
           </li>
           <li class="input-item">
-            <select v-model="rate_rank" options="rates"></select>
-            <input v-model="rate_score" type="number" min="0" max="100">
+            <select v-model="rateRank" options="rates"></select>
+            <input v-model="rateScore" type="number" min="0" max="100">
           </li>
         </ul>
         <button v-show="!showSetReaction" class="set-button ft-ika" v-on="click: onClickSet">トウロク！</button>
         <button v-show="showSetReaction" disabled class="reaction-button ft-ika">トウロクカンリョウ！</button>
+        <div class="note">※マッチング事故は、S,S,A+,A vs A-,A-,B+,Bみたいなどうしようもないマッチングや、回線落ちで4 vs 3などで負けた時に使います。</div>
       </div>
     </div>
 

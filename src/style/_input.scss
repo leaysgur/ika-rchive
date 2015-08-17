@@ -33,6 +33,14 @@
     margin: 0 .1em;
   }
 
+  .stage-select {
+    & + .stage-select { margin-top: .5em; }
+
+    select {
+      margin-left: .5em;
+    }
+  }
+
   .set-button,
   .reaction-button {
     @extend %button;
