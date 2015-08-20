@@ -5,7 +5,8 @@ module.exports = UserModel;
 var instance = null;
 function UserModel() {
   this.data = {
-    isFirstTime: true
+    isFirstTime: true,
+    lastRank:    null
   };
 
   this._init();

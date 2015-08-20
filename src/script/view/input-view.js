@@ -2,13 +2,14 @@
 var Const = require('../const');
 var Util  = require('../util');
 var RecordModel = require('../model/record-model').getInstance();
+var UserModel   = require('../model/user-model').getInstance();
 
 module.exports = {
   el: '#js-view-input',
   data: {
     result:      1,
     rule:        1,
-    rateRank:    600,
+    rateRank:    (UserModel.get('lastRank')|0) || 600,
     rateScore:   '',
     stageA:      1,
     stageB:      2,
@@ -43,6 +44,8 @@ module.exports = {
         rate:      (this.rateRank|0) + (this.rateScore|0)
       };
       RecordModel.set(record);
+      // 最後に記録したウデマエを次回のデフォルトに
+      UserModel.set('lastRank', this.rateRank);
 
       this._cleanUpInput();
       this._showReaction();
