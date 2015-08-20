@@ -27,6 +27,10 @@ module.exports = {
     isResultWin: function() {
       var isWin = (this.result|0) % 2;
       return !!isWin;
+    },
+    canSet: function() {
+      // 自由入力が空のとこだけでも縛る
+      return !!this.rateScore;
     }
   },
   methods: {

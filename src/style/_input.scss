@@ -42,9 +42,13 @@
   }
 
   .set-button,
+  .wait-button,
   .reaction-button {
     @extend %button;
     margin: 1em auto;
+  }
+  .wait-button {
+    opacity: .8;
   }
   .reaction-button {
     background-color: #77EF00;
