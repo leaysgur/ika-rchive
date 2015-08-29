@@ -37,7 +37,14 @@ UserModel.prototype = {
     return this.data[prop];
   },
   set: function(prop, value) {
-    this.data[prop] = value;
+    if (typeof prop === 'object' && value === undefined) {
+      for (var key in prop) {
+        this.data[key] = prop[key];
+      }
+    } else {
+      this.data[prop] = value;
+    }
+
     this._save();
   }
 };

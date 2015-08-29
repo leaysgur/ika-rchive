@@ -2,6 +2,7 @@
 var Const = require('../const');
 var Util  = require('../util');
 var RecordModel = require('../model/record-model').getInstance();
+var UserModel   = require('../model/user-model').getInstance();
 
 module.exports = {
   el: '#js-view-user',
@@ -27,10 +28,16 @@ module.exports = {
       var url  = 'http://twitter.com/share?text=';
       var text = '';
       var latestRecord = RecordModel.getLatestRecord();
-      console.log(latestRecord);
       text += 'ウデマエが';
       text += Util.getRateStr(latestRecord.rate);
-      text += 'になった！';
+      text += 'になったぞ！';
+      text += ' 最近の勝率は';
+      text += UserModel.get('winRate');
+      text += '%で、得意なルールはガチ';
+      text += UserModel.get('goodRule');
+      text += '、ステージは';
+      text += UserModel.get('goodStage');
+      text += 'が得意だ！';
       text += ' #ウデマエアーカイブ';
 
       return url + encodeURIComponent(text);
@@ -57,6 +64,9 @@ module.exports = {
       this.badRule    = userData.badRule;
       this.goodStage  = userData.goodStage;
       this.badStage   = userData.badStage;
+
+      // 保存もしとく
+      UserModel.set(userData);
     },
     _toUserData: function(records) {
       var recordsLen = records.length;
