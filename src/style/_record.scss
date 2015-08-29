@@ -25,7 +25,7 @@
     }
   }
 
-  .mod-wrap {
+  .ctrl-wrap {
     font-size: .5em;
     text-align: right;
   }
@@ -33,5 +33,10 @@
   .del-mark {
     cursor: pointer;
     text-decoration: underline;
+  }
+
+  .mod-wrap {
+    text-align: center;
+    background-color: #000;
   }
 }

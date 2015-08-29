@@ -71,12 +71,12 @@
             <div>
               {{item.missmatch ? 'マッチング事故' : ''}}
             </div>
-            <div class="mod-wrap">
+            <div class="ctrl-wrap">
               このキロクを
               <span class="mod-mark" v-on="click: onClickMod(item.idx)">[シュウセイ]</span>
               <span class="del-mark" v-on="click: onClickDel(item.idx)">[サクジョ]</span>
             </div>
-            <ul v-show="isModifying && modifyingIdx === item.idx">
+            <ul class="wrap mod-wrap view-input" v-show="isModifying && modifyingIdx === item.idx">
               <li class="input-item">
                 <label v-repeat="rules">
                   <input name="modRule{{item.idx}}" type="radio" v-model="modRule" value="{{$key}}">{{$value}}
