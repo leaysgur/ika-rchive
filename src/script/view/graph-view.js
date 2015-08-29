@@ -54,7 +54,7 @@ module.exports = {
       var options = {
         bezierCurve:        false,
         scaleFontColor:     '#fff',
-        scaleShowGridLines: false,
+        scaleGridLineColor: 'rgba(255, 110, 0, .25)',
         pointDotRadius :    2,
         scaleLabel:         Util.getRateStr,
         tooltipTemplate:    Util.getRateStr
