@@ -16,6 +16,7 @@ module.exports = {
     modStage:     1,
     modResult:    1,
     modMissmatch: false,
+    modTagmatch:  false,
     modRateRank:  600,
     modRateScore: null,
     results: Const.RESULT,
@@ -43,6 +44,7 @@ module.exports = {
       this.modStage     = item.stage;
       this.modResult    = item.result;
       this.modMissmatch = item.missmatch;
+      this.modTagmatch  = item.tagmatch;
       var rateRank = ((item.rate / 100)|0) * 100;
       this.modRateRank  = rateRank;
       this.modRateScore = item.rate - rateRank;
@@ -51,6 +53,7 @@ module.exports = {
       var record = {
         result:    this.modResult|0,
         missmatch: this.modMissmatch,
+        tagmatch:  this.modTagmatch,
         rule:      this.modRule|0,
         stage:     this.modStage|0,
         rate:      (this.modRateRank|0) + (this.modRateScore|0)
@@ -73,10 +76,12 @@ module.exports = {
         return {
           idx:       idx,
           id:        idx + 1,
+          createdAt: Util.formatDate(item.createdAt),
           rule:      Const.RULE[item.rule],
           stage:     Const.STAGE[item.stage],
           result:    Const.RESULT[item.result],
           missmatch: !!item.missmatch,
+          tagmatch:  !!item.tagmatch,
           rate:      Util.getRateStr(item.rate)
         };
       });

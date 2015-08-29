@@ -1,6 +1,11 @@
 'use strict';
 var Const = require('./const');
 module.exports = {
+  formatDate: function(time) {
+    if (!time) { return ''; }
+    return (new Date(time)).toLocaleString();
+  },
+
   getRateStr: function(val) {
     if (typeof val === 'object') {
       val = val.value;

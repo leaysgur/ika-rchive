@@ -10,6 +10,7 @@ module.exports = {
 
     bestRate:   null,
     winRate:    null,
+    winRateTag: null,
     missmatch:  null,
     winStreak:  null,
     loseStreak: null,
@@ -31,6 +32,7 @@ module.exports = {
       var userData = this._toUserData(this.records);
       this.bestRate   = userData.bestRate;
       this.winRate    = userData.winRate;
+      this.winRateTag = userData.winRateTag;
       this.missmatch  = userData.missmatch;
       this.winStreak  = userData.winStreak;
       this.loseStreak = userData.loseStreak;
@@ -53,6 +55,8 @@ module.exports = {
       var loseCount = 0;
       var koWinCount  = 0;
       var koLoseCount = 0;
+      var tagWinCount   = 0;
+      var tagRecordsLen = 0;
       var stageStat = {};
       var ruleStat  = {};
 
@@ -62,6 +66,9 @@ module.exports = {
         bestRate = (item.rate > bestRate) ? item.rate : bestRate;
         // マッチングがクソなやつも簡単
         if (item.missmatch) { missmatchCount++; }
+
+        // タッグマッチの数
+        if (item.tagmatch) { tagRecordsLen++; }
 
         // ステージ別の勝ち負け
         if (item.stage in stageStat === false) {
@@ -75,6 +82,7 @@ module.exports = {
         // 勝った
         if (item.result % 2)   {
           winCount++;
+          if (item.tagmatch) { tagWinCount++; }
 
           stageStat[item.stage].w++;
           ruleStat[item.rule].w++;
@@ -154,6 +162,7 @@ module.exports = {
       return {
         bestRate:   Util.getRateStr(bestRate),
         winRate:    Util.percentage(winCount, recordsLen),
+        winRateTag: Util.percentage(tagWinCount, tagRecordsLen),
         koWinRate:  Util.percentage(koWinCount, recordsLen),
         koLoseRate: Util.percentage(koLoseCount, recordsLen),
         missmatch:  Util.percentage(missmatchCount, loseCount),

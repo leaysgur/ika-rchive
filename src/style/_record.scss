@@ -22,7 +22,13 @@
   .record-list-item {
     & + .record-list-item {
       margin-top: 1em;
+      padding-top: 1em;
+      border-top: 1px solid rgba(255,255,255,0.8);
     }
+  }
+  .record-list-item-spacer {
+    height: .5em;
+    border: none;
   }
 
   .ctrl-wrap {
@@ -38,5 +44,8 @@
   .mod-wrap {
     text-align: center;
     background-color: #000;
+    margin: 1em auto;
+
+    .set-button { width: 100%; }
   }
 }
