@@ -83,7 +83,7 @@ module.exports = {
         text += UserModel.get('badStage');
         text += 'は苦手らしい。';
       }
-      text += ' #ウデマエアーカイブ';
+      text += '\n #ウデマエアーカイブ';
 
       return url + encodeURIComponent(text);
     },
