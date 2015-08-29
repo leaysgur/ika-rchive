@@ -6,4 +6,10 @@
 
     td + td { text-indent: .5em; }
   }
+
+  .tweet-button {
+    @extend %button;
+    margin: 1em auto;
+    background-color: #50ABF1;
+  }
 }

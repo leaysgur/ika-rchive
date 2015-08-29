@@ -2,6 +2,7 @@
 var Const = require('../const');
 var Util  = require('../util');
 var RecordModel = require('../model/record-model').getInstance();
+var UserModel   = require('../model/user-model').getInstance();
 
 module.exports = {
   el: '#js-view-user',
@@ -19,7 +20,10 @@ module.exports = {
     goodRule:   null,
     badRule:    null,
     goodStage:  null,
-    badStage:   null
+    badStage:   null,
+
+    canTweet:   false,
+    tweetUrl:   ''
   },
   events: {
     'hook:created': function() { this._syncUserData(); }
@@ -42,6 +46,46 @@ module.exports = {
       this.badRule    = userData.badRule;
       this.goodStage  = userData.goodStage;
       this.badStage   = userData.badStage;
+
+      // 保存もしとく
+      UserModel.set(userData);
+
+      this._updateView();
+    },
+    _updateView: function() {
+      this.canTweet = !!RecordModel.getLatestRecord();
+      this.tweetUrl = this._getTweetText();
+    },
+    _getTweetText: function() {
+      var url  = 'http://twitter.com/share?text=';
+      var text = '';
+      var latestRecord = RecordModel.getLatestRecord();
+
+      if (!latestRecord) { return ''; }
+
+      text += 'ウデマエが';
+      text += Util.getRateStr(latestRecord.rate);
+      text += 'になったぞ！';
+      text += '最近の勝率は';
+      text += UserModel.get('winRate');
+      text += '%だ！\n';
+      if (!!UserModel.get('goodRule')) {
+        text += 'ガチ';
+        text += UserModel.get('goodRule');
+        text += 'と、';
+        text += UserModel.get('goodStage');
+        text += 'が得意だ！';
+      }
+      if (!!UserModel.get('badRule')) {
+        text += 'ただしガチ';
+        text += UserModel.get('badRule');
+        text += 'と';
+        text += UserModel.get('badStage');
+        text += 'は苦手らしい。';
+      }
+      text += '\n #ウデマエアーカイブ';
+
+      return url + encodeURIComponent(text);
     },
     _toUserData: function(records) {
       var recordsLen = records.length;

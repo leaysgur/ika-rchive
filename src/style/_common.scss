@@ -2,6 +2,7 @@
   display: block;
   width: 300px;
   max-width: 300px;
+  line-height: 40px;
   height: 40px;
   margin: 0 auto;
   border: none;
@@ -9,6 +10,8 @@
   color: #fff;
   font-size: 1.3em;
   font-weight: bold;
+  text-decoration: none;
+  text-align: center;
 
   &:hover {
     opacity: .8;

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="ウデマエアーカイブは、ガチマッチのウデマエを記録できるサービスだぞ！1戦ごとに勝敗を記録して、グラフを眺めてニヤニヤしたり、苦手なステージを把握したり、連敗の兆候を感じ取ったりしよう！">
-  <meta name="keywords" content="Splatoon,スプラトゥーン,ウデマエ,ガチ,ウデマエアーカイブ">
+  <meta name="keywords" content="Splatoon,スプラトゥーン,ウデマエ,ガチ,ウデマエアーカイブ,ウデマエア-カイブ">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ウデマエアーカイブ">
   <meta property="og:url" content="http://ika.lealog.net">
@@ -30,8 +30,9 @@
 
     <h2 class="ft-ika">チュウイ</h2>
     <div class="wrap">
-      <p>記録できるデータは直近の{{limit}}戦分で、データは"このブラウザに"保存されます。(localStorage)</p>
-      <p>なので、うまく動かない環境もあるかもしれません・・。</p>
+      <p>データは直近の{{limit}}戦分のみを、このブラウザの中に保存します。(localStorage)</p>
+      <p>なので、他の環境にデータは引き継がれません。</p>
+      <p>もしかすると、うまく動かない環境もあるかもしれません・・。</p>
       <p>まぁそんな適当な感じで良ければ使ってください。</p>
       <p><span class="ft-ika">イカ、よろしく〜〜〜</span></p>
     </div>
@@ -40,6 +41,7 @@
 
     <footer class="footer">&copy; 2015 <a href="https://twitter.com/leader22" target="_blank">leader22</a></footer>
   </div>
+
 
   <div v-show="!isFirstTime" class="view-app">
     <h1 class="ft-ika">ウデマエア-カイブ</h1>
@@ -172,6 +174,8 @@
             </tr>
           </tbody>
         </table>
+
+        <a class="tweet-button ft-ika" target="_blank" v-attr="href: tweetUrl" v-show="canTweet">セイセキをツイート！</a>
       </div>
     </div>
 
@@ -219,14 +223,14 @@
     <div v-show="activePane === 'about'">
       <h2 class="ft-ika">つかいかた</h2>
       <div class="wrap">
-        <p>試合が終わったら結果を<span class="ft-ika">トウロク</span>するだけだ！</p>
+        <p>バトルが終わったら結果を<span class="ft-ika">トウロク</span>するだけだ！</p>
         <p>データは<span class="ft-ika">キロク</span>や<span class="ft-ika">セイセキ</span>から見れるぞ！</p>
       </div>
 
       <h2 class="ft-ika">これナニ？</h2>
       <div class="wrap">
         <p>にわかガチ勢の<a href="https://twitter.com/leader22" target="_blank">@leader22</a>が、ウデマエの上下を可視化するために個人的に作ったものだ！</p>
-        <p>なんか変な動きするとか動かないとか、報告すれば直るかもしれないぞ！</p>
+        <p>なんか変な動きするとかこんな機能が欲しいとか、報告すれば良いことがあるかもしれないぞ！</p>
         <p>もしくは<a href="https://github.com/leader22/ika-rchive" target="_blank">プルリクエスト</a>だ！</p>
         <p>フォントは<a class="ft-ika" href="http://aramugi.com/?page_id=807" target="_blank">イカモドキ</a>をお借りした！イカしてるぜ！</p>
       </div>

@@ -60,5 +60,8 @@ RecordModel.prototype = {
   remove: function(idx) {
     this.data.splice(idx, 1);
     this._save();
+  },
+  getLatestRecord: function() {
+    return this.get(this.data.length - 1);
   }
 };
