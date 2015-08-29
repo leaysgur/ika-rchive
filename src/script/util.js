@@ -3,7 +3,11 @@ var Const = require('./const');
 module.exports = {
   formatDate: function(time) {
     if (!time) { return ''; }
-    return (new Date(time)).toLocaleString();
+    var date = (new Date(time)).toJSON();
+    var dateArr = date.split('T');
+    var fmd = dateArr[0].replace(/-/g, '/');
+    var hm  = dateArr[1].split(':').slice(0,2).join(':');
+    return fmd + ' ' + hm;
   },
 
   getRateStr: function(val) {
