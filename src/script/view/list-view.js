@@ -40,6 +40,7 @@ module.exports = {
       this.modifyingIdx = idx;
       var item = RecordModel.get(idx);
 
+      this.modCreatedAt = item.createdAt;
       this.modRule      = item.rule;
       this.modStage     = item.stage;
       this.modResult    = item.result;
@@ -51,6 +52,7 @@ module.exports = {
     },
     onClickModComplete: function() {
       var record = {
+        createdAt: this.modCreatedAt,
         result:    this.modResult|0,
         missmatch: this.modMissmatch,
         tagmatch:  this.modTagmatch,

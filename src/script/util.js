@@ -3,7 +3,13 @@ var Const = require('./const');
 module.exports = {
   formatDate: function(time) {
     if (!time) { return ''; }
-    return (new Date(time)).toLocaleString();
+    var date = new Date(time);
+    var YYYY = date.getFullYear();
+    var MM   = ('0' + (date.getMonth() + 1)).slice(-2);
+    var DD   = ('0' + date.getDate()).slice(-2);
+    var hh   = ('0' + date.getHours()).slice(-2);
+    var mm   = ('0' + date.getMinutes()).slice(-2);
+    return YYYY + '/' + MM + '/' + DD + ' ' + hh + ':' + mm;
   },
 
   getRateStr: function(val) {
