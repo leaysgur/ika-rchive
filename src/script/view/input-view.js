@@ -38,7 +38,7 @@ module.exports = {
     onClickSet: function() {
       var record = {
         result:    this.result|0,
-        missmatch: (this.isResultWin ? false : (this.missmatch|0)),
+        missmatch: this.missmatch|0,
         rule:      this.rule|0,
         stage:     this[this.chosenStage]|0,
         rate:      (this.rateRank|0) + (this.rateScore|0)
