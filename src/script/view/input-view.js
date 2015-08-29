@@ -15,6 +15,7 @@ module.exports = {
     stageB:      2,
     chosenStage: 'stageA',
     missmatch:   false,
+    tagmatch:    false,
 
     results: Const.RESULT,
     rules:   Const.RULE,
@@ -39,6 +40,7 @@ module.exports = {
       var record = {
         result:    this.result|0,
         missmatch: this.missmatch|0,
+        tagmatch:  this.tagmatch|0,
         rule:      this.rule|0,
         stage:     this[this.chosenStage]|0,
         rate:      (this.rateRank|0) + (this.rateScore|0)

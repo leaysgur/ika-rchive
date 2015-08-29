@@ -63,6 +63,9 @@
           <li class="record-list-item" v-repeat="item in recordsList | orderBy 'id' -1">
             <div>{{item.id}}</div>
             <div>
+              {{item.tagmatch ? 'タッグマッチ' : '野良ガチマッチ'}}
+            </div>
+            <div>
               {{item.rule}} in {{item.stage}}
             </div>
             <div>
@@ -95,6 +98,9 @@
               <li class="input-item">
                 <label>
                   <input type="checkbox" v-model="modMissmatch">マッチング事故
+                </label>
+                <label>
+                  <input type="checkbox" v-model="modTagmatch">タッグマッチ
                 </label>
               </li>
               <li class="input-item">
@@ -187,6 +193,9 @@
           <li class="input-item">
             <label>
               <input type="checkbox" v-model="missmatch" v-attr="disabled: isResultWin">マッチング事故
+            </label>
+            <label>
+              <input type="checkbox" v-model="tagmatch">タッグマッチ
             </label>
           </li>
           <li class="input-item">
