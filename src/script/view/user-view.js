@@ -20,28 +20,10 @@ module.exports = {
     goodRule:   null,
     badRule:    null,
     goodStage:  null,
-    badStage:   null
-  },
-  computed: {
-              hoge: function() { return Date.now(); },
-    tweetUrl: function() {
-      var url  = 'http://twitter.com/share?text=';
-      var text = '';
-      var latestRecord = RecordModel.getLatestRecord();
-      text += 'ウデマエが';
-      text += Util.getRateStr(latestRecord.rate);
-      text += 'になったぞ！';
-      text += ' 最近の勝率は';
-      text += UserModel.get('winRate');
-      text += '%で、得意なルールはガチ';
-      text += UserModel.get('goodRule');
-      text += '、ステージは';
-      text += UserModel.get('goodStage');
-      text += 'が得意だ！';
-      text += ' #ウデマエアーカイブ';
+    badStage:   null,
 
-      return url + encodeURIComponent(text);
-    }
+    canTweet:   false,
+    tweetUrl:   ''
   },
   events: {
     'hook:created': function() { this._syncUserData(); }
@@ -67,6 +49,43 @@ module.exports = {
 
       // 保存もしとく
       UserModel.set(userData);
+
+      this._updateView();
+    },
+    _updateView: function() {
+      this.canTweet = !!RecordModel.getLatestRecord();
+      this.tweetUrl = this._getTweetText();
+    },
+    _getTweetText: function() {
+      var url  = 'http://twitter.com/share?text=';
+      var text = '';
+      var latestRecord = RecordModel.getLatestRecord();
+
+      if (!latestRecord) { return ''; }
+
+      text += 'ウデマエが';
+      text += Util.getRateStr(latestRecord.rate);
+      text += 'になったぞ！';
+      text += '最近の勝率は';
+      text += UserModel.get('winRate');
+      text += '%だ！\n';
+      if (!!UserModel.get('goodRule')) {
+        text += 'ガチ';
+        text += UserModel.get('goodRule');
+        text += 'と、';
+        text += UserModel.get('goodStage');
+        text += 'が得意だ！';
+      }
+      if (!!UserModel.get('badRule')) {
+        text += 'ただしガチ';
+        text += UserModel.get('badRule');
+        text += 'と';
+        text += UserModel.get('badStage');
+        text += 'は苦手らしい。';
+      }
+      text += ' #ウデマエアーカイブ';
+
+      return url + encodeURIComponent(text);
     },
     _toUserData: function(records) {
       var recordsLen = records.length;
