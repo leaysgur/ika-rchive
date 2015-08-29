@@ -21,6 +21,21 @@ module.exports = {
     goodStage:  null,
     badStage:   null
   },
+  computed: {
+              hoge: function() { return Date.now(); },
+    tweetUrl: function() {
+      var url  = 'http://twitter.com/share?text=';
+      var text = '';
+      var latestRecord = RecordModel.getLatestRecord();
+      console.log(latestRecord);
+      text += 'ウデマエが';
+      text += Util.getRateStr(latestRecord.rate);
+      text += 'になった！';
+      text += ' #ウデマエアーカイブ';
+
+      return url + encodeURIComponent(text);
+    }
+  },
   events: {
     'hook:created': function() { this._syncUserData(); }
   },
