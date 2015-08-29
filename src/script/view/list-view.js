@@ -76,6 +76,7 @@ module.exports = {
         return {
           idx:       idx,
           id:        idx + 1,
+          createdAt: Util.formatDate(item.createdAt),
           rule:      Const.RULE[item.rule],
           stage:     Const.STAGE[item.stage],
           result:    Const.RESULT[item.result],

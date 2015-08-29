@@ -38,7 +38,12 @@ RecordModel.prototype = {
     return record;
   },
   set: function(record) {
+    // 登録日はココでいれる
+    record.createdAt = Date.now();
+
+    // リスト追加
     this.data.push(this._validate(record));
+
     // data.lengthはLIMITを超えないし、超えたら先頭が消える
     while (this.data.length > Const.RECORD_LIMIT) {
       this.data.shift();
