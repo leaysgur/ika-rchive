@@ -31,6 +31,10 @@ module.exports = {
   },
   methods: {
     onClickMod: function(idx) {
+      if (this.modifyingIdx === idx) {
+        this._cancelMod();
+        return;
+      }
       this.isModifying  = true;
       this.modifyingIdx = idx;
       var item = RecordModel.get(idx);
@@ -52,11 +56,14 @@ module.exports = {
         rate:      (this.modRateRank|0) + (this.modRateScore|0)
       };
       RecordModel.update(this.modifyingIdx, record);
-      this.isModifying  = false;
-      this.modifyingIdx = null;
+      this._cancelMod();
     },
     onClickDel: function(idx) {
       RecordModel.remove(idx);
+    },
+    _cancelMod: function() {
+      this.isModifying  = false;
+      this.modifyingIdx = null;
     },
     _syncListData: function() {
       this.recordsList = this._toListData(this.records);
