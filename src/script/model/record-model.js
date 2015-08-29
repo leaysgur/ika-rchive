@@ -39,6 +39,13 @@ RecordModel.prototype = {
     }
     this._save();
   },
+  get: function(idx) {
+    return this.data[idx];
+  },
+  update: function(idx, record) {
+    this.data.splice(idx, 1, record);
+    this._save();
+  },
   remove: function(idx) {
     this.data.splice(idx, 1);
     this._save();

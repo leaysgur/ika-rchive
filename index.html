@@ -72,9 +72,39 @@
               {{item.missmatch ? 'マッチング事故' : ''}}
             </div>
             <div class="mod-wrap">
-              <span class="mod-mark" v-on="click: onClickMod(item.idx)">[このキロクをシュウセイ]</span>
-              <span class="del-mark" v-on="click: onClickDel(item.idx)">[このキロクをサクジョ]</span>
+              このキロクを
+              <span class="mod-mark" v-on="click: onClickMod(item.idx)">[シュウセイ]</span>
+              <span class="del-mark" v-on="click: onClickDel(item.idx)">[サクジョ]</span>
             </div>
+            <ul v-show="isModifying && modifyingIdx === item.idx">
+              <li class="input-item">
+                <label v-repeat="rules">
+                  <input name="modRule{{item.idx}}" type="radio" v-model="modRule" value="{{$key}}">{{$value}}
+                </label>
+              </li>
+              <li class="input-item">
+                <div class="stage-select">
+                  <select v-model="modStage" options="stages"></select>
+                </div>
+              </li>
+              <li class="input-item">
+                <label v-repeat="results">
+                  <input name="modResult{{item.idx}}" type="radio" v-model="modResult" value="{{$key}}">{{$value}}
+                </label>
+              </li>
+              <li class="input-item">
+                <label>
+                  <input type="checkbox" v-model="modMissmatch">マッチング事故
+                </label>
+              </li>
+              <li class="input-item">
+                <select v-model="modRateRank" options="rates"></select>
+                <input v-model="modRateScore" type="number" min="0" max="100">
+              </li>
+              <li>
+                <button class="set-button ft-ika" v-on="click: onClickModComplete">シュウセイ！</button>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
