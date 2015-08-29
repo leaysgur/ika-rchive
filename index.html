@@ -71,7 +71,8 @@
             <div>
               {{item.missmatch ? 'マッチング事故' : ''}}
             </div>
-            <div class="del-wrap">
+            <div class="mod-wrap">
+              <span class="mod-mark" v-on="click: onClickMod(item.idx)">[このキロクをシュウセイ]</span>
               <span class="del-mark" v-on="click: onClickDel(item.idx)">[このキロクをサクジョ]</span>
             </div>
           </li>
