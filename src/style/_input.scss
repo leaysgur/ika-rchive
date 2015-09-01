@@ -29,11 +29,13 @@
     font-size: 1em;
     text-align: center;
     padding: .25em .5em;
+    margin-left: .5em;
     border: none;
   }
 
   label {
-    margin: 0 .1em;
+    margin: 0 .2em .5em;
+    display: inline-block;
   }
 
   .stage-select {
