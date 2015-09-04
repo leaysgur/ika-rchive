@@ -2,6 +2,7 @@
 var Const = require('../const');
 var Util  = require('../util');
 var RecordModel = require('../model/record-model').getInstance();
+var UserModel   = require('../model/user-model').getInstance();
 
 module.exports = {
   el: '#js-view-list',
@@ -74,10 +75,16 @@ module.exports = {
       this.recordsList = this._toListData(this.records);
     },
     _toListData: function(records) {
+      var totalIdx = UserModel.get('totalIdx')|0;
+      var startIdx = totalIdx - records.length;
       return records.map(function(item, idx) {
         return {
+          // ここは動的に作るデータ
           idx:       idx,
           id:        idx + 1,
+          totalIdx:  startIdx + idx + 1,
+
+          // 以下が保存されてるデータ
           createdAt: Util.formatDate(item.createdAt),
           rule:      Const.RULE[item.rule],
           stage:     Const.STAGE[item.stage],

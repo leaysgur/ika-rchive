@@ -63,7 +63,7 @@
       <div id="js-view-list">
         <ul class="record-list wrap" v-show="recordsList.length !== 0">
           <li class="record-list-item" v-repeat="item in recordsList | orderBy 'id' -1">
-            <div>[{{item.id}}] {{item.createdAt}}</div>
+            <div>[{{item.id}}] 第{{item.totalIdx}}戦 - {{item.createdAt}}</div>
             <hr class="record-list-item-spacer">
             <div>
               {{item.tagmatch ? 'タッグマッチ' : '野良ガチマッチ'}}

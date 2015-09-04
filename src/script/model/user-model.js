@@ -6,6 +6,7 @@ var instance = null;
 function UserModel() {
   this.data = {
     isFirstTime: true,
+    totalIdx:    0,
     lastRank:    null
   };
 
@@ -46,5 +47,9 @@ UserModel.prototype = {
     }
 
     this._save();
+  },
+  updateTotalIdx: function() {
+    var cur = this.get('totalIdx')|0;
+    this.set('totalIdx', cur + 1);
   }
 };
