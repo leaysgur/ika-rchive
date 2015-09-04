@@ -61,6 +61,9 @@ UserModel.prototype = {
 
     this._save();
   },
+  clear: function() {
+    localStorage.removeItem('IA_USER');
+  },
   updateBestRate: function(rate) {
     rate = rate|0;
     var cur = this.get('bestRate')|0;
