@@ -35,6 +35,7 @@ module.exports = {
 
   getRateFromRateStr: function(str) {
     var reg = /(\w[+-]?)(\d+)/.exec(str);
+    if (!reg) { return 0; }
     return Const.RATE_WAIT[reg[1]] + (reg[2]|0);
   },
 
