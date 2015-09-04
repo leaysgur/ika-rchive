@@ -63,5 +63,8 @@ RecordModel.prototype = {
   },
   getLatestRecord: function() {
     return this.get(this.data.length - 1);
+  },
+  clear: function() {
+    localStorage.removeItem('IA_RECORD');
   }
 };
