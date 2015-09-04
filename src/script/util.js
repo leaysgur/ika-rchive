@@ -33,6 +33,11 @@ module.exports = {
     return label + rate;
   },
 
+  getRateFromRateStr: function(str) {
+    var reg = /(\w[+-]?)(\d+)/.exec(str);
+    return Const.RATE_WAIT[reg[1]] + (reg[2]|0);
+  },
+
   objToOptionsArr: function(obj, isReverse) {
     var ret = [];
     for (var key in obj) {

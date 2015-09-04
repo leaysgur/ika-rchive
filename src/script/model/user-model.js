@@ -1,4 +1,5 @@
 'use strict';
+var Util = require('../util');
 var RecordModel = require('./record-model').getInstance();
 
 module.exports = UserModel;
@@ -38,7 +39,9 @@ UserModel.prototype = {
     if (this.get('totalIdx') === undefined) {
       this.set('totalIdx', RecordModel.data.length);
     }
-    if (this.get('bestRate') === undefined) {
+    var bestRate = this.get('bestRate');
+    if (isNaN(parseInt(bestRate))) {
+      this.set('bestRate', Util.getRateFromRateStr(bestRate));
     }
   },
   _save: function() {
