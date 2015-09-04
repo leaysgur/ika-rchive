@@ -10,6 +10,8 @@ module.exports = {
     records: RecordModel.data,
 
     bestRate:   null,
+    totalIdx:   null,
+
     winRate:    null,
     winRateTag: null,
     missmatch:  null,
@@ -34,7 +36,6 @@ module.exports = {
   methods: {
     _syncUserData: function() {
       var userData = this._toUserData(this.records);
-      this.bestRate   = userData.bestRate;
       this.winRate    = userData.winRate;
       this.winRateTag = userData.winRateTag;
       this.missmatch  = userData.missmatch;
@@ -46,6 +47,9 @@ module.exports = {
       this.badRule    = userData.badRule;
       this.goodStage  = userData.goodStage;
       this.badStage   = userData.badStage;
+
+      this.bestRate   = Util.getRateStr(UserModel.get('bestRate'));
+      this.totalIdx   = UserModel.get('totalIdx');
 
       // 保存もしとく
       UserModel.set(userData);
@@ -94,7 +98,6 @@ module.exports = {
       var longestWinStreakCount  = 0;
       var longestLoseStreakCount = 0;
       var missmatchCount = 0;
-      var bestRate = 0;
       var winCount  = 0;
       var loseCount = 0;
       var koWinCount  = 0;
@@ -106,8 +109,6 @@ module.exports = {
 
       // このループで用意できるものは全て用意する
       records.forEach(function(item) {
-        // 勝率は計算するだけなので簡単
-        bestRate = (item.rate > bestRate) ? item.rate : bestRate;
         // マッチングがクソなやつも簡単
         if (item.missmatch) { missmatchCount++; }
 
@@ -204,7 +205,6 @@ module.exports = {
       }
 
       return {
-        bestRate:   Util.getRateStr(bestRate),
         winRate:    Util.percentage(winCount, recordsLen),
         winRateTag: Util.percentage(tagWinCount, tagRecordsLen),
         koWinRate:  Util.percentage(koWinCount, recordsLen),

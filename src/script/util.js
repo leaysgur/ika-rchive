@@ -15,6 +15,8 @@ module.exports = {
   getRateStr: function(val) {
     if (typeof val === 'object') {
       val = val.value;
+    } else {
+      val = val|0;
     }
 
     var rate = val % 100;

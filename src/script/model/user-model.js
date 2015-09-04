@@ -48,6 +48,13 @@ UserModel.prototype = {
 
     this._save();
   },
+  updateBestRate: function(rate) {
+    rate = rate|0;
+    var cur = this.get('bestRate')|0;
+    if (rate > cur) {
+      this.set('bestRate', rate);
+    }
+  },
   updateTotalIdx: function() {
     var cur = this.get('totalIdx')|0;
     this.set('totalIdx', cur + 1);

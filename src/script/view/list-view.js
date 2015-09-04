@@ -62,6 +62,7 @@ module.exports = {
         rate:      (this.modRateRank|0) + (this.modRateScore|0)
       };
       RecordModel.update(this.modifyingIdx, record);
+      UserModel.updateBestRate(record.rate);
       this._cancelMod();
     },
     onClickDel: function(idx) {
