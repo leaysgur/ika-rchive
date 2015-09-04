@@ -46,5 +46,8 @@ UserModel.prototype = {
     }
 
     this._save();
+  },
+  clear: function() {
+    localStorage.removeItem('IA_USER');
   }
 };
