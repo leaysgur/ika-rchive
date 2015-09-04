@@ -47,12 +47,12 @@ module.exports = {
       this.badRule    = userData.badRule;
       this.goodStage  = userData.goodStage;
       this.badStage   = userData.badStage;
-
-      this.bestRate   = Util.getRateStr(UserModel.get('bestRate'));
-      this.totalIdx   = UserModel.get('totalIdx');
-
       // 保存もしとく
       UserModel.set(userData);
+
+      // これは恒久的なもの
+      this.bestRate   = UserModel.get('bestRate');
+      this.totalIdx   = UserModel.get('totalIdx')|0;
 
       this._updateView();
     },
