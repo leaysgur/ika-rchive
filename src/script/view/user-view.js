@@ -51,7 +51,7 @@ module.exports = {
       UserModel.set(userData);
 
       // これは恒久的なもの
-      this.bestRate   = UserModel.get('bestRate');
+      this.bestRate   = Util.getRateStr(UserModel.get('bestRate')|0);
       this.totalIdx   = UserModel.get('totalIdx')|0;
 
       this._updateView();

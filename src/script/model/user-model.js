@@ -1,5 +1,4 @@
 'use strict';
-var Util = require('../util');
 var RecordModel = require('./record-model').getInstance();
 
 module.exports = UserModel;
@@ -39,6 +38,8 @@ UserModel.prototype = {
     if (this.get('totalIdx') === undefined) {
       this.set('totalIdx', RecordModel.data.length);
     }
+    if (this.get('bestRate') === undefined) {
+    }
   },
   _save: function() {
     localStorage.setItem('IA_USER', JSON.stringify(this.data));
@@ -61,7 +62,7 @@ UserModel.prototype = {
     rate = rate|0;
     var cur = this.get('bestRate')|0;
     if (rate > cur) {
-      this.set('bestRate', Util.getRateStr(rate));
+      this.set('bestRate', rate);
     }
   },
   updateTotalIdx: function() {
