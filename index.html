@@ -39,7 +39,7 @@
 
     <button class="intro-button ft-ika" v-on="click: onClickOk">わかった！</button>
 
-    <footer class="footer">v1.11.0 | &copy; 2015 <a href="https://twitter.com/leader22" target="_blank">leader22</a></footer>
+    <footer class="footer">v{{appVersion}} | &copy; 2015 <a href="https://twitter.com/leader22" target="_blank">leader22</a></footer>
   </div>
 
 
@@ -63,7 +63,7 @@
       <div id="js-view-list">
         <ul class="record-list wrap" v-show="recordsList.length !== 0">
           <li class="record-list-item" v-repeat="item in recordsList | orderBy 'id' -1">
-            <div>[{{item.id}}] {{item.createdAt}}</div>
+            <div>[{{item.id}}] 第{{item.totalIdx}}戦 - {{item.createdAt}}</div>
             <hr class="record-list-item-spacer">
             <div>
               {{item.tagmatch ? 'タッグマッチ' : '野良ガチマッチ'}}
@@ -127,6 +127,10 @@
             <tr>
               <td>最高ウデマエ</td>
               <td>{{bestRate}}</td>
+            </tr>
+            <tr>
+              <td>通算バトル回数</td>
+              <td>{{totalIdx}}回</td>
             </tr>
             <tr>
               <td>全体の勝率</td>
@@ -241,7 +245,7 @@
       </div>
     </div>
 
-    <footer class="footer">v1.11.0 | &copy; 2015 <a href="https://twitter.com/leader22" target="_blank">leader22</a></footer>
+    <footer class="footer">v{{appVersion}} | &copy; 2015 <a href="https://twitter.com/leader22" target="_blank">leader22</a></footer>
   </div>
 
   <script src="./dist/script.js"></script>

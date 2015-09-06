@@ -48,6 +48,10 @@ module.exports = {
       RecordModel.set(record);
       // 最後に記録したウデマエを次回のデフォルトに
       UserModel.set('lastRank', this.rateRank);
+      // 通算バトル数も更新
+      UserModel.updateTotalIdx();
+      // ベストウデマエも更新
+      UserModel.updateBestRate(record.rate);
 
       this._cleanUpInput();
       this._showReaction();

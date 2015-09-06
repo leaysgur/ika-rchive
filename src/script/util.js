@@ -15,6 +15,8 @@ module.exports = {
   getRateStr: function(val) {
     if (typeof val === 'object') {
       val = val.value;
+    } else {
+      val = val|0;
     }
 
     var rate = val % 100;
@@ -29,6 +31,12 @@ module.exports = {
     }
 
     return label + rate;
+  },
+
+  getRateFromRateStr: function(str) {
+    var reg = /(\w[+-]?)(\d+)/.exec(str);
+    if (!reg) { return 0; }
+    return Const.RATE_WAIT[reg[1]] + (reg[2]|0);
   },
 
   objToOptionsArr: function(obj, isReverse) {

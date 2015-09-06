@@ -32,9 +32,10 @@ RecordModel.prototype = {
     localStorage.setItem('IA_RECORD', JSON.stringify(this.data));
   },
   // といいつつ修正するコ
-  _validate: function(record) {
+  _preSave: function(record) {
     var isWin = (record.result|0) % 2;
     if (isWin) { record.missmatch = false; }
+
     return record;
   },
   set: function(record) {
@@ -42,7 +43,7 @@ RecordModel.prototype = {
     record.createdAt = Date.now();
 
     // リスト追加
-    this.data.push(this._validate(record));
+    this.data.push(this._preSave(record));
 
     // data.lengthはLIMITを超えないし、超えたら先頭が消える
     while (this.data.length > Const.RECORD_LIMIT) {
@@ -54,7 +55,7 @@ RecordModel.prototype = {
     return this.data[idx];
   },
   update: function(idx, record) {
-    this.data.splice(idx, 1, this._validate(record));
+    this.data.splice(idx, 1, this._preSave(record));
     this._save();
   },
   remove: function(idx) {

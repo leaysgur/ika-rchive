@@ -1,12 +1,14 @@
 'use strict';
-
 module.exports = UserModel;
 
 var instance = null;
 function UserModel() {
   this.data = {
-    isFirstTime: true,
-    lastRank:    null
+    migiratedVersions: [],
+    isFirstTime:       true,
+    totalIdx:          0,
+    bestRate:          null,
+    lastRank:          null
   };
 
   this._init();
@@ -49,5 +51,26 @@ UserModel.prototype = {
   },
   clear: function() {
     localStorage.removeItem('IA_USER');
+  },
+  migrate: function(ver) {
+    if (this.isMigrated(ver)) { return; }
+    var versions = this.get('migiratedVersions') || [];
+    versions.push(ver);
+    this.set('migiratedVersions', versions);
+  },
+  isMigrated: function(ver) {
+    var versions = this.get('migiratedVersions') || [];
+    return versions.indexOf(ver) === -1 ? false : true;
+  },
+  updateBestRate: function(rate) {
+    rate = rate|0;
+    var cur = this.get('bestRate')|0;
+    if (rate > cur) {
+      this.set('bestRate', rate);
+    }
+  },
+  updateTotalIdx: function() {
+    var cur = this.get('totalIdx')|0;
+    this.set('totalIdx', cur + 1);
   }
 };
