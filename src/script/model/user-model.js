@@ -1,16 +1,14 @@
 'use strict';
-var Util = require('../util');
-var RecordModel = require('./record-model').getInstance();
-
 module.exports = UserModel;
 
 var instance = null;
 function UserModel() {
   this.data = {
-    isFirstTime: true,
-    totalIdx:    0,
-    bestRate:    null,
-    lastRank:    null
+    migiratedVersions: [],
+    isFirstTime:       true,
+    totalIdx:          0,
+    bestRate:          null,
+    lastRank:          null
   };
 
   this._init();
@@ -27,21 +25,11 @@ UserModel.prototype = {
   constructor: UserModel,
   _init: function() {
     this._fetch();
-    this._migrate();
   },
   _fetch: function() {
     var data = localStorage.getItem('IA_USER');
     if (data !== null) {
       this.data = JSON.parse(data);
-    }
-  },
-  _migrate: function() {
-    if (this.get('totalIdx') === undefined) {
-      this.set('totalIdx', RecordModel.data.length);
-    }
-    var bestRate = this.get('bestRate');
-    if (isNaN(parseInt(bestRate))) {
-      this.set('bestRate', Util.getRateFromRateStr(bestRate));
     }
   },
   _save: function() {
@@ -63,6 +51,16 @@ UserModel.prototype = {
   },
   clear: function() {
     localStorage.removeItem('IA_USER');
+  },
+  migrate: function(ver) {
+    if (this.isMigrated(ver)) { return; }
+    var versions = this.get('migiratedVersions') || [];
+    versions.push(ver);
+    this.set('migiratedVersions', versions);
+  },
+  isMigrated: function(ver) {
+    var versions = this.get('migiratedVersions') || [];
+    return versions.indexOf(ver) === -1 ? false : true;
   },
   updateBestRate: function(rate) {
     rate = rate|0;

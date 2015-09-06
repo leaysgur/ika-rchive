@@ -1,6 +1,8 @@
 'use strict';
 var Vue = require('vue');
 
+require('./model/migrator');
+
 window.IA = {
   eve:  require('./eve'),
   view: {
