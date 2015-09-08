@@ -57,6 +57,7 @@ module.exports = {
       this._showReaction();
     },
     _cleanUpInput: function() {
+      // input[number]なのでPCはむしろ消さないで欲しい
       if (Util.isMobile()) {
         this.rateScore = '';
       }
