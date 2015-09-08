@@ -57,7 +57,10 @@ module.exports = {
       this._showReaction();
     },
     _cleanUpInput: function() {
-      this.rateScore = '';
+      // input[number]なのでPCはむしろ消さないで欲しい
+      if (Util.isMobile()) {
+        this.rateScore = '';
+      }
       this.missmatch = false;
     },
     _showReaction: function() {
@@ -65,7 +68,7 @@ module.exports = {
       this.showSetReaction = true;
       this._timer = setTimeout(function() {
         that.showSetReaction = false;
-      }, 750);
+      }, 1000);
     }
   }
 };

@@ -1,6 +1,10 @@
 'use strict';
 var Const = require('./const');
 module.exports = {
+  isMobile: function() {
+    return 'ontouchstart' in document;
+  },
+
   formatDate: function(time) {
     if (!time) { return ''; }
     var date = new Date(time);
