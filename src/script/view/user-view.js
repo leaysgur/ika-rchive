@@ -9,23 +9,24 @@ module.exports = {
   data: {
     records: RecordModel.data,
 
-    bestRate:   null,
-    totalIdx:   null,
+    bestRate:    null,
+    totalIdx:    null,
 
-    winRate:    null,
-    winRateTag: null,
-    missmatch:  null,
-    winStreak:  null,
-    loseStreak: null,
-    koWinRate:  null,
-    koLoseRate: null,
-    goodRule:   null,
-    badRule:    null,
-    goodStage:  null,
-    badStage:   null,
+    winRate:     null,
+    winRateTag:  null,
+    winRateFree: null,
+    missmatch:   null,
+    winStreak:   null,
+    loseStreak:  null,
+    koWinRate:   null,
+    koLoseRate:  null,
+    goodRule:    null,
+    badRule:     null,
+    goodStage:   null,
+    badStage:    null,
 
-    canTweet:   false,
-    tweetUrl:   ''
+    canTweet:    false,
+    tweetUrl:    ''
   },
   events: {
     'hook:created': function() { this._syncUserData(); }
@@ -36,17 +37,18 @@ module.exports = {
   methods: {
     _syncUserData: function() {
       var userData = this._toUserData(this.records);
-      this.winRate    = userData.winRate;
-      this.winRateTag = userData.winRateTag;
-      this.missmatch  = userData.missmatch;
-      this.winStreak  = userData.winStreak;
-      this.loseStreak = userData.loseStreak;
-      this.koWinRate  = userData.koWinRate;
-      this.koLoseRate = userData.koLoseRate;
-      this.goodRule   = userData.goodRule;
-      this.badRule    = userData.badRule;
-      this.goodStage  = userData.goodStage;
-      this.badStage   = userData.badStage;
+      this.winRate     = userData.winRate;
+      this.winRateTag  = userData.winRateTag;
+      this.winRateFree = userData.winRateFree;
+      this.missmatch   = userData.missmatch;
+      this.winStreak   = userData.winStreak;
+      this.loseStreak  = userData.loseStreak;
+      this.koWinRate   = userData.koWinRate;
+      this.koLoseRate  = userData.koLoseRate;
+      this.goodRule    = userData.goodRule;
+      this.badRule     = userData.badRule;
+      this.goodStage   = userData.goodStage;
+      this.badStage    = userData.badStage;
       // 保存もしとく
       UserModel.set(userData);
 
@@ -205,17 +207,19 @@ module.exports = {
       }
 
       return {
-        winRate:    Util.percentage(winCount, recordsLen),
-        winRateTag: Util.percentage(tagWinCount, tagRecordsLen),
-        koWinRate:  Util.percentage(koWinCount, recordsLen),
-        koLoseRate: Util.percentage(koLoseCount, recordsLen),
-        missmatch:  Util.percentage(missmatchCount, loseCount),
-        goodStage:  goodStageName,
-        badStage:   badStageName,
-        goodRule:   goodRuleName,
-        badRule:    badRuleName,
-        winStreak:  longestWinStreakCount,
-        loseStreak: longestLoseStreakCount
+        winRate:     Util.percentage(winCount, recordsLen),
+        winRateTag:  Util.percentage(tagWinCount, tagRecordsLen),
+        // 全体からタッグ分をひけば、野良の分がわかる
+        winRateFree: Util.percentage(winCount - tagWinCount, recordsLen - tagRecordsLen),
+        koWinRate:   Util.percentage(koWinCount, recordsLen),
+        koLoseRate:  Util.percentage(koLoseCount, recordsLen),
+        missmatch:   Util.percentage(missmatchCount, loseCount),
+        goodStage:   goodStageName,
+        badStage:    badStageName,
+        goodRule:    goodRuleName,
+        badRule:     badRuleName,
+        winStreak:   longestWinStreakCount,
+        loseStreak:  longestLoseStreakCount
       };
     }
   }
