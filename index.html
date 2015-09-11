@@ -122,6 +122,7 @@
 
     <div v-show="activePane === 'user'" class="view-user">
       <div id="js-view-user">
+        <h2 class="ft-ika">ソウゴウ</h2>
         <table class="user-stat wrap">
           <tbody>
             <tr>
@@ -184,6 +185,19 @@
         </table>
 
         <a class="tweet-button ft-ika" target="_blank" v-attr="href: tweetUrl" v-show="canTweet">セイセキをツイート！</a>
+
+        <div v-repeat="rule in detailByRuleAndStage">
+        <h2 class="ft-ika">{{rule.name}}のショウリツ</h2>
+        <table class="user-stat wrap">
+          <tbody>
+            <tr v-repeat="stage in rule.detail">
+              <td>{{stage.name}}</td>
+              <td>{{stage.winRate}}%</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+
       </div>
     </div>
 

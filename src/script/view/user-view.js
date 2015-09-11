@@ -25,6 +25,23 @@ module.exports = {
     goodStage:   null,
     badStage:    null,
 
+    detailByRuleAndStage: [
+      {
+        name: 'エリア',
+        detail: [
+          { name: 'すてーじ1', winRate: 30 },
+          { name: 'すてーじ2', winRate: 50 },
+        ]
+      },
+      {
+        name: 'ヤグラ',
+        detail: [
+          { name: 'すてーじ1', winRate: 30 },
+          { name: 'すてーじ2', winRate: 50 },
+        ]
+      }
+    ],
+
     canTweet:    false,
     tweetUrl:    ''
   },
@@ -150,7 +167,7 @@ module.exports = {
 
         // 連勝と連敗を記録
         longestLoseStreakCount = longestLoseStreakCount < loseStreakCount ? loseStreakCount : longestLoseStreakCount;
-        longestWinStreakCount = longestWinStreakCount < winStreakCount ? winStreakCount : longestWinStreakCount;
+        longestWinStreakCount  = longestWinStreakCount  < winStreakCount  ? winStreakCount  : longestWinStreakCount;
         // KO勝ちとKO負け
         if (item.result === 3) { koWinCount++; }
         if (item.result === 4) { koLoseCount++; }
