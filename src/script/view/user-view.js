@@ -49,7 +49,7 @@ module.exports = {
       this.badRule     = userData.badRule;
       this.goodStage   = userData.goodStage;
       this.badStage    = userData.badStage;
-      // 保存もしとく
+      // 保存しとかないとTweet文言のトコでエラーになる・・
       UserModel.set(userData);
 
       // これは恒久的なもの
@@ -159,18 +159,38 @@ module.exports = {
       // 以下、各ステージと各ルールにおいて、
       // 勝率の最高と最低をそれぞれ出す
       // 単純に回数で得手不得手はわからないのでこうする
-      var key,
-          matchCount,
-          winRate,
-          loseRate;
+      var stageStatResult = this._getGoodAndBadStage(stageStat);
+      var ruleStatResult  = this._getGoodAndBadRule(ruleStat);
 
-      // 勝ってるステージと負けてるステージ
+      return {
+        winRate:     Util.percentage(winCount, recordsLen),
+        winRateTag:  Util.percentage(tagWinCount, tagRecordsLen),
+        // 全体からタッグ分をひけば、野良の分がわかる
+        winRateFree: Util.percentage(winCount - tagWinCount, recordsLen - tagRecordsLen),
+        koWinRate:   Util.percentage(koWinCount, recordsLen),
+        koLoseRate:  Util.percentage(koLoseCount, recordsLen),
+        missmatch:   Util.percentage(missmatchCount, loseCount),
+        goodStage:   stageStatResult.good,
+        badStage:    stageStatResult.bad,
+        goodRule:    ruleStatResult.good,
+        badRule:     ruleStatResult.bad,
+        winStreak:   longestWinStreakCount,
+        loseStreak:  longestLoseStreakCount
+      };
+    },
+    _getGoodAndBadStage: function(stageStat) {
       var goodStage = 0,
           goodStageName = '';
       var badStage = 0,
           badStageName = '';
+        var matchCount = 0,
+            winRate    = 0,
+            loseRate   = 0,
+            stage,
+            key;
+
       for (key in stageStat) {
-        var stage = stageStat[key];
+        stage = stageStat[key];
         matchCount  = stage.w + stage.l;
         winRate  = (stage.w / matchCount) * 100;
         loseRate = (stage.l / matchCount) * 100;
@@ -185,42 +205,42 @@ module.exports = {
         }
       }
 
-      // 勝ってるルールと負けてるルール
-      var goodRule = 0,
-          goodRuleName = '';
-      var badRule = 0,
-          badRuleName = '';
-      for (key in ruleStat) {
-        var rule = ruleStat[key];
-        matchCount  = rule.w + rule.l;
-        winRate  = (rule.w / matchCount) * 100;
-        loseRate = (rule.l / matchCount) * 100;
-
-        if (goodRule < winRate) {
-          goodRule = winRate;
-          goodRuleName = Const.RULE[key];
-        }
-        if (badRule < loseRate) {
-          badRule = loseRate;
-          badRuleName = Const.RULE[key];
-        }
-      }
-
       return {
-        winRate:     Util.percentage(winCount, recordsLen),
-        winRateTag:  Util.percentage(tagWinCount, tagRecordsLen),
-        // 全体からタッグ分をひけば、野良の分がわかる
-        winRateFree: Util.percentage(winCount - tagWinCount, recordsLen - tagRecordsLen),
-        koWinRate:   Util.percentage(koWinCount, recordsLen),
-        koLoseRate:  Util.percentage(koLoseCount, recordsLen),
-        missmatch:   Util.percentage(missmatchCount, loseCount),
-        goodStage:   goodStageName,
-        badStage:    badStageName,
-        goodRule:    goodRuleName,
-        badRule:     badRuleName,
-        winStreak:   longestWinStreakCount,
-        loseStreak:  longestLoseStreakCount
+        good: goodStageName,
+        bad:  badStageName
       };
-    }
+    },
+    _getGoodAndBadRule: function(ruleStat) {
+        var goodRule = 0,
+            goodRuleName = '';
+        var badRule = 0,
+            badRuleName = '';
+        var matchCount = 0,
+            winRate    = 0,
+            loseRate   = 0,
+            rule,
+            key;
+
+        for (key in ruleStat) {
+          rule = ruleStat[key];
+          matchCount = rule.w + rule.l;
+          winRate  = (rule.w / matchCount) * 100;
+          loseRate = (rule.l / matchCount) * 100;
+
+          if (goodRule < winRate) {
+            goodRule = winRate;
+            goodRuleName = Const.RULE[key];
+          }
+          if (badRule < loseRate) {
+            badRule = loseRate;
+            badRuleName = Const.RULE[key];
+          }
+        }
+
+        return {
+          good: goodRuleName,
+          bad:  badRuleName
+        };
+      }
   }
 };
