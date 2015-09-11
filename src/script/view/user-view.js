@@ -176,8 +176,8 @@ module.exports = {
       // 以下、各ステージと各ルールにおいて、
       // 勝率の最高と最低をそれぞれ出す
       // 単純に回数で得手不得手はわからないのでこうする
-      var stageStatResult = this._getGoodAndBadStage(stageStat);
-      var ruleStatResult  = this._getGoodAndBadRule(ruleStat);
+      var stageStatResult = this._getGoodAndBad(stageStat, 'STAGE');
+      var ruleStatResult  = this._getGoodAndBad(ruleStat, 'RULE');
 
       return {
         winRate:     Util.percentage(winCount, recordsLen),
@@ -195,69 +195,37 @@ module.exports = {
         loseStreak:  longestLoseStreakCount
       };
     },
-    _getGoodAndBadStage: function(stageStat) {
-      var goodStage = 0,
-          goodStageName = '';
-      var badStage = 0,
-          badStageName = '';
-        var matchCount = 0,
-            winRate    = 0,
-            loseRate   = 0,
-            stage,
-            key;
+    _getGoodAndBad: function(stat, target) {
+      var good = 0,
+          goodName = '';
+      var bad = 0,
+          badName = '';
+      var matchCount = 0,
+          winRate    = 0,
+          loseRate   = 0,
+          item,
+          key;
 
-      for (key in stageStat) {
-        stage = stageStat[key];
-        matchCount  = stage.w + stage.l;
-        winRate  = (stage.w / matchCount) * 100;
-        loseRate = (stage.l / matchCount) * 100;
+      for (key in stat) {
+        item = stat[key];
+        matchCount  = item.w + item.l;
+        winRate  = (item.w / matchCount) * 100;
+        loseRate = (item.l / matchCount) * 100;
 
-        if (goodStage < winRate) {
-          goodStage = winRate;
-          goodStageName = Const.STAGE[key];
+        if (good < winRate) {
+          good = winRate;
+          goodName = Const[target][key];
         }
-        if (badStage < loseRate) {
-          badStage = loseRate;
-          badStageName = Const.STAGE[key];
+        if (bad < loseRate) {
+          bad = loseRate;
+          badName = Const[target][key];
         }
       }
 
       return {
-        good: goodStageName,
-        bad:  badStageName
+        good: goodName,
+        bad:  badName
       };
-    },
-    _getGoodAndBadRule: function(ruleStat) {
-        var goodRule = 0,
-            goodRuleName = '';
-        var badRule = 0,
-            badRuleName = '';
-        var matchCount = 0,
-            winRate    = 0,
-            loseRate   = 0,
-            rule,
-            key;
-
-        for (key in ruleStat) {
-          rule = ruleStat[key];
-          matchCount = rule.w + rule.l;
-          winRate  = (rule.w / matchCount) * 100;
-          loseRate = (rule.l / matchCount) * 100;
-
-          if (goodRule < winRate) {
-            goodRule = winRate;
-            goodRuleName = Const.RULE[key];
-          }
-          if (badRule < loseRate) {
-            badRule = loseRate;
-            badRuleName = Const.RULE[key];
-          }
-        }
-
-        return {
-          good: goodRuleName,
-          bad:  badRuleName
-        };
-      }
+    }
   }
 };
