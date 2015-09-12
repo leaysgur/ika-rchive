@@ -176,8 +176,8 @@ module.exports = {
       // 以下、各ステージと各ルールにおいて、
       // 勝率の最高と最低をそれぞれ出す
       // 単純に回数で得手不得手はわからないのでこうする
-      var stageStatResult = this._getGoodAndBad(stageStat, 'STAGE');
-      var ruleStatResult  = this._getGoodAndBad(ruleStat, 'RULE');
+      var stageStatResult = this._getGoodAndBad(stageStat);
+      var ruleStatResult  = this._getGoodAndBad(ruleStat);
 
       return {
         winRate:     Util.percentage(winCount, recordsLen),
@@ -187,15 +187,15 @@ module.exports = {
         koWinRate:   Util.percentage(koWinCount, recordsLen),
         koLoseRate:  Util.percentage(koLoseCount, recordsLen),
         missmatch:   Util.percentage(missmatchCount, loseCount),
-        goodStage:   stageStatResult.good,
-        badStage:    stageStatResult.bad,
-        goodRule:    ruleStatResult.good,
-        badRule:     ruleStatResult.bad,
+        goodStage:   Const.STAGE[stageStatResult.good],
+        badStage:    Const.STAGE[stageStatResult.bad],
+        goodRule:    Const.RULE[ruleStatResult.good],
+        badRule:     Const.RULE[ruleStatResult.bad],
         winStreak:   longestWinStreakCount,
         loseStreak:  longestLoseStreakCount
       };
     },
-    _getGoodAndBad: function(stat, target) {
+    _getGoodAndBad: function(stat) {
       var good = 0,
           goodName = '';
       var bad = 0,
@@ -214,11 +214,11 @@ module.exports = {
 
         if (good < winRate) {
           good = winRate;
-          goodName = Const[target][key];
+          goodName = key;
         }
         if (bad < loseRate) {
           bad = loseRate;
-          badName = Const[target][key];
+          badName = key;
         }
       }
 
