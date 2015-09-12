@@ -218,15 +218,21 @@ module.exports = {
         rule = winRateDetail[key];
         res = {
           name:   Const.RULE[key],
+          total:  0,
           detail: []
         };
+        var total = 0;
+        var win   = 0;
         for (key2 in rule) {
           stage = rule[key2];
           res.detail.push({
             name:    Const.STAGE[key2],
             winRate: Util.percentage(stage.w, stage.t)
           });
+          win   += stage.w;
+          total += stage.t;
         }
+        res.total = Util.percentage(win, total);
         ret.push(res);
       }
       return ret;

@@ -190,6 +190,10 @@
         <h2 class="ft-ika">{{rule.name}}のショウリツ</h2>
         <table class="user-stat wrap">
           <tbody>
+            <tr>
+              <td>総合勝率</td>
+              <td>{{rule.total}}%</td>
+            </tr>
             <tr v-repeat="stage in rule.detail">
               <td class="fs-s">{{stage.name}}</td>
               <td>{{stage.winRate}}%</td>
