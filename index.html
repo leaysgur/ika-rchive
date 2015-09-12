@@ -175,23 +175,23 @@
             </tr>
             <tr>
               <td>得意なステージ</td>
-              <td>{{goodStage || '-'}}</td>
+              <td class="fs-s">{{goodStage || '-'}}</td>
             </tr>
             <tr>
               <td>苦手なステージ</td>
-              <td>{{badStage || '-'}}</td>
+              <td class="fs-s">{{badStage || '-'}}</td>
             </tr>
           </tbody>
         </table>
 
         <a class="tweet-button ft-ika" target="_blank" v-attr="href: tweetUrl" v-show="canTweet">セイセキをツイート！</a>
 
-        <div v-repeat="rule in detailByRuleAndStage">
+        <div v-repeat="rule in winRateDetail">
         <h2 class="ft-ika">{{rule.name}}のショウリツ</h2>
         <table class="user-stat wrap">
           <tbody>
             <tr v-repeat="stage in rule.detail">
-              <td>{{stage.name}}</td>
+              <td class="fs-s">{{stage.name}}</td>
               <td>{{stage.winRate}}%</td>
             </tr>
           </tbody>
