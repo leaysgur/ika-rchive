@@ -4,7 +4,13 @@
     @extend %content;
     line-height: 1.5em;
 
-    td + td { text-indent: .5em; }
+    td {
+      width: 50%;
+    }
+
+    td + td {
+      text-indent: .5em;
+    }
   }
 
   .tweet-button {

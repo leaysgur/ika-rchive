@@ -12,18 +12,19 @@ module.exports = {
     bestRate:    null,
     totalIdx:    null,
 
-    winRate:     null,
-    winRateTag:  null,
-    winRateFree: null,
-    missmatch:   null,
-    winStreak:   null,
-    loseStreak:  null,
-    koWinRate:   null,
-    koLoseRate:  null,
-    goodRule:    null,
-    badRule:     null,
-    goodStage:   null,
-    badStage:    null,
+    winRate:       null,
+    winRateTag:    null,
+    winRateFree:   null,
+    missmatch:     null,
+    winStreak:     null,
+    loseStreak:    null,
+    koWinRate:     null,
+    koLoseRate:    null,
+    goodRule:      null,
+    badRule:       null,
+    goodStage:     null,
+    badStage:      null,
+    winRateDetail: [],
 
     canTweet:    false,
     tweetUrl:    ''
@@ -37,20 +38,36 @@ module.exports = {
   methods: {
     _syncUserData: function() {
       var userData = this._toUserData(this.records);
-      this.winRate     = userData.winRate;
-      this.winRateTag  = userData.winRateTag;
-      this.winRateFree = userData.winRateFree;
-      this.missmatch   = userData.missmatch;
-      this.winStreak   = userData.winStreak;
-      this.loseStreak  = userData.loseStreak;
-      this.koWinRate   = userData.koWinRate;
-      this.koLoseRate  = userData.koLoseRate;
-      this.goodRule    = userData.goodRule;
-      this.badRule     = userData.badRule;
-      this.goodStage   = userData.goodStage;
-      this.badStage    = userData.badStage;
-      // 保存もしとく
-      UserModel.set(userData);
+
+      this.winRate       = userData.winRate;
+      this.winRateTag    = userData.winRateTag;
+      this.winRateFree   = userData.winRateFree;
+      this.missmatch     = userData.missmatch;
+      this.winStreak     = userData.winStreak;
+      this.loseStreak    = userData.loseStreak;
+      this.koWinRate     = userData.koWinRate;
+      this.koLoseRate    = userData.koLoseRate;
+      this.goodRule      = userData.goodRule;
+      this.badRule       = userData.badRule;
+      this.goodStage     = userData.goodStage;
+      this.badStage      = userData.badStage;
+      // これは配列なのでこうしないと反映されない
+      while (this.winRateDetail.length) {
+        this.winRateDetail.pop();
+      }
+      while (userData.winRateDetail.length) {
+        this.winRateDetail.push(userData.winRateDetail.shift());
+      }
+
+      // 保存しとかないとTweet文言のトコでエラーになる・・
+      // けど必要ないものは保存したくないので選ぶ
+      UserModel.set({
+        winRate:   userData.winRate,
+        goodRule:  userData.goodRule,
+        badRule:   userData.badRule,
+        goodStage: userData.goodStage,
+        badStage:  userData.badStage
+      });
 
       // これは恒久的なもの
       this.bestRate   = Util.getRateStr(UserModel.get('bestRate')|0);
@@ -108,6 +125,13 @@ module.exports = {
       var tagRecordsLen = 0;
       var stageStat = {};
       var ruleStat  = {};
+      var winRateDetail = {
+        // ルール別
+        // 1: {
+        //   ステージ別勝利回数
+        //   1: { t: 3, w: 1 }
+        // }
+      };
 
       // このループで用意できるものは全て用意する
       records.forEach(function(item) {
@@ -126,6 +150,11 @@ module.exports = {
           ruleStat[item.rule] = { w:0, l: 0 };
         }
 
+        // ルール x ステージの勝率を出す
+        winRateDetail[item.rule] = winRateDetail[item.rule] || {};
+        winRateDetail[item.rule][item.stage] = winRateDetail[item.rule][item.stage] || { w: 0, t: 0 };
+        winRateDetail[item.rule][item.stage].t++;
+
         // 勝った
         if (item.result % 2)   {
           winCount++;
@@ -133,6 +162,7 @@ module.exports = {
 
           stageStat[item.stage].w++;
           ruleStat[item.rule].w++;
+          winRateDetail[item.rule][item.stage].w++;
 
           winStreakCount++;
           loseStreakCount = 0;
@@ -150,7 +180,7 @@ module.exports = {
 
         // 連勝と連敗を記録
         longestLoseStreakCount = longestLoseStreakCount < loseStreakCount ? loseStreakCount : longestLoseStreakCount;
-        longestWinStreakCount = longestWinStreakCount < winStreakCount ? winStreakCount : longestWinStreakCount;
+        longestWinStreakCount  = longestWinStreakCount  < winStreakCount  ? winStreakCount  : longestWinStreakCount;
         // KO勝ちとKO負け
         if (item.result === 3) { koWinCount++; }
         if (item.result === 4) { koLoseCount++; }
@@ -159,67 +189,84 @@ module.exports = {
       // 以下、各ステージと各ルールにおいて、
       // 勝率の最高と最低をそれぞれ出す
       // 単純に回数で得手不得手はわからないのでこうする
-      var key,
-          matchCount,
-          winRate,
-          loseRate;
+      var stageStatResult = this._getGoodAndBad(stageStat);
+      var ruleStatResult  = this._getGoodAndBad(ruleStat);
 
-      // 勝ってるステージと負けてるステージ
-      var goodStage = 0,
-          goodStageName = '';
-      var badStage = 0,
-          badStageName = '';
-      for (key in stageStat) {
-        var stage = stageStat[key];
-        matchCount  = stage.w + stage.l;
-        winRate  = (stage.w / matchCount) * 100;
-        loseRate = (stage.l / matchCount) * 100;
+      // ルール別ステージ別の勝率
+      winRateDetail = this._getWinRateDetail(winRateDetail);
 
-        if (goodStage < winRate) {
-          goodStage = winRate;
-          goodStageName = Const.STAGE[key];
+      return {
+        winRate:       Util.percentage(winCount, recordsLen),
+        winRateTag:    Util.percentage(tagWinCount, tagRecordsLen),
+        // 全体からタッグ分をひけば、野良の分がわかる
+        winRateFree:   Util.percentage(winCount - tagWinCount, recordsLen - tagRecordsLen),
+        koWinRate:     Util.percentage(koWinCount, recordsLen),
+        koLoseRate:    Util.percentage(koLoseCount, recordsLen),
+        missmatch:     Util.percentage(missmatchCount, loseCount),
+        goodStage:     Const.STAGE[stageStatResult.good],
+        badStage:      Const.STAGE[stageStatResult.bad],
+        goodRule:      Const.RULE[ruleStatResult.good],
+        badRule:       Const.RULE[ruleStatResult.bad],
+        winStreak:     longestWinStreakCount,
+        loseStreak:    longestLoseStreakCount,
+        winRateDetail: winRateDetail
+      };
+    },
+    _getWinRateDetail: function(winRateDetail) {
+      var key, key2, rule, stage, res, ret = [];
+      for (key in winRateDetail) {
+        rule = winRateDetail[key];
+        res = {
+          name:   Const.RULE[key],
+          total:  0,
+          detail: []
+        };
+        var total = 0;
+        var win   = 0;
+        for (key2 in rule) {
+          stage = rule[key2];
+          res.detail.push({
+            name:    Const.STAGE[key2],
+            winRate: Util.percentage(stage.w, stage.t)
+          });
+          win   += stage.w;
+          total += stage.t;
         }
-        if (badStage < loseRate) {
-          badStage = loseRate;
-          badStageName = Const.STAGE[key];
-        }
+        res.total = Util.percentage(win, total);
+        ret.push(res);
       }
+      return ret;
+    },
+    _getGoodAndBad: function(stat) {
+      var good = 0,
+          goodName = '';
+      var bad = 0,
+          badName = '';
+      var matchCount = 0,
+          winRate    = 0,
+          loseRate   = 0,
+          item,
+          key;
 
-      // 勝ってるルールと負けてるルール
-      var goodRule = 0,
-          goodRuleName = '';
-      var badRule = 0,
-          badRuleName = '';
-      for (key in ruleStat) {
-        var rule = ruleStat[key];
-        matchCount  = rule.w + rule.l;
-        winRate  = (rule.w / matchCount) * 100;
-        loseRate = (rule.l / matchCount) * 100;
+      for (key in stat) {
+        item = stat[key];
+        matchCount  = item.w + item.l;
+        winRate  = (item.w / matchCount) * 100;
+        loseRate = (item.l / matchCount) * 100;
 
-        if (goodRule < winRate) {
-          goodRule = winRate;
-          goodRuleName = Const.RULE[key];
+        if (good < winRate) {
+          good = winRate;
+          goodName = key;
         }
-        if (badRule < loseRate) {
-          badRule = loseRate;
-          badRuleName = Const.RULE[key];
+        if (bad < loseRate) {
+          bad = loseRate;
+          badName = key;
         }
       }
 
       return {
-        winRate:     Util.percentage(winCount, recordsLen),
-        winRateTag:  Util.percentage(tagWinCount, tagRecordsLen),
-        // 全体からタッグ分をひけば、野良の分がわかる
-        winRateFree: Util.percentage(winCount - tagWinCount, recordsLen - tagRecordsLen),
-        koWinRate:   Util.percentage(koWinCount, recordsLen),
-        koLoseRate:  Util.percentage(koLoseCount, recordsLen),
-        missmatch:   Util.percentage(missmatchCount, loseCount),
-        goodStage:   goodStageName,
-        badStage:    badStageName,
-        goodRule:    goodRuleName,
-        badRule:     badRuleName,
-        winStreak:   longestWinStreakCount,
-        loseStreak:  longestLoseStreakCount
+        good: goodName,
+        bad:  badName
       };
     }
   }
