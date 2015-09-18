@@ -8,8 +8,7 @@ module.exports = {
   el: '#js-view-app',
   data: {
     isFirstTime: UserModel.get('isFirstTime'),
-    appVersion: Const.APP_VERSION,
-    limit:      Const.RECORD_LIMIT,
+    limit:       Const.RECORD_LIMIT,
     activePane: 'record'
   },
   methods: {
