@@ -1,7 +1,5 @@
 module.exports = {
 
-  APP_VERSION: '1.15.0',
-
   RESULT: {
     1: '勝ち',
     2: '負け',
