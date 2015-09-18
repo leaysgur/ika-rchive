@@ -6,9 +6,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "./sh/deploy.sh",
     "build": "npm run build-js && npm run build-css",
     "build-js": "mkdir -p ./dist && browserify src/script/main.js -o dist/script.js",
-    "build-css": "node-sass --output-style compressed src/style/main.scss dist/style.css"
+    "build-css": "mkdir -p ./dist && node-sass --output-style compressed src/style/main.scss dist/style.css"
   },
   "author": "leader22",
   "license": "MIT",
