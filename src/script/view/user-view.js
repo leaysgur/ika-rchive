@@ -105,7 +105,7 @@ module.exports = {
 
       return Const.TWITTER_URL + encodeURIComponent(text);
     },
-    _toUserData: (records) => {
+    _toUserData: function(records) {
       let recordsLen = records.length;
       let winStreakCount  = 0;
       let loseStreakCount = 0;
