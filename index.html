@@ -67,16 +67,13 @@
             <div>[{{item.id}}] 第{{item.totalIdx}}戦 - {{item.createdAt}}</div>
             <hr class="record-list-item-spacer">
             <div>
-              {{item.tagmatch ? 'タッグマッチ' : '野良ガチマッチ'}}
-            </div>
-            <div>
               {{item.rule}} in {{item.stage}}
             </div>
             <div>
-              {{item.result}} <span class="ft-ika">-</span> {{item.rate}}
+              {{item.result}} <span class="ft-ika">-</span> {{item.rate}} / {{item.tagmatch ? 'タッグマッチ' : '野良ガチマッチ'}}
             </div>
             <div>
-              {{item.missmatch ? 'マッチング事故' : ''}}
+              {{item.missmatch ? '(マッチング事故)' : ''}}
             </div>
             <hr class="record-list-item-spacer">
             <div class="ctrl-wrap">
