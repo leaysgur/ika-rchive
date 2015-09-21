@@ -1,11 +1,8 @@
 'use strict';
 let Vue = require('vue');
 
-// バージョン差異を吸収するので最初
+// バージョン差異を吸収するので最初に呼ぶだけが必要
 require('./model/migrator');
-
-// 便利なコ
-require('./eve');
 
 // 各ページ
 new Vue(require('./view/graph-view'));
