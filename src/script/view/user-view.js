@@ -82,38 +82,30 @@ module.exports = {
       this.canTweet = !!RecordModel.getLatestRecord();
       this.tweetUrl = this._getTweetText();
     },
-    _getTweetText: function() {
-      let url  = 'http://twitter.com/share?text=';
-      let text = '';
+    _getTweetText: () => {
       let latestRecord = RecordModel.getLatestRecord();
 
       if (!latestRecord) { return ''; }
 
-      text += 'ウデマエが';
-      text += Util.getRateStr(latestRecord.rate);
-      text += 'になったぞ！';
-      text += '最近の勝率は';
-      text += UserModel.get('winRate');
-      text += '%だ！\n';
+      let rateStr = Util.getRateStr(latestRecord.rate);
+      let winRate = UserModel.get('winRate');
+      let text = `ウデマエが${rateStr}になったぞ！最近の勝率は${winRate}%だ！\n`;
+
       if (!!UserModel.get('goodRule')) {
-        text += 'ガチ';
-        text += UserModel.get('goodRule');
-        text += 'と、';
-        text += UserModel.get('goodStage');
-        text += 'が得意だ！';
+        let rule  = UserModel.get('goodRule');
+        let stage = UserModel.get('goodStage');
+        text += `ガチ${rule}と${stage}が得意だ！`
       }
       if (!!UserModel.get('badRule')) {
-        text += 'ただしガチ';
-        text += UserModel.get('badRule');
-        text += 'と';
-        text += UserModel.get('badStage');
-        text += 'は苦手らしい。';
+        let rule  = UserModel.get('badRule');
+        let stage = UserModel.get('badStage');
+        text += `ただしガチ${rule}と${stage}は苦手らしい。`
       }
       text += '\n #ウデマエアーカイブ';
 
-      return url + encodeURIComponent(text);
+      return Const.TWITTER_URL + encodeURIComponent(text);
     },
-    _toUserData: function(records) {
+    _toUserData: (records) => {
       let recordsLen = records.length;
       let winStreakCount  = 0;
       let loseStreakCount = 0;
@@ -215,7 +207,7 @@ module.exports = {
         winRateDetail: winRateDetail
       };
     },
-    _getWinRateDetail: function(winRateDetail) {
+    _getWinRateDetail: (winRateDetail) => {
       let key, key2, rule, stage, res, ret = [];
       for (key in winRateDetail) {
         rule = winRateDetail[key];
@@ -240,7 +232,7 @@ module.exports = {
       }
       return ret;
     },
-    _getGoodAndBad: function(stat) {
+    _getGoodAndBad: (stat) => {
       let good = 0,
           goodName = '';
       let bad = 0,

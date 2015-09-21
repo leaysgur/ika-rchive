@@ -78,7 +78,7 @@ module.exports = {
     _syncListData: function() {
       this.recordsList = this._toListData(this.records);
     },
-    _toListData: function(records) {
+    _toListData: (records) => {
       let totalIdx = UserModel.get('totalIdx')|0;
       let startIdx = totalIdx - records.length;
       return records.map(function(item, idx) {

@@ -12,12 +12,12 @@ module.exports = {
     activePane:  UserModel.get('lastPane') || 'record'
   },
   methods: {
-    showPane: (willActivePane) => {
+    showPane: function(willActivePane) {
       this.activePane = willActivePane;
       Eve.emit('showPane', willActivePane);
       UserModel.set('lastPane', willActivePane);
     },
-    onClickOk: () => {
+    onClickOk: function() {
       this.isFirstTime = false;
       UserModel.set('isFirstTime', false);
     },

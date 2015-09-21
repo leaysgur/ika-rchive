@@ -65,13 +65,13 @@ module.exports = {
       if (this._graph) { this._graph.destroy(); }
       this._graph = new Chart(this._ctx).Line(data, options);
     },
-    _toGraphData: function(records) {
-      return records.map(function(item) {
+    _toGraphData: (records) => {
+      return records.map((item) => {
         return item.rate;
       });
     },
-    _toGraphLabel: function(records) {
-      return records.map(function(item, idx) {
+    _toGraphLabel: (records) => {
+      return records.map((_item, idx) => {
         return idx + 1;
       });
     }

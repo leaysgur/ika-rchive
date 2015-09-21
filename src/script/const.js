@@ -44,6 +44,8 @@ module.exports = {
     'C-':    0
   },
 
-  RECORD_LIMIT: 200
+  RECORD_LIMIT: 200,
+
+  TWITTER_URL: 'http://twitter.com/share?text='
 
 };
