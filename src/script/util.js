@@ -1,12 +1,13 @@
 'use strict';
 let Const = require('./const');
+let rateStrReg = /(\w[+-]?)(\d+)/;
 
 module.exports = {
-  isMobile: function() {
+  isMobile: () => {
     return 'ontouchstart' in document;
   },
 
-  formatDate: function(time) {
+  formatDate: (time) => {
     if (!time) { return ''; }
     let date = new Date(time);
     let YYYY = date.getFullYear();
@@ -18,7 +19,7 @@ module.exports = {
     return `${YYYY}/${MM}/${DD} ${hh}:${mm}`;
   },
 
-  getRateStr: function(val) {
+  getRateStr: (val) => {
     if (typeof val === 'object') {
       val = val.value;
     } else {
@@ -39,13 +40,13 @@ module.exports = {
     return label + rate;
   },
 
-  getRateFromRateStr: function(str) {
-    let reg = /(\w[+-]?)(\d+)/.exec(str);
+  getRateFromRateStr: (str) => {
+    let reg = rateStrReg.exec(str);
     if (!reg) { return 0; }
     return Const.RATE_WAIT[reg[1]] + (reg[2]|0);
   },
 
-  objToOptionsArr: function(obj, isReverse) {
+  objToOptionsArr: (obj, isReverse) => {
     let ret = [];
     for (let key in obj) {
       if (isReverse) {
@@ -64,7 +65,7 @@ module.exports = {
     return ret;
   },
 
-  percentage: function(c, p) {
+  percentage: (c, p) => {
     if (c === 0 || p === 0) { return 0; }
     return ((c / p) * 100).toFixed(2);
   }
