@@ -234,7 +234,7 @@
           </li>
           <li class="input-item">
             <select v-model="rateRank" options="rates"></select>
-            <input v-model="rateScore" type="number" min="0" max="99" v-class="{ 'is-invalid': !canSet }">
+            <input v-model="rateScore" type="number" min="0" max="99">
           </li>
         </ul>
         <button v-show="!showSetReaction && !canSet" disabled class="wait-button ft-ika">ニュウリョクチュウ...</button>
