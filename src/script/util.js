@@ -46,6 +46,16 @@ module.exports = {
     return Const.RATE_WAIT[reg[1]] + (reg[2]|0);
   },
 
+  isValidRate: (score) => {
+    let TABLE = Const.RATE_WAIT;
+    let RATE_VALUES = Object.keys(TABLE).map((key) => { return TABLE[key]; })
+
+    let min = Math.min.apply(null, RATE_VALUES) + Const.MIN_RATE_INPUT;
+    let max = Math.max.apply(null, RATE_VALUES) + Const.MAX_RATE_INPUT;
+
+    return min <= score && score < max;
+  },
+
   objToOptionsArr: (obj, isReverse) => {
     let ret = [];
     for (let key in obj) {

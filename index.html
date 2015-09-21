@@ -107,7 +107,7 @@
               </li>
               <li class="input-item">
                 <select v-model="modRateRank" options="rates"></select>
-                <input v-model="modRateScore" type="number" min="0" max="100">
+                <input v-model="modRateScore" type="number" min="0" max="99">
               </li>
               <li>
                 <button class="set-button ft-ika" v-on="click: onClickModComplete">シュウセイ！</button>
@@ -234,7 +234,7 @@
           </li>
           <li class="input-item">
             <select v-model="rateRank" options="rates"></select>
-            <input v-model="rateScore" type="number" min="0" max="100">
+            <input v-model="rateScore" type="number" min="0" max="99">
           </li>
         </ul>
         <button v-show="!showSetReaction && !canSet" disabled class="wait-button ft-ika">ニュウリョクチュウ...</button>

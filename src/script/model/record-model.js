@@ -1,5 +1,6 @@
 'use strict';
 let Const = require('../const');
+let Util  = require('../util');
 let BaseModel = require('./_base');
 
 class RecordModel extends BaseModel {
@@ -11,8 +12,13 @@ class RecordModel extends BaseModel {
 
   // といいつつ修正するコ
   _preSave(record) {
+    // 勝ってたらミスマッチではない
     let isWin = (record.result|0) % 2;
     if (isWin) { record.missmatch = false; }
+
+    // ありえない入力は0にする
+    let isValidRate = Util.isValidRate(record.rate);
+    if (!isValidRate) { record.rate = 0; }
 
     return record;
   }
