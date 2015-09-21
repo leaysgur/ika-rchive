@@ -1,5 +1,5 @@
 'use strict';
-var Vue = require('vue');
+let Vue = require('vue');
 
 // バージョン差異を吸収するので最初
 require('./model/migrator');
@@ -26,7 +26,7 @@ if (location.hostname !== 'localhost') {
   window.ga('create', 'UA-67419977-1', 'auto');
   window.ga('send', 'pageview');
 
-  window.onerror = function(err) {
+  window.onerror = (err) => {
     window.ga('send', 'exception', { exDescription: err });
     alert('何やらエラーが出たようです。\nごめんなさい・・。');
   };
