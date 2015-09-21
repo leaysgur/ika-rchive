@@ -1,6 +1,14 @@
 'use strict';
 let Vue = require('vue');
 
+// 何より先に環境チェック
+try {
+  localStorage.setItem('IA_TEST', 'TEST');
+  localStorage.removeItem('IA_TEST');
+} catch(e) {
+  alert('お使いの環境ではご利用いただけません。\nプライベートブラウズはOFFにしてください。')
+}
+
 // バージョン差異を吸収するので最初に呼ぶだけが必要
 require('./model/migrator');
 
