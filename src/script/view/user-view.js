@@ -1,13 +1,16 @@
 'use strict';
-var Const = require('../const');
-var Util  = require('../util');
-var RecordModel = require('../model/record-model').getInstance();
-var UserModel   = require('../model/user-model').getInstance();
+let Const = require('../const');
+let Util  = require('../util');
+let RecordModel = require('../model/record-model').getInstance();
+let UserModel   = require('../model/user-model').getInstance();
+
+// Observableなのは変数
+let RECORDS = RecordModel.get('items');
 
 module.exports = {
   el: '#js-view-user',
   data: {
-    records: RecordModel.data.items,
+    records: RECORDS,
 
     bestRate:    null,
     totalIdx:    null,
@@ -37,7 +40,7 @@ module.exports = {
   },
   methods: {
     _syncUserData: function() {
-      var userData = this._toUserData(this.records);
+      let userData = this._toUserData(this.records);
 
       this.winRate       = userData.winRate;
       this.winRateTag    = userData.winRateTag;
@@ -80,9 +83,9 @@ module.exports = {
       this.tweetUrl = this._getTweetText();
     },
     _getTweetText: function() {
-      var url  = 'http://twitter.com/share?text=';
-      var text = '';
-      var latestRecord = RecordModel.getLatestRecord();
+      let url  = 'http://twitter.com/share?text=';
+      let text = '';
+      let latestRecord = RecordModel.getLatestRecord();
 
       if (!latestRecord) { return ''; }
 
@@ -111,21 +114,21 @@ module.exports = {
       return url + encodeURIComponent(text);
     },
     _toUserData: function(records) {
-      var recordsLen = records.length;
-      var winStreakCount  = 0;
-      var loseStreakCount = 0;
-      var longestWinStreakCount  = 0;
-      var longestLoseStreakCount = 0;
-      var missmatchCount = 0;
-      var winCount  = 0;
-      var loseCount = 0;
-      var koWinCount  = 0;
-      var koLoseCount = 0;
-      var tagWinCount   = 0;
-      var tagRecordsLen = 0;
-      var stageStat = {};
-      var ruleStat  = {};
-      var winRateDetail = {
+      let recordsLen = records.length;
+      let winStreakCount  = 0;
+      let loseStreakCount = 0;
+      let longestWinStreakCount  = 0;
+      let longestLoseStreakCount = 0;
+      let missmatchCount = 0;
+      let winCount  = 0;
+      let loseCount = 0;
+      let koWinCount  = 0;
+      let koLoseCount = 0;
+      let tagWinCount   = 0;
+      let tagRecordsLen = 0;
+      let stageStat = {};
+      let ruleStat  = {};
+      let winRateDetail = {
         // ルール別
         // 1: {
         //   ステージ別勝利回数
@@ -189,8 +192,8 @@ module.exports = {
       // 以下、各ステージと各ルールにおいて、
       // 勝率の最高と最低をそれぞれ出す
       // 単純に回数で得手不得手はわからないのでこうする
-      var stageStatResult = this._getGoodAndBad(stageStat);
-      var ruleStatResult  = this._getGoodAndBad(ruleStat);
+      let stageStatResult = this._getGoodAndBad(stageStat);
+      let ruleStatResult  = this._getGoodAndBad(ruleStat);
 
       // ルール別ステージ別の勝率
       winRateDetail = this._getWinRateDetail(winRateDetail);
@@ -213,7 +216,7 @@ module.exports = {
       };
     },
     _getWinRateDetail: function(winRateDetail) {
-      var key, key2, rule, stage, res, ret = [];
+      let key, key2, rule, stage, res, ret = [];
       for (key in winRateDetail) {
         rule = winRateDetail[key];
         res = {
@@ -221,8 +224,8 @@ module.exports = {
           total:  0,
           detail: []
         };
-        var total = 0;
-        var win   = 0;
+        let total = 0;
+        let win   = 0;
         for (key2 in rule) {
           stage = rule[key2];
           res.detail.push({
@@ -238,11 +241,11 @@ module.exports = {
       return ret;
     },
     _getGoodAndBad: function(stat) {
-      var good = 0,
+      let good = 0,
           goodName = '';
-      var bad = 0,
+      let bad = 0,
           badName = '';
-      var matchCount = 0,
+      let matchCount = 0,
           winRate    = 0,
           loseRate   = 0,
           item,

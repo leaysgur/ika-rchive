@@ -1,8 +1,8 @@
 'use strict';
-var Eve   = require('../eve');
-var Const = require('../const');
-var UserModel   = require('../model/user-model').getInstance();
-var RecordModel = require('../model/record-model').getInstance();
+let Eve   = require('../eve');
+let Const = require('../const');
+let UserModel   = require('../model/user-model').getInstance();
+let RecordModel = require('../model/record-model').getInstance();
 
 module.exports = {
   el: '#js-view-app',

@@ -1,13 +1,16 @@
 'use strict';
-var Eve = require('../eve');
-var Chart = require('chart.js');
-var Util  = require('../util');
-var RecordModel = require('../model/record-model').getInstance();
+let Eve = require('../eve');
+let Chart = require('chart.js');
+let Util  = require('../util');
+let RecordModel = require('../model/record-model').getInstance();
+
+// Observableなのは変数
+let RECORDS = RecordModel.get('items');
 
 module.exports = {
   el: '#js-view-graph',
   data: {
-    records:   RecordModel.data.items,
+    records:   RECORDS,
     canvasW:   ((window.innerWidth * 0.9)|0) + 'px',
     canvasH:   ((window.innerHeight * 0.4)|0) + 'px',
     _isHidden: false,
@@ -22,7 +25,7 @@ module.exports = {
   },
   events: {
     'hook:ready': function() {
-      var that = this;
+      let that = this;
       this._ctx = this.$$.graph.getContext('2d');
       this.drawGraph();
 
@@ -40,7 +43,7 @@ module.exports = {
   },
   methods: {
     drawGraph: function() {
-      var data = {
+      let data = {
         labels: this._toGraphLabel(this.records),
         datasets: [
           {
@@ -51,7 +54,7 @@ module.exports = {
           }
         ]
       };
-      var options = {
+      let options = {
         bezierCurve:        false,
         scaleFontColor:     '#fff',
         scaleGridLineColor: 'rgba(255, 110, 0, .25)',

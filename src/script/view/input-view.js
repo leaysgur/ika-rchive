@@ -1,8 +1,8 @@
 'use strict';
-var Const = require('../const');
-var Util  = require('../util');
-var RecordModel = require('../model/record-model').getInstance();
-var UserModel   = require('../model/user-model').getInstance();
+let Const = require('../const');
+let Util  = require('../util');
+let RecordModel = require('../model/record-model').getInstance();
+let UserModel   = require('../model/user-model').getInstance();
 
 module.exports = {
   el: '#js-view-input',
@@ -27,7 +27,7 @@ module.exports = {
   },
   computed: {
     isResultWin: function() {
-      var isWin = (this.result|0) % 2;
+      let isWin = (this.result|0) % 2;
       return !!isWin;
     },
     canSet: function() {
@@ -37,7 +37,7 @@ module.exports = {
   },
   methods: {
     onClickSet: function() {
-      var record = {
+      let record = {
         result:    this.result|0,
         missmatch: this.missmatch|0,
         tagmatch:  this.tagmatch|0,
@@ -64,7 +64,7 @@ module.exports = {
       this.missmatch = false;
     },
     _showReaction: function() {
-      var that = this;
+      let that = this;
       this.showSetReaction = true;
       this._timer = setTimeout(function() {
         that.showSetReaction = false;

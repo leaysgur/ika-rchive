@@ -1,13 +1,16 @@
 'use strict';
-var Const = require('../const');
-var Util  = require('../util');
-var RecordModel = require('../model/record-model').getInstance();
-var UserModel   = require('../model/user-model').getInstance();
+let Const = require('../const');
+let Util  = require('../util');
+let RecordModel = require('../model/record-model').getInstance();
+let UserModel   = require('../model/user-model').getInstance();
+
+// Observableなのは変数
+let RECORDS = RecordModel.get('items');
 
 module.exports = {
   el: '#js-view-list',
   data: {
-    records: RecordModel.data.items,
+    records: RECORDS,
     recordsList: [],
 
     // 修正用
@@ -39,7 +42,7 @@ module.exports = {
       }
       this.isModifying  = true;
       this.modifyingIdx = idx;
-      var item = RecordModel.getRecord(idx);
+      let item = RecordModel.getRecord(idx);
 
       this.modCreatedAt = item.createdAt;
       this.modRule      = item.rule;
@@ -47,12 +50,12 @@ module.exports = {
       this.modResult    = item.result;
       this.modMissmatch = item.missmatch;
       this.modTagmatch  = item.tagmatch;
-      var rateRank = ((item.rate / 100)|0) * 100;
+      let rateRank = ((item.rate / 100)|0) * 100;
       this.modRateRank  = rateRank;
       this.modRateScore = item.rate - rateRank;
     },
     onClickModComplete: function() {
-      var record = {
+      let record = {
         createdAt: this.modCreatedAt,
         result:    this.modResult|0,
         missmatch: this.modMissmatch,
@@ -76,8 +79,8 @@ module.exports = {
       this.recordsList = this._toListData(this.records);
     },
     _toListData: function(records) {
-      var totalIdx = UserModel.get('totalIdx')|0;
-      var startIdx = totalIdx - records.length;
+      let totalIdx = UserModel.get('totalIdx')|0;
+      let startIdx = totalIdx - records.length;
       return records.map(function(item, idx) {
         return {
           // ここは動的に作るデータ
