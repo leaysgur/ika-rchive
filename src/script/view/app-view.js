@@ -24,8 +24,8 @@ module.exports = {
     onClickRestart: (ev) => {
       ev.preventDefault();
       if (window.confirm('削除したデータは元に戻せません。\n本当に全削除しますか？')) {
-        UserModel.clear();
-        RecordModel.clear();
+        UserModel.clearAllData();
+        RecordModel.clearAllData();
         location.reload();
       }
     }

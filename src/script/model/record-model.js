@@ -52,6 +52,8 @@ class RecordModel extends BaseModel {
     let items = this.get('items');
     return items[items.length - 1];
   }
+
+  clearAllData() { this._clear(); }
 }
 
 let instance = null;

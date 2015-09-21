@@ -28,7 +28,7 @@ class BaseModel {
     localStorage.setItem(this.key, JSON.stringify(this.data));
   }
 
-  clear() {
+  _clear() {
     localStorage.removeItem(this.key);
   }
 

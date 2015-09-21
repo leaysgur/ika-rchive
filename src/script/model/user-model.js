@@ -36,6 +36,8 @@ class UserModel extends BaseModel {
     let cur = this.get('totalIdx')|0;
     this.set('totalIdx', cur + 1);
   }
+
+  clearAllData() { this._clear(); }
 }
 
 let instance = null;
