@@ -1,19 +1,20 @@
 'use strict';
 var Vue = require('vue');
 
+// バージョン差異を吸収するので最初
 require('./model/migrator');
 
-window.IA = {
-  eve:  require('./eve'),
-  view: {
-    gv: new Vue(require('./view/graph-view')),
-    lv: new Vue(require('./view/list-view')),
-    uv: new Vue(require('./view/user-view')),
-    iv: new Vue(require('./view/input-view')),
+// 便利なコ
+require('./eve');
 
-    av: new Vue(require('./view/app-view'))
-  }
-};
+// 各ページ
+new Vue(require('./view/graph-view'));
+new Vue(require('./view/list-view'));
+new Vue(require('./view/user-view'));
+new Vue(require('./view/input-view'));
+
+// 各ページを読み込んでから
+new Vue(require('./view/app-view'));
 
 // GAは本番でのみ動かす
 if (location.hostname === 'localhost') { return; }
