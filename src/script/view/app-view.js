@@ -9,18 +9,19 @@ module.exports = {
   data: {
     isFirstTime: UserModel.get('isFirstTime'),
     limit:       Const.RECORD_LIMIT,
-    activePane: 'record'
+    activePane:  UserModel.get('lastPane') || 'record'
   },
   methods: {
-    showPane: function(willActivePane) {
+    showPane: (willActivePane) => {
       this.activePane = willActivePane;
       Eve.emit('showPane', willActivePane);
+      UserModel.set('lastPane', willActivePane);
     },
-    onClickOk: function() {
+    onClickOk: () => {
       this.isFirstTime = false;
       UserModel.set('isFirstTime', false);
     },
-    onClickRestart: function(ev) {
+    onClickRestart: (ev) => {
       ev.preventDefault();
       if (window.confirm('削除したデータは元に戻せません。\n本当に全削除しますか？')) {
         UserModel.clear();
