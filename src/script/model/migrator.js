@@ -1,7 +1,7 @@
 'use strict';
-var Util = require('../util');
-var RecordModel = require('./record-model').getInstance();
-var UserModel   = require('./user-model').getInstance();
+let Util = require('../util');
+let RecordModel = require('./record-model').getInstance();
+let UserModel   = require('./user-model').getInstance();
 
 /**
  * v1.11.0 -> 1.12.0のタイミング
@@ -14,9 +14,9 @@ var UserModel   = require('./user-model').getInstance();
  */
 if (!UserModel.isMigrated('1.12.0')) {
     if (UserModel.get('totalIdx') === undefined) {
-      UserModel.set('totalIdx', RecordModel.data.length);
+      UserModel.set('totalIdx', RecordModel.get('items').length);
     }
-    var bestRate = UserModel.get('bestRate');
+    let bestRate = UserModel.get('bestRate');
     if (isNaN(parseInt(bestRate))) {
       UserModel.set('bestRate', Util.getRateFromRateStr(bestRate));
     }

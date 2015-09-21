@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "./sh/deploy.sh",
     "build": "npm run build-js && npm run build-css",
-    "build-js": "mkdir -p ./dist && browserify src/script/main.js -o dist/script.js",
+    "build-js": "mkdir -p ./dist && browserify src/script/main.js -t babelify -t uglifyify -o dist/script.js",
     "build-css": "mkdir -p ./dist && node-sass --output-style compressed src/style/main.scss dist/style.css"
   },
   "author": "leader22",
@@ -19,7 +19,9 @@
     "vue": "^0.12.9"
   },
   "devDependencies": {
+    "babelify": "^6.3.0",
     "browserify": "^11.0.1",
-    "node-sass": "^3.2.0"
+    "node-sass": "^3.2.0",
+    "uglifyify": "^3.0.1"
   }
 }

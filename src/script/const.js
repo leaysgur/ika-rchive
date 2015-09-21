@@ -1,3 +1,4 @@
+'use strict';
 module.exports = {
 
   RESULT: {
@@ -43,6 +44,11 @@ module.exports = {
     'C-':    0
   },
 
-  RECORD_LIMIT: 200
+  MIN_RATE_INPUT: 0,
+  MAX_RATE_INPUT: 99,
+
+  RECORD_LIMIT: 200,
+
+  TWITTER_URL: 'http://twitter.com/share?text='
 
 };

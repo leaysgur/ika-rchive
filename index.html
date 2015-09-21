@@ -23,16 +23,17 @@
 <body id="js-view-app">
   <div v-show="isFirstTime" class="view-intro">
     <h1 class="ft-ika">ウデマエア-カイブ</h1>
-    <div class="wrap">
+    <div class="wrap fs-s">
       <p><span class="ft-ika">ガチマッチ</span>の<span class="ft-ika">ウデマエ</span>を記録できるサービスだぞ！</p>
       <p>1戦ごとに勝敗を記録して、グラフを眺めてニヤニヤしたり、苦手なステージを把握したり、連敗の兆候を感じ取ったりしよう！</p>
     </div>
 
     <h2 class="ft-ika">チュウイ</h2>
-    <div class="wrap">
-      <p>データは直近の{{limit}}戦分のみを、このブラウザの中に保存します。(localStorage)</p>
-      <p>なので、他の環境にデータは引き継がれません。</p>
-      <p>もしかすると、うまく動かない環境もあるかもしれません・・。</p>
+    <div class="wrap fs-s">
+      <p>データは直近の{{limit}}戦分のみ、この端末の中に保存します。(localStorage)</p>
+      <p>なので、他の環境にデータは引き継ぎ・引っ越しできません。</p>
+      <p>予告なくサービスの内容を変更したり、終了したりするかもしれません。</p>
+      <p>もしかすると動作しない環境もあるかもしれません・・。</p>
       <p>まぁそんな適当な感じで良ければ使ってください。</p>
       <p><span class="ft-ika">イカ、よろしく〜〜〜</span></p>
     </div>
@@ -47,9 +48,9 @@
     <h1 class="ft-ika">ウデマエア-カイブ</h1>
     <ul class="tab ft-ika"><!--
       --><li class="tab-item" v-class="{ 'is-active': activePane === 'record' }" v-on="click: showPane('record')">キロク</li><!--
-      --><li class="tab-item" v-class="{ 'is-active': activePane === 'user' }" v-on="click: showPane('user')">セイセキ</li><!--
-      --><li class="tab-item" v-class="{ 'is-active': activePane === 'input' }" v-on="click: showPane('input')">トウロク</li><!--
-      --><li class="tab-item" v-class="{ 'is-active': activePane === 'about' }" v-on="click: showPane('about')">ヘルプ</li><!--
+      --><li class="tab-item" v-class="{ 'is-active': activePane === 'user'   }" v-on="click: showPane('user')">セイセキ</li><!--
+      --><li class="tab-item" v-class="{ 'is-active': activePane === 'input'  }" v-on="click: showPane('input')">トウロク</li><!--
+      --><li class="tab-item" v-class="{ 'is-active': activePane === 'others' }" v-on="click: showPane('others')">ソノタ</li><!--
     --></ul>
 
     <div v-show="activePane === 'record'" class="view-record">
@@ -66,16 +67,13 @@
             <div>[{{item.id}}] 第{{item.totalIdx}}戦 - {{item.createdAt}}</div>
             <hr class="record-list-item-spacer">
             <div>
-              {{item.tagmatch ? 'タッグマッチ' : '野良ガチマッチ'}}
-            </div>
-            <div>
               {{item.rule}} in {{item.stage}}
             </div>
             <div>
-              {{item.result}} <span class="ft-ika">-</span> {{item.rate}}
+              {{item.result}} <span class="ft-ika">-</span> {{item.rate}} / {{item.tagmatch ? 'タッグマッチ' : '野良ガチマッチ'}}
             </div>
             <div>
-              {{item.missmatch ? 'マッチング事故' : ''}}
+              {{item.missmatch ? '(マッチング事故)' : ''}}
             </div>
             <hr class="record-list-item-spacer">
             <div class="ctrl-wrap">
@@ -109,7 +107,7 @@
               </li>
               <li class="input-item">
                 <select v-model="modRateRank" options="rates"></select>
-                <input v-model="modRateScore" type="number" min="0" max="100">
+                <input v-model="modRateScore" type="number" min="0" max="99">
               </li>
               <li>
                 <button class="set-button ft-ika" v-on="click: onClickModComplete">シュウセイ！</button>
@@ -236,7 +234,7 @@
           </li>
           <li class="input-item">
             <select v-model="rateRank" options="rates"></select>
-            <input v-model="rateScore" type="number" min="0" max="100">
+            <input v-model="rateScore" type="number" min="0" max="99">
           </li>
         </ul>
         <button v-show="!showSetReaction && !canSet" disabled class="wait-button ft-ika">ニュウリョクチュウ...</button>
@@ -246,10 +244,10 @@
       </div>
     </div>
 
-    <div v-show="activePane === 'about'">
+    <div v-show="activePane === 'others'">
       <h2 class="ft-ika">つかいかた</h2>
       <div class="wrap">
-        <p>バトルが終わったら結果を<span class="ft-ika">トウロク</span>するだけだ！</p>
+        <p>バトル後に結果を<span class="ft-ika">トウロク</span>だ！</p>
         <p>データは<span class="ft-ika">キロク</span>や<span class="ft-ika">セイセキ</span>から見れるぞ！</p>
       </div>
 
@@ -257,7 +255,8 @@
       <div class="wrap">
         <p>にわかガチ勢の<a href="https://twitter.com/leader22" target="_blank">@leader22</a>が、ウデマエの上下を可視化するために個人的に作ったものだ！</p>
         <p>なんか変な動きするとかこんな機能が欲しいとか、報告すれば良いことがあるかもしれないぞ！</p>
-        <p>もしくは<a href="https://github.com/leader22/ika-rchive" target="_blank">プルリクエスト</a>だ！</p>
+        <p>単純に話しかけてくれるだけでも喜ぶぞ！</p>
+        <p>コードが書けるなら<a href="https://github.com/leader22/ika-rchive" target="_blank">プルリクエスト</a>だ！</p>
         <p>フォントは<a class="ft-ika" href="http://aramugi.com/?page_id=807" target="_blank">イカモドキ</a>をお借りした！イカしてるぜ！</p>
       </div>
 
