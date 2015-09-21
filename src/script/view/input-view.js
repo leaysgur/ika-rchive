@@ -45,7 +45,7 @@ module.exports = {
         stage:     this[this.chosenStage]|0,
         rate:      (this.rateRank|0) + (this.rateScore|0)
       };
-      RecordModel.set(record);
+      RecordModel.setRecord(record);
       // 最後に記録したウデマエを次回のデフォルトに
       UserModel.set('lastRank', this.rateRank);
       // 通算バトル数も更新

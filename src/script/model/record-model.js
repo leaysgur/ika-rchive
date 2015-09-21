@@ -1,71 +1,61 @@
 'use strict';
-var Const = require('../const');
+let Const = require('../const');
+let BaseModel = require('./_base');
 
-module.exports = RecordModel;
-
-var instance = null;
-function RecordModel() {
-  this.data = [];
-
-  this._init();
-}
-
-RecordModel.getInstance = function() {
-  if (instance === null) {
-    instance = new RecordModel();
+class RecordModel extends BaseModel {
+  constructor() {
+    super('IA_RECORD', {
+      'items': []
+    });
   }
-  return instance;
-};
 
-RecordModel.prototype = {
-  constructor: RecordModel,
-  _init: function() {
-    this._fetch();
-  },
-  _fetch: function() {
-    var data = localStorage.getItem('IA_RECORD');
-    if (data !== null) {
-      this.data = JSON.parse(data);
-    }
-  },
-  _save: function() {
-    localStorage.setItem('IA_RECORD', JSON.stringify(this.data));
-  },
   // といいつつ修正するコ
-  _preSave: function(record) {
-    var isWin = (record.result|0) % 2;
+  _preSave(record) {
+    let isWin = (record.result|0) % 2;
     if (isWin) { record.missmatch = false; }
 
     return record;
-  },
-  set: function(record) {
+  }
+  setRecord(record) {
     // 登録日はココでいれる
     record.createdAt = Date.now();
 
+    let items = this.get('items');
     // リスト追加
-    this.data.push(this._preSave(record));
-
+    items.push(this._preSave(record));
     // data.lengthはLIMITを超えないし、超えたら先頭が消える
-    while (this.data.length > Const.RECORD_LIMIT) {
-      this.data.shift();
+    while (items.length > Const.RECORD_LIMIT) {
+      items.shift();
     }
-    this._save();
-  },
-  get: function(idx) {
-    return this.data[idx];
-  },
-  update: function(idx, record) {
-    this.data.splice(idx, 1, this._preSave(record));
-    this._save();
-  },
-  remove: function(idx) {
-    this.data.splice(idx, 1);
-    this._save();
-  },
-  getLatestRecord: function() {
-    return this.get(this.data.length - 1);
-  },
-  clear: function() {
-    localStorage.removeItem('IA_RECORD');
+
+    this.set('items', items);
+  }
+  getRecord(idx) {
+    return this.get('items')[idx];
+  }
+  update(idx, record) {
+    let items = this.get('items');
+    items.splice(idx, 1, this._preSave(record));
+    this.set('items', items);
+  }
+  remove(idx) {
+    let items = this.get('items');
+    items.splice(idx, 1);
+    this.set('items', items);
+  }
+  getLatestRecord() {
+    let items = this.get('items');
+    return items[items.length - 1];
+  }
+}
+
+let instance = null;
+module.exports = {
+  getInstance: () => {
+    if (instance === null) {
+      instance = new RecordModel();
+    }
+
+    return instance;
   }
 };

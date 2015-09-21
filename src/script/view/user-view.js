@@ -7,7 +7,7 @@ var UserModel   = require('../model/user-model').getInstance();
 module.exports = {
   el: '#js-view-user',
   data: {
-    records: RecordModel.data,
+    records: RecordModel.data.items,
 
     bestRate:    null,
     totalIdx:    null,

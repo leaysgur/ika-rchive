@@ -7,7 +7,7 @@ var UserModel   = require('../model/user-model').getInstance();
 module.exports = {
   el: '#js-view-list',
   data: {
-    records: RecordModel.data,
+    records: RecordModel.data.items,
     recordsList: [],
 
     // 修正用
@@ -39,7 +39,7 @@ module.exports = {
       }
       this.isModifying  = true;
       this.modifyingIdx = idx;
-      var item = RecordModel.get(idx);
+      var item = RecordModel.getRecord(idx);
 
       this.modCreatedAt = item.createdAt;
       this.modRule      = item.rule;
