@@ -1,5 +1,4 @@
 'use strict';
-
 let BaseModel = require('./_base');
 
 class UserModel extends BaseModel {

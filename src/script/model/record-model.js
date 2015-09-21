@@ -16,6 +16,7 @@ class RecordModel extends BaseModel {
 
     return record;
   }
+
   setRecord(record) {
     // 登録日はココでいれる
     record.createdAt = Date.now();
@@ -30,19 +31,23 @@ class RecordModel extends BaseModel {
 
     this.set('items', items);
   }
+
   getRecord(idx) {
     return this.get('items')[idx];
   }
+
   update(idx, record) {
     let items = this.get('items');
     items.splice(idx, 1, this._preSave(record));
     this.set('items', items);
   }
+
   remove(idx) {
     let items = this.get('items');
     items.splice(idx, 1);
     this.set('items', items);
   }
+
   getLatestRecord() {
     let items = this.get('items');
     return items[items.length - 1];
