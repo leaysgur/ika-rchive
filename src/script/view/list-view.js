@@ -22,11 +22,20 @@ module.exports = {
     modMissmatch: false,
     modTagmatch:  false,
     modRateRank:  600,
-    modRateScore: null,
+    modRateScore: 0,
     results: Const.RESULT,
     rules:   Const.RULE,
     stages:  Util.objToOptionsArr(Const.STAGE),
-    rates:   Util.objToOptionsArr(Const.RATE_WAIT, 'REVERSE'),
+    rates:   Util.objToOptionsArr(Const.RATE_TABLE, 'REVERSE'),
+  },
+  computed: {
+    isResultWin: function() {
+      let isWin = (this.modResult|0) % 2;
+      return !!isWin;
+    },
+    canSet: function() {
+      return Util.canInput(this.modRateScore);
+    }
   },
   events: {
     'hook:created': function() { this._syncListData(); }

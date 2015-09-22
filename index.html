@@ -99,7 +99,7 @@
               </li>
               <li class="input-item fs-s">
                 <label>
-                  <input type="checkbox" v-model="modMissmatch">マッチング事故
+                  <input type="checkbox" v-model="modMissmatch" v-attr="disabled: isResultWin">マッチング事故
                 </label>
                 <label>
                   <input type="checkbox" v-model="modTagmatch">タッグマッチ
@@ -110,7 +110,8 @@
                 <input v-model="modRateScore" type="number" min="0" max="99">
               </li>
               <li>
-                <button class="set-button ft-ika" v-on="click: onClickModComplete">シュウセイ！</button>
+                <button v-show="!canSet" disabled class="wait-button ft-ika">シュウセイチュウ...</button>
+                <button v-show="canSet" class="set-button ft-ika" v-on="click: onClickModComplete">シュウセイ！</button>
               </li>
             </ul>
           </li>

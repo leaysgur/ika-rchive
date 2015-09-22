@@ -20,7 +20,7 @@ module.exports = {
     results: Const.RESULT,
     rules:   Const.RULE,
     stages:  Util.objToOptionsArr(Const.STAGE),
-    rates:   Util.objToOptionsArr(Const.RATE_WAIT, 'REVERSE'),
+    rates:   Util.objToOptionsArr(Const.RATE_TABLE, 'REVERSE'),
 
     _timer:          null,
     showSetReaction: false
@@ -31,17 +31,7 @@ module.exports = {
       return !!isWin;
     },
     canSet: function() {
-      let score = this.rateScore|0;
-      // 自由入力が空のとこだけでも縛る
-      if (!score) {
-        return false;
-      }
-      // 0 - 99以外の値は弾く
-      if (score < Const.MIN_RATE_INPUT || Const.MAX_RATE_INPUT < score) {
-        return false;
-      }
-
-      return true;
+      return Util.canInput(this.rateScore);
     }
   },
   methods: {

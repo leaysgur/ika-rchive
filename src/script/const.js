@@ -30,7 +30,7 @@ module.exports = {
    12: 'マサバ海峡大橋'
   },
 
-  RATE_WAIT: {
+  RATE_TABLE: {
     'S+': 1000,
     'S':   900,
     'A+':  800,
@@ -44,6 +44,8 @@ module.exports = {
     'C-':    0
   },
 
+  MAX_RATE_STR:  'S+',
+  MIN_RATE_STR:  'C-',
   MIN_RATE_INPUT: 0,
   MAX_RATE_INPUT: 99,
 

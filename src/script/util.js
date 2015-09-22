@@ -30,11 +30,19 @@ module.exports = {
     let wait = val - rate;
 
     let label = '';
-    for (let k in Const.RATE_WAIT) {
-      if (wait === Const.RATE_WAIT[k]) {
+    for (let k in Const.RATE_TABLE) {
+      if (wait === Const.RATE_TABLE[k]) {
         label = k;
         break;
       }
+    }
+
+    // 現時点で最高のS+99より上の範囲を見る必要が出てくるとコレ
+    if (label.length === 0 && rate === 0) {
+      // label = Const.MAX_RATE_STR;
+      // rate  = Const.MAX_RATE_INPUT;
+      // これで S+99 って出せるけど、グラフ的にしっくりこない
+      return 'MAX';
     }
 
     return label + rate;
@@ -43,17 +51,14 @@ module.exports = {
   getRateFromRateStr: (str) => {
     let reg = rateStrReg.exec(str);
     if (!reg) { return 0; }
-    return Const.RATE_WAIT[reg[1]] + (reg[2]|0);
+    return Const.RATE_TABLE[reg[1]] + (reg[2]|0);
   },
 
   isValidRate: (score) => {
-    let TABLE = Const.RATE_WAIT;
-    let RATE_VALUES = Object.keys(TABLE).map((key) => { return TABLE[key]; })
+    let min = Const.RATE_TABLE[Const.MIN_RATE_STR] + Const.MIN_RATE_INPUT;
+    let max = Const.RATE_TABLE[Const.MAX_RATE_STR] + Const.MAX_RATE_INPUT;
 
-    let min = Math.min.apply(null, RATE_VALUES) + Const.MIN_RATE_INPUT;
-    let max = Math.max.apply(null, RATE_VALUES) + Const.MAX_RATE_INPUT;
-
-    return min <= score && score < max;
+    return min <= score && score <= max;
   },
 
   objToOptionsArr: (obj, isReverse) => {
@@ -78,5 +83,20 @@ module.exports = {
   percentage: (c, p) => {
     if (c === 0 || p === 0) { return 0; }
     return ((c / p) * 100).toFixed(2);
+  },
+
+  // 値の入力欄のチェック
+  canInput: (rateScoreStr) => {
+    // 自由入力が空のとこだけでも縛る
+    if (rateScoreStr.length === 0) {
+      return false;
+    }
+    // 0 - 99以外の値は弾く
+    let score = rateScoreStr|0;
+    if (score < Const.MIN_RATE_INPUT || Const.MAX_RATE_INPUT < score) {
+      return false;
+    }
+
+    return true;
   }
 };
