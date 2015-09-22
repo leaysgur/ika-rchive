@@ -31,17 +31,7 @@ module.exports = {
       return !!isWin;
     },
     canSet: function() {
-      // 自由入力が空のとこだけでも縛る
-      if (this.rateScore.length === 0) {
-        return false;
-      }
-      // 0 - 99以外の値は弾く
-      let score = this.rateScore|0;
-      if (score < Const.MIN_RATE_INPUT || Const.MAX_RATE_INPUT < score) {
-        return false;
-      }
-
-      return true;
+      return Util.canInput(this.rateScore);
     }
   },
   methods: {

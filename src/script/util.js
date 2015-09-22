@@ -81,5 +81,20 @@ module.exports = {
   percentage: (c, p) => {
     if (c === 0 || p === 0) { return 0; }
     return ((c / p) * 100).toFixed(2);
+  },
+
+  // 値の入力欄のチェック
+  canInput: (rateScoreStr) => {
+    // 自由入力が空のとこだけでも縛る
+    if (rateScoreStr.length === 0) {
+      return false;
+    }
+    // 0 - 99以外の値は弾く
+    let score = rateScoreStr|0;
+    if (score < Const.MIN_RATE_INPUT || Const.MAX_RATE_INPUT < score) {
+      return false;
+    }
+
+    return true;
   }
 };
