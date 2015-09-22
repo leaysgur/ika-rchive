@@ -53,7 +53,7 @@ module.exports = {
     let min = Math.min.apply(null, RATE_VALUES) + Const.MIN_RATE_INPUT;
     let max = Math.max.apply(null, RATE_VALUES) + Const.MAX_RATE_INPUT;
 
-    return min <= score && score < max;
+    return min <= score && score <= max;
   },
 
   objToOptionsArr: (obj, isReverse) => {
