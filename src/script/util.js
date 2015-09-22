@@ -30,8 +30,8 @@ module.exports = {
     let wait = val - rate;
 
     let label = '';
-    for (let k in Const.RATE_WAIT) {
-      if (wait === Const.RATE_WAIT[k]) {
+    for (let k in Const.RATE_TABLE) {
+      if (wait === Const.RATE_TABLE[k]) {
         label = k;
         break;
       }
@@ -43,11 +43,11 @@ module.exports = {
   getRateFromRateStr: (str) => {
     let reg = rateStrReg.exec(str);
     if (!reg) { return 0; }
-    return Const.RATE_WAIT[reg[1]] + (reg[2]|0);
+    return Const.RATE_TABLE[reg[1]] + (reg[2]|0);
   },
 
   isValidRate: (score) => {
-    let TABLE = Const.RATE_WAIT;
+    let TABLE = Const.RATE_TABLE;
     let RATE_VALUES = Object.keys(TABLE).map((key) => { return TABLE[key]; })
 
     let min = Math.min.apply(null, RATE_VALUES) + Const.MIN_RATE_INPUT;

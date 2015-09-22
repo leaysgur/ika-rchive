@@ -20,7 +20,7 @@ module.exports = {
     results: Const.RESULT,
     rules:   Const.RULE,
     stages:  Util.objToOptionsArr(Const.STAGE),
-    rates:   Util.objToOptionsArr(Const.RATE_WAIT, 'REVERSE'),
+    rates:   Util.objToOptionsArr(Const.RATE_TABLE, 'REVERSE'),
 
     _timer:          null,
     showSetReaction: false
