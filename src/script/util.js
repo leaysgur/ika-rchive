@@ -37,6 +37,12 @@ module.exports = {
       }
     }
 
+    // 現時点で最高のS+99より上の範囲を見る必要が出てくるとコレ
+    if (label.length === 0 && rate === 0) {
+      label = Const.MAX_RATE_STR;
+      rate  = Const.MAX_RATE_INPUT;
+    }
+
     return label + rate;
   },
 
@@ -47,11 +53,8 @@ module.exports = {
   },
 
   isValidRate: (score) => {
-    let TABLE = Const.RATE_TABLE;
-    let RATE_VALUES = Object.keys(TABLE).map((key) => { return TABLE[key]; })
-
-    let min = Math.min.apply(null, RATE_VALUES) + Const.MIN_RATE_INPUT;
-    let max = Math.max.apply(null, RATE_VALUES) + Const.MAX_RATE_INPUT;
+    let min = Const.RATE_TABLE[Const.MIN_RATE_STR] + Const.MIN_RATE_INPUT;
+    let max = Const.RATE_TABLE[Const.MAX_RATE_STR] + Const.MAX_RATE_INPUT;
 
     return min <= score && score <= max;
   },
