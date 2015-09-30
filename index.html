@@ -99,7 +99,7 @@
               </li>
               <li class="input-item fs-s">
                 <label>
-                  <input type="checkbox" v-model="modMissmatch" v-attr="disabled: isResultWin">マッチング事故
+                  <input type="checkbox" v-model="modMissmatch" v-attr="disabled: isDisconnected">マッチング事故
                 </label>
                 <label>
                   <input type="checkbox" v-model="modTagmatch">タッグマッチ
@@ -227,7 +227,7 @@
           </li>
           <li class="input-item">
             <label>
-              <input type="checkbox" v-model="missmatch" v-attr="disabled: isResultWin">マッチング事故
+              <input type="checkbox" v-model="missmatch" v-attr="disabled: isDisconnected">マッチング事故
             </label>
             <label>
               <input type="checkbox" v-model="tagmatch">タッグマッチ

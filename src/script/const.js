@@ -9,6 +9,14 @@ module.exports = {
     5: '回線落ち'
   },
 
+  RESULT_STR: {
+    // WIN:     1,
+    // LOSE:    2,
+    // KO_WIN:  3,
+    // KO_LOSE: 4,
+    DISCONNECTED:  5
+  },
+
   RULE: {
     1: 'エリア',
     2: 'ヤグラ',
