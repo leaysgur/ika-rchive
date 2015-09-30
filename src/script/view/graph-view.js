@@ -5,8 +5,7 @@ let Const = require('../const');
 let Util  = require('../util');
 let RecordModel = require('../model/record-model').getInstance();
 
-let isMobile = Util.isMobile();
-let labelLimit = isMobile ? Const.SHOW_LABEL_LIMIT_MOBILE : Const.SHOW_LABEL_LIMIT_PC;
+let labelLimit = Util.isMobile() ? Const.SHOW_LABEL_LIMIT_MOBILE : Const.SHOW_LABEL_LIMIT_PC;
 
 // Observableなのは変数
 let RECORDS = RecordModel.get('items');
