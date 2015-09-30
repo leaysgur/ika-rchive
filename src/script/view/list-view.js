@@ -29,9 +29,8 @@ module.exports = {
     rates:   Util.objToOptionsArr(Const.RATE_TABLE, 'REVERSE'),
   },
   computed: {
-    isResultWin: function() {
-      let isWin = (this.modResult|0) % 2;
-      return !!isWin;
+    isDisconnected: function() {
+      return (this.modResult|0) === Const.RESULT_STR.DISCONNECTED;
     },
     canSet: function() {
       return Util.canInput(this.modRateScore);

@@ -26,9 +26,8 @@ module.exports = {
     showSetReaction: false
   },
   computed: {
-    isResultWin: function() {
-      let isWin = (this.result|0) % 2;
-      return !!isWin;
+    isDisconnected: function() {
+      return (this.result|0) === Const.RESULT_STR.DISCONNECTED;
     },
     canSet: function() {
       return Util.canInput(this.rateScore);
