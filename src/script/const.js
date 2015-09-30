@@ -50,6 +50,8 @@ module.exports = {
   MAX_RATE_INPUT: 99,
 
   RECORD_LIMIT: 200,
+  SHOW_LABEL_LIMIT_PC:     100,
+  SHOW_LABEL_LIMIT_MOBILE: 25,
 
   TWITTER_URL: 'http://twitter.com/share?text='
 

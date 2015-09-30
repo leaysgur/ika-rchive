@@ -1,8 +1,11 @@
 'use strict';
 let Eve = require('../eve');
 let Chart = require('chart.js');
+let Const = require('../const');
 let Util  = require('../util');
 let RecordModel = require('../model/record-model').getInstance();
+
+let labelLimit = Util.isMobile() ? Const.SHOW_LABEL_LIMIT_MOBILE : Const.SHOW_LABEL_LIMIT_PC;
 
 // Observableなのは変数
 let RECORDS = RecordModel.get('items');
@@ -58,7 +61,7 @@ module.exports = {
         bezierCurve:        false,
         scaleFontColor:     '#fff',
         scaleGridLineColor: 'rgba(255, 110, 0, .25)',
-        pointDotRadius :    2,
+        pointDotRadius :    1,
         scaleLabel:         Util.getRateStr,
         tooltipTemplate:    Util.getRateStr
       };
@@ -71,8 +74,16 @@ module.exports = {
       });
     },
     _toGraphLabel: (records) => {
+      let isShortLabel = records.length > labelLimit;
+
       return records.map((_item, idx) => {
-        return idx + 1;
+        let cnt = idx + 1;
+        // ラベルがごちゃつきすぎるので、件数増えてきたら10件ごと
+        if (isShortLabel) {
+          return (cnt % 10 === 0) ? cnt : '';
+        } else {
+          return cnt;
+        }
       });
     }
   }
