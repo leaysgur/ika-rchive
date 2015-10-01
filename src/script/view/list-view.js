@@ -30,7 +30,7 @@ module.exports = {
   },
   computed: {
     isDisconnected: function() {
-      return (this.modResult|0) === Const.RESULT_STR.DISCONNECTED;
+      return Util.isDisconnected(this.modResult);
     },
     canSet: function() {
       return Util.canInput(this.modRateScore);
