@@ -27,7 +27,7 @@ module.exports = {
   },
   computed: {
     isDisconnected: function() {
-      return (this.result|0) === Const.RESULT_STR.DISCONNECTED;
+      return Util.isDisconnected(this.result);
     },
     canSet: function() {
       return Util.canInput(this.rateScore);

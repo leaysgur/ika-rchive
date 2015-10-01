@@ -151,7 +151,7 @@ module.exports = {
         winRateDetail[item.rule][item.stage].t++;
 
         // 勝った
-        if (item.result % 2)   {
+        if (Util.isWin(item.result))   {
           winCount++;
           if (item.tagmatch) { tagWinCount++; }
 

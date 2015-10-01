@@ -12,9 +12,9 @@ class RecordModel extends BaseModel {
 
   // といいつつ修正するコ
   _preSave(record) {
-    // 勝ってたらミスマッチではない
-    let isWin = (record.result|0) % 2;
-    if (isWin) { record.missmatch = false; }
+    // 回線落ちならミスマッチではない
+    let isDisconnected = Util.isDisconnected(record.result);
+    if (isDisconnected) { record.missmatch = false; }
 
     // ありえない入力は0にする
     let isValidRate = Util.isValidRate(record.rate);

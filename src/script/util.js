@@ -99,5 +99,20 @@ module.exports = {
     }
 
     return true;
+  },
+
+  isDisconnected: (result) => {
+    result = result|0;
+    return result === Const.RESULT_STR.DISCONNECTED;
+  },
+
+  isWin: (result) => {
+    result = result|0;
+
+    if (result === Const.RESULT_STR.WIN ||
+        result === Const.RESULT_STR.KO_WIN) {
+      return true;
+    }
+    return false;
   }
 };
