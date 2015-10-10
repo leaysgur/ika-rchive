@@ -21,14 +21,16 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, Roboto, "Droid Sans", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic ProN", sans-serif;
 }
 
+h1, h2, h3 {
+  text-align: center;
+}
+
 h1 {
   padding-top: .5em!important;
-  text-align: center;
 }
 
 h2 {
   margin: .25em auto;
-  text-align: center;
 }
 
 p {

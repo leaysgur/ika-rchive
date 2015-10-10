@@ -4,8 +4,11 @@
     @extend %content;
     line-height: 1.5em;
 
-    td {
-      width: 50%;
+    td { width: 50%; }
+
+    td.slim {
+      width: 25%;
+      text-align: right;
     }
 
     td + td {
