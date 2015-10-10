@@ -1,5 +1,5 @@
 'use strict';
-let Eve   = require('../eve');
+let Eve   = require('../util/eve');
 let Const = require('../const');
 let UserModel   = require('../model/user-model').getInstance();
 let RecordModel = require('../model/record-model').getInstance();
