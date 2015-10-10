@@ -214,6 +214,7 @@ module.exports = {
         res = {
           name:   Const.RULE[key],
           total:  0,
+          count:  0,
           detail: []
         };
         let total = 0;
@@ -222,12 +223,14 @@ module.exports = {
           stage = rule[key2];
           res.detail.push({
             name:    Const.STAGE[key2],
+            count:   stage.t,
             winRate: Util.percentage(stage.w, stage.t)
           });
           win   += stage.w;
           total += stage.t;
         }
         res.total = Util.percentage(win, total);
+        res.count = total;
         ret.push(res);
       }
       return ret;

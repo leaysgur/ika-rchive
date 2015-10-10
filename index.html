@@ -121,7 +121,8 @@
 
     <div v-show="activePane === 'user'" class="view-user">
       <div id="js-view-user">
-        <h2 class="ft-ika">ソウゴウ</h2>
+
+        <h2 class="ft-ika">ツウサン</h2>
         <table class="user-stat wrap">
           <tbody>
             <tr>
@@ -129,9 +130,15 @@
               <td>{{bestRate}}</td>
             </tr>
             <tr>
-              <td>通算バトル回数</td>
+              <td>バトル回数</td>
               <td>{{totalIdx}}回</td>
             </tr>
+          </tbody>
+        </table>
+
+        <h2 class="ft-ika">チョッキン</h2>
+        <table class="user-stat wrap">
+          <tbody>
             <tr>
               <td>全体の勝率</td>
               <td>{{winRate}}%</td>
@@ -186,16 +193,18 @@
         <a class="tweet-button ft-ika" target="_blank" v-attr="href: tweetUrl" v-show="canTweet">セイセキをツイート！</a>
 
         <div v-repeat="rule in winRateDetail">
-        <h2 class="ft-ika">{{rule.name}}のショウリツ</h2>
-        <table class="user-stat wrap">
+        <h3 class="ft-ika">{{rule.name}}のショウリツ</h3>
+        <table class="user-stat wrap fs-s">
           <tbody>
             <tr>
               <td>{{rule.name}}合計</td>
-              <td>{{rule.total}}%</td>
+              <td class="slim">{{rule.total}}%</td>
+              <td class="slim">{{rule.count}}戦</td>
             </tr>
             <tr v-repeat="stage in rule.detail">
-              <td class="fs-s">{{stage.name}}</td>
-              <td>{{stage.winRate}}%</td>
+              <td>{{stage.name}}</td>
+              <td class="slim">{{stage.winRate}}%</td>
+              <td class="slim">{{stage.count}}戦</td>
             </tr>
           </tbody>
         </table>
