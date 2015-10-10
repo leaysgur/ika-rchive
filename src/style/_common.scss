@@ -52,3 +52,10 @@
   margin: 1em;
   font-size: .5em;
 }
+
+.list {
+  list-style: square inside;
+  padding: .25em 1em;
+
+  li+li { margin-top: .5em; }
+}

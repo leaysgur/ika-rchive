@@ -21,6 +21,13 @@ module.exports = {
       this.isFirstTime = false;
       UserModel.set('isFirstTime', false);
     },
+    onClickResetUser: (ev) => {
+      ev.preventDefault();
+      if (window.confirm('削除したデータは元に戻せません。\n本当に通算成績を削除しますか？')) {
+        UserModel.clearTotalData();
+        location.reload();
+      }
+    },
     onClickRestart: (ev) => {
       ev.preventDefault();
       if (window.confirm('削除したデータは元に戻せません。\n本当に全削除しますか？')) {
