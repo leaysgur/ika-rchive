@@ -103,7 +103,7 @@ module.exports = {
       }
       text += '\n #ウデマエアーカイブ';
 
-      return Const.TWITTER_URL + encodeURIComponent(text);
+      return Const.ENDPOINT.TWITTER + encodeURIComponent(text);
     },
     _toUserData: function(records) {
       let recordsLen = records.length;
