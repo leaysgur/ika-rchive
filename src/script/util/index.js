@@ -1,5 +1,5 @@
 'use strict';
-let Const = require('./const');
+let Const = require('../const');
 let rateStrReg = /(\w[+-]?)(\d+)/;
 
 module.exports = {
