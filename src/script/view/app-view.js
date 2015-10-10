@@ -21,10 +21,10 @@ module.exports = {
       this.isFirstTime = false;
       UserModel.set('isFirstTime', false);
     },
-    onClickResetUser: (ev) => {
+    onClickResetBestRate: (ev) => {
       ev.preventDefault();
-      if (window.confirm('削除したデータは元に戻せません。\n本当に通算成績を削除しますか？')) {
-        UserModel.clearTotalData();
+      if (window.confirm('変更したデータは元に戻せません。\n本当に最高ウデマエをリセットしますか？')) {
+        UserModel.clearBestRate();
         location.reload();
       }
     },

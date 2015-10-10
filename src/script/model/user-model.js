@@ -37,9 +37,8 @@ class UserModel extends BaseModel {
     this.set('totalIdx', cur + 1);
   }
 
-  clearTotalData() {
+  clearBestRate() {
     this.set('bestRate', 0);
-    this.set('totalIdx', 0);
   }
 
   clearAllData() { this._clear(); }
