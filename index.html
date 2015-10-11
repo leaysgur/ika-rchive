@@ -215,7 +215,7 @@
 
     <div v-show="activePane === 'input'" class="view-input">
       <div id="js-view-input">
-        <ul class="input-wrap wrap">
+        <ul class="input-wrap wrap" v-class="{ 'is-disabled': !canInput }">
           <li class="input-item">
             <label v-repeat="rules">
               <input name="rule" type="radio" v-model="rule" value="{{$key}}">{{$value}}
@@ -227,6 +227,11 @@
             </div>
             <div class="stage-select">
               <input type="radio" name="chosenStage" value="stageB" v-model="chosenStage"><select v-model="stageB" options="stages"></select>
+            </div>
+          </li>
+          <li class="input-item">
+            <div class="fetch-link" v-on="click: onClickFetchRuleAndStages">
+              [ルールとステージを自動設定]
             </div>
           </li>
           <li class="input-item">

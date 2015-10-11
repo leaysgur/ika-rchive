@@ -55,6 +55,26 @@ module.exports = {
     return Const.RATE_TABLE[reg[1]] + (reg[2]|0);
   },
 
+  getRuleFromRuleStr: (str) => {
+    // ガチxxx -> xxx
+    str = str.slice(2);
+    for (let key in Const.RULE) {
+      let ruleStr = Const.RULE[key];
+      if (ruleStr === str) {
+        return key|0;
+      }
+    }
+  },
+
+  getStageFromStageStr: (str) => {
+    for (let key in Const.STAGE) {
+      let stageStr = Const.STAGE[key];
+      if (stageStr === str) {
+        return key|0;
+      }
+    }
+  },
+
   isValidRate: (score) => {
     let min = Const.RATE_TABLE[Const.MIN_RATE_STR] + Const.MIN_RATE_INPUT;
     let max = Const.RATE_TABLE[Const.MAX_RATE_STR] + Const.MAX_RATE_INPUT;

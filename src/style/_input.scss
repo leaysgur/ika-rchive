@@ -3,6 +3,11 @@
   .input-wrap {
     @extend %content;
     text-align: center;
+
+    &.is-disabled {
+      pointer-events: none;
+      opacity: .8;
+    }
   }
 
   .input-item {
@@ -57,5 +62,12 @@
   }
   .reaction-button {
     background-color: #77EF00;
+  }
+
+  .fetch-link {
+    font-size: .5em;
+    text-align: right;
+    cursor: pointer;
+    text-decoration: underline;
   }
 }

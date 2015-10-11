@@ -63,7 +63,7 @@ module.exports = {
 
   ENDPOINT: {
     TWITTER: 'http://twitter.com/share?text=',
-    RULE_STAGE: '/'
+    RULE_STAGE: 'https://splatoon.ink/schedule.json'
   }
 
 };
