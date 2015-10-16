@@ -61,6 +61,9 @@ module.exports = {
   SHOW_LABEL_LIMIT_PC:     100,
   SHOW_LABEL_LIMIT_MOBILE: 25,
 
-  TWITTER_URL: 'http://twitter.com/share?text='
+  ENDPOINT: {
+    TWITTER: 'http://twitter.com/share?text=',
+    RULE_STAGE: 'https://splatoon.ink/schedule.json'
+  }
 
 };

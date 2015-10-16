@@ -12,18 +12,18 @@ class Eve {
     if (action in this.events === false) { return; }
 
     this.events[action].forEach((fn) => {
-      fn(data);
+      ('handleEvent' in fn) ? fn['handleEvent'](data) : fn(data);
     });
   }
 
-  on(action, fn) {
+  on(action, fn = () => {}) {
     if (action in this.events === false) {
       this.events[action] = [];
     }
     this.events[action].push(fn);
   }
 
-  emit(action, data) {
+  emit(action, data = {}) {
     window.postMessage({ action, data }, location.origin);
   }
 }

@@ -1,6 +1,8 @@
 'use strict';
 let Const = require('../const');
 let Util  = require('../util');
+let API   = require('../util/api');
+let Eve   = require('../util/eve');
 let RecordModel = require('../model/record-model').getInstance();
 let UserModel   = require('../model/user-model').getInstance();
 
@@ -23,7 +25,8 @@ module.exports = {
     rates:   Util.objToOptionsArr(Const.RATE_TABLE, 'REVERSE'),
 
     _timer:          null,
-    showSetReaction: false
+    showSetReaction: false,
+    canInput:        true
   },
   computed: {
     isDisconnected: function() {
@@ -67,6 +70,23 @@ module.exports = {
       this._timer = setTimeout(function() {
         that.showSetReaction = false;
       }, 1000);
+    },
+    onClickFetchRuleAndStages: function() {
+      API.fetchRuleAndStages(
+        this._setRuleAndStage,
+        () => {
+          alert('ルールとステージを自動設定できませんでした\n手動で設定してください。')
+        }
+      );
+    },
+    _setRuleAndStage: function(data) {
+      this.rule   = data.rule;
+      this.stageA = data.stageA;
+      this.stageB = data.stageB;
     }
+  },
+  created: function() {
+    Eve.on('preXhr',  () => { this.canInput = false; });
+    Eve.on('postXhr', () => { this.canInput = true; });
   }
 };
