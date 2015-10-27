@@ -29,7 +29,7 @@ module.exports = {
   events: {
     'hook:ready': function() {
       let that = this;
-      this._ctx = this.$$.graph.getContext('2d');
+      this._ctx = this.$els.graph.getContext('2d');
       this.drawGraph();
 
       // isHiddenな時にdrawGraphするとcanvas不在でバグるので

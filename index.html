@@ -56,7 +56,7 @@
 
     <div v-show="activePane === 'record'" class="view-record">
       <div id="js-view-graph" class="graph-wrap">
-        <canvas class="graph" v-el="graph" v-bind:width="canvasW" v-bind:height="canvasH"></canvas>
+        <canvas class="graph" v-el:graph v-bind:width="canvasW" v-bind:height="canvasH"></canvas>
         <div v-show="records.length === 0" class="graph-cover">
           <p class="wrap">まだデータが<span class="ft-ika">トウロク</span>されてないぞ！</p>
         </div>
