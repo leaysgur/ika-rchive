@@ -1,6 +1,6 @@
 {
   "name": "ika-rchive",
-  "version": "1.18.5",
+  "version": "1.18.6",
   "description": "Archive your UDEMAE!",
   "private": "true",
   "main": "index.js",
