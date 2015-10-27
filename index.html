@@ -39,7 +39,7 @@
       <p><span class="ft-ika">イカ、よろしく〜〜〜</span></p>
     </div>
 
-    <button class="intro-button ft-ika" v-on="click: onClickOk">わかった！</button>
+    <button class="intro-button ft-ika" @click="onClickOk">わかった！</button>
 
     <footer class="footer">v1.18.4 | &copy; 2015 <a href="https://twitter.com/leader22" target="_blank">leader22</a></footer>
   </div>
@@ -48,15 +48,15 @@
   <div v-show="!isFirstTime" class="view-app">
     <h1 class="ft-ika">ウデマエア-カイブ</h1>
     <ul class="tab ft-ika"><!--
-      --><li class="tab-item" v-class="{ 'is-active': activePane === 'record' }" v-on="click: showPane('record')">キロク</li><!--
-      --><li class="tab-item" v-class="{ 'is-active': activePane === 'user'   }" v-on="click: showPane('user')">セイセキ</li><!--
-      --><li class="tab-item" v-class="{ 'is-active': activePane === 'input'  }" v-on="click: showPane('input')">トウロク</li><!--
-      --><li class="tab-item" v-class="{ 'is-active': activePane === 'others' }" v-on="click: showPane('others')">ソノタ</li><!--
+      --><li class="tab-item" :class="{ 'is-active': activePane === 'record' }" @click="showPane('record')">キロク</li><!--
+      --><li class="tab-item" :class="{ 'is-active': activePane === 'user'   }" @click="showPane('user')">セイセキ</li><!--
+      --><li class="tab-item" :class="{ 'is-active': activePane === 'input'  }" @click="showPane('input')">トウロク</li><!--
+      --><li class="tab-item" :class="{ 'is-active': activePane === 'others' }" @click="showPane('others')">ソノタ</li><!--
     --></ul>
 
     <div v-show="activePane === 'record'" class="view-record">
       <div id="js-view-graph" class="graph-wrap">
-        <canvas class="graph" v-el="graph" v-attr="width: canvasW, height: canvasH"></canvas>
+        <canvas class="graph" v-el:graph :width="canvasW" :height="canvasH"></canvas>
         <div v-show="records.length === 0" class="graph-cover">
           <p class="wrap">まだデータが<span class="ft-ika">トウロク</span>されてないぞ！</p>
         </div>
@@ -64,7 +64,7 @@
 
       <div id="js-view-list">
         <ul class="record-list wrap" v-show="recordsList.length !== 0">
-          <li class="record-list-item" v-repeat="item in recordsList | orderBy 'id' -1">
+          <li class="record-list-item" v-for="item in recordsList | orderBy 'id' -1">
             <div>[{{item.id}}] 第{{item.totalIdx}}戦 - {{item.createdAt}}</div>
             <hr class="record-list-item-spacer">
             <div>
@@ -79,40 +79,48 @@
             <hr class="record-list-item-spacer">
             <div class="ctrl-wrap">
               このキロクを
-              <span class="mod-mark" v-on="click: onClickMod(item.idx)">[シュウセイ]</span>
-              <span class="del-mark" v-on="click: onClickDel(item.idx)">[サクジョ]</span>
+              <span class="mod-mark" @click="onClickMod(item.idx)">[シュウセイ]</span>
+              <span class="del-mark" @click="onClickDel(item.idx)">[サクジョ]</span>
             </div>
             <ul class="wrap mod-wrap view-input" v-show="isModifying && modifyingIdx === item.idx">
               <li class="input-item">
-                <label v-repeat="rules">
-                  <input name="modRule{{item.idx}}" type="radio" v-model="modRule" value="{{$key}}">{{$value}}
+                <label v-for="value in rules">
+                  <input name="modRule{{item.idx}}" type="radio" v-model="modRule" value="{{$key}}">{{value}}
                 </label>
               </li>
               <li class="input-item">
                 <div class="stage-select">
-                  <select v-model="modStage" options="stages"></select>
+                  <select v-model="modStage">
+                    <option v-for="option in stages" :value="option.value">
+                      {{option.text}}
+                    </option>
+                  </select>
                 </div>
               </li>
               <li class="input-item fs-s">
-                <label v-repeat="results">
-                  <input name="modResult{{item.idx}}" type="radio" v-model="modResult" value="{{$key}}">{{$value}}
+                <label v-for="value in results">
+                  <input name="modResult{{item.idx}}" type="radio" v-model="modResult" value="{{$key}}">{{value}}
                 </label>
               </li>
               <li class="input-item fs-s">
                 <label>
-                  <input type="checkbox" v-model="modMissmatch" v-attr="disabled: isDisconnected">マッチング事故
+                  <input type="checkbox" v-model="modMissmatch" :disabled="isDisconnected">マッチング事故
                 </label>
                 <label>
                   <input type="checkbox" v-model="modTagmatch">タッグマッチ
                 </label>
               </li>
               <li class="input-item">
-                <select v-model="modRateRank" options="rates"></select>
+                <select v-model="modRateRank">
+                  <option v-for="option in rates" :value="option.value">
+                    {{option.text}}
+                  </option>
+                </select>
                 <input v-model="modRateScore" type="number" min="0" max="99">
               </li>
               <li>
                 <button v-show="!canSet" disabled class="wait-button ft-ika">シュウセイチュウ...</button>
-                <button v-show="canSet" class="set-button ft-ika" v-on="click: onClickModComplete">シュウセイ！</button>
+                <button v-show="canSet" class="set-button ft-ika" @click="onClickModComplete">シュウセイ！</button>
               </li>
             </ul>
           </li>
@@ -191,9 +199,9 @@
           </tbody>
         </table>
 
-        <a class="tweet-button ft-ika" target="_blank" v-attr="href: tweetUrl" v-show="canTweet">セイセキをツイート！</a>
+        <a class="tweet-button ft-ika" target="_blank" :href="tweetUrl" v-show="canTweet">セイセキをツイート！</a>
 
-        <div v-repeat="rule in winRateDetail">
+        <div v-for="rule in winRateDetail">
         <h3 class="ft-ika">{{rule.name}}のショウリツ</h3>
         <table class="user-stat wrap fs-s">
           <tbody>
@@ -202,7 +210,7 @@
               <td class="slim">{{rule.total}}%</td>
               <td class="slim">{{rule.count}}戦</td>
             </tr>
-            <tr v-repeat="stage in rule.detail">
+            <tr v-for="stage in rule.detail">
               <td>{{stage.name}}</td>
               <td class="slim">{{stage.winRate}}%</td>
               <td class="slim">{{stage.count}}戦</td>
@@ -218,38 +226,52 @@
       <div id="js-view-input">
         <ul class="input-wrap wrap">
           <li class="input-item">
-            <label v-repeat="rules">
-              <input name="rule" type="radio" v-model="rule" value="{{$key}}">{{$value}}
+            <label v-for="value in rules">
+              <input name="rule" type="radio" v-model="rule" value="{{$key}}">{{value}}
             </label>
           </li>
           <li class="input-item">
             <div class="stage-select">
-              <input type="radio" name="chosenStage" value="stageA" v-model="chosenStage"><select v-model="stageA" options="stages"></select>
+              <input type="radio" name="chosenStage" value="stageA" v-model="chosenStage">
+              <select v-model="stageA">
+                <option v-for="option in stages" :value="option.value">
+                  {{option.text}}
+                </option>
+              </select>
             </div>
             <div class="stage-select">
-              <input type="radio" name="chosenStage" value="stageB" v-model="chosenStage"><select v-model="stageB" options="stages"></select>
+              <input type="radio" name="chosenStage" value="stageB" v-model="chosenStage">
+              <select v-model="stageB">
+                <option v-for="option in stages" :value="option.value">
+                  {{option.text}}
+                </option>
+              </select>
             </div>
           </li>
           <li class="input-item">
-            <label v-repeat="results">
-              <input name="result" type="radio" v-model="result" value="{{$key}}">{{$value}}
+            <label v-for="value in results">
+              <input name="result" type="radio" v-model="result" value="{{$key}}">{{value}}
             </label>
           </li>
           <li class="input-item">
             <label>
-              <input type="checkbox" v-model="missmatch" v-attr="disabled: isDisconnected">マッチング事故
+              <input type="checkbox" v-model="missmatch" :disabled="isDisconnected">マッチング事故
             </label>
             <label>
               <input type="checkbox" v-model="tagmatch">タッグマッチ
             </label>
           </li>
           <li class="input-item">
-            <select v-model="rateRank" options="rates"></select>
+            <select v-model="rateRank">
+              <option v-for="option in rates" :value="option.value">
+                {{option.text}}
+              </option>
+            </select>
             <input v-model="rateScore" type="number" min="0" max="99">
           </li>
         </ul>
         <button v-show="!showSetReaction && !canSet" disabled class="wait-button ft-ika">ニュウリョクチュウ...</button>
-        <button v-show="!showSetReaction && canSet" class="set-button ft-ika" v-on="click: onClickSet">トウロク！</button>
+        <button v-show="!showSetReaction && canSet" class="set-button ft-ika" @click="onClickSet">トウロク！</button>
         <button v-show="showSetReaction" disabled class="reaction-button ft-ika">トウロクカンリョウ！</button>
         <div class="note">※マッチング事故は、S,S,A+,A vs A-,A-,B+,Bみたいなどうしようもないマッチングや、回線落ちで4 vs 3などで負けた時に使います。</div>
       </div>
@@ -273,8 +295,8 @@
 
       <h2 class="ft-ika">ヒミツヘイキ</h2>
       <ul class="wrap list">
-        <li><a href="#" v-on="click: onClickResetBestRate">最高ウデマエをリセット</a>する</li>
-        <li><a href="#" v-on="click: onClickRestart">データ全削除</a>してはじめから</li>
+        <li><a href="#" @click="onClickResetBestRate">最高ウデマエをリセット</a>する</li>
+        <li><a href="#" @click="onClickRestart">データ全削除</a>してはじめから</li>
       </ul>
     </div>
 
