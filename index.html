@@ -48,15 +48,15 @@
   <div v-show="!isFirstTime" class="view-app">
     <h1 class="ft-ika">ウデマエア-カイブ</h1>
     <ul class="tab ft-ika"><!--
-      --><li class="tab-item" v-bind:class="{ 'is-active': activePane === 'record' }" v-on:click="showPane('record')">キロク</li><!--
-      --><li class="tab-item" v-bind:class="{ 'is-active': activePane === 'user'   }" v-on:click="showPane('user')">セイセキ</li><!--
-      --><li class="tab-item" v-bind:class="{ 'is-active': activePane === 'input'  }" v-on:click="showPane('input')">トウロク</li><!--
-      --><li class="tab-item" v-bind:class="{ 'is-active': activePane === 'others' }" v-on:click="showPane('others')">ソノタ</li><!--
+      --><li class="tab-item" :class="{ 'is-active': activePane === 'record' }" v-on:click="showPane('record')">キロク</li><!--
+      --><li class="tab-item" :class="{ 'is-active': activePane === 'user'   }" v-on:click="showPane('user')">セイセキ</li><!--
+      --><li class="tab-item" :class="{ 'is-active': activePane === 'input'  }" v-on:click="showPane('input')">トウロク</li><!--
+      --><li class="tab-item" :class="{ 'is-active': activePane === 'others' }" v-on:click="showPane('others')">ソノタ</li><!--
     --></ul>
 
     <div v-show="activePane === 'record'" class="view-record">
       <div id="js-view-graph" class="graph-wrap">
-        <canvas class="graph" v-el:graph v-bind:width="canvasW" v-bind:height="canvasH"></canvas>
+        <canvas class="graph" v-el:graph :width="canvasW" :height="canvasH"></canvas>
         <div v-show="records.length === 0" class="graph-cover">
           <p class="wrap">まだデータが<span class="ft-ika">トウロク</span>されてないぞ！</p>
         </div>
@@ -91,7 +91,7 @@
               <li class="input-item">
                 <div class="stage-select">
                   <select v-model="modStage">
-                    <option v-for="option in stages" v-bind:value="option.value">
+                    <option v-for="option in stages" :value="option.value">
                       {{option.text}}
                     </option>
                   </select>
@@ -104,7 +104,7 @@
               </li>
               <li class="input-item fs-s">
                 <label>
-                  <input type="checkbox" v-model="modMissmatch" v-bind:disabled="isDisconnected">マッチング事故
+                  <input type="checkbox" v-model="modMissmatch" :disabled="isDisconnected">マッチング事故
                 </label>
                 <label>
                   <input type="checkbox" v-model="modTagmatch">タッグマッチ
@@ -112,7 +112,7 @@
               </li>
               <li class="input-item">
                 <select v-model="modRateRank">
-                  <option v-for="option in rates" v-bind:value="option.value">
+                  <option v-for="option in rates" :value="option.value">
                     {{option.text}}
                   </option>
                 </select>
@@ -199,7 +199,7 @@
           </tbody>
         </table>
 
-        <a class="tweet-button ft-ika" target="_blank" v-bind:href="tweetUrl" v-show="canTweet">セイセキをツイート！</a>
+        <a class="tweet-button ft-ika" target="_blank" :href="tweetUrl" v-show="canTweet">セイセキをツイート！</a>
 
         <div v-for="rule in winRateDetail">
         <h3 class="ft-ika">{{rule.name}}のショウリツ</h3>
@@ -234,7 +234,7 @@
             <div class="stage-select">
               <input type="radio" name="chosenStage" value="stageA" v-model="chosenStage">
               <select v-model="stageA">
-                <option v-for="option in stages" v-bind:value="option.value">
+                <option v-for="option in stages" :value="option.value">
                   {{option.text}}
                 </option>
               </select>
@@ -242,7 +242,7 @@
             <div class="stage-select">
               <input type="radio" name="chosenStage" value="stageB" v-model="chosenStage">
               <select v-model="stageB">
-                <option v-for="option in stages" v-bind:value="option.value">
+                <option v-for="option in stages" :value="option.value">
                   {{option.text}}
                 </option>
               </select>
@@ -255,7 +255,7 @@
           </li>
           <li class="input-item">
             <label>
-              <input type="checkbox" v-model="missmatch" v-bind:disabled="isDisconnected">マッチング事故
+              <input type="checkbox" v-model="missmatch" :disabled="isDisconnected">マッチング事故
             </label>
             <label>
               <input type="checkbox" v-model="tagmatch">タッグマッチ
@@ -263,7 +263,7 @@
           </li>
           <li class="input-item">
             <select v-model="rateRank">
-              <option v-for="option in rates" v-bind:value="option.value">
+              <option v-for="option in rates" :value="option.value">
                 {{option.text}}
               </option>
             </select>
