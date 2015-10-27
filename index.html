@@ -84,8 +84,8 @@
             </div>
             <ul class="wrap mod-wrap view-input" v-show="isModifying && modifyingIdx === item.idx">
               <li class="input-item">
-                <label v-for="item in rules">
-                  <input name="modRule{{item.idx}}" type="radio" v-model="modRule" value="{{$key}}">{{$value}}
+                <label v-for="value in rules">
+                  <input name="modRule{{item.idx}}" type="radio" v-model="modRule" value="{{$key}}">{{value}}
                 </label>
               </li>
               <li class="input-item">
@@ -94,8 +94,8 @@
                 </div>
               </li>
               <li class="input-item fs-s">
-                <label v-for="item in results">
-                  <input name="modResult{{item.idx}}" type="radio" v-model="modResult" value="{{$key}}">{{$value}}
+                <label v-for="value in results">
+                  <input name="modResult{{item.idx}}" type="radio" v-model="modResult" value="{{$key}}">{{value}}
                 </label>
               </li>
               <li class="input-item fs-s">
@@ -218,8 +218,8 @@
       <div id="js-view-input">
         <ul class="input-wrap wrap">
           <li class="input-item">
-            <label v-for="item in rules">
-              <input name="rule" type="radio" v-model="rule" value="{{$key}}">{{$value}}
+            <label v-for="value in rules">
+              <input name="rule" type="radio" v-model="rule" value="{{$key}}">{{value}}
             </label>
           </li>
           <li class="input-item">
@@ -231,8 +231,8 @@
             </div>
           </li>
           <li class="input-item">
-            <label v-for="item in results">
-              <input name="result" type="radio" v-model="result" value="{{$key}}">{{$value}}
+            <label v-for="value in results">
+              <input name="result" type="radio" v-model="result" value="{{$key}}">{{value}}
             </label>
           </li>
           <li class="input-item">
