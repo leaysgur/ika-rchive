@@ -48,10 +48,10 @@
   <div v-show="!isFirstTime" class="view-app">
     <h1 class="ft-ika">ウデマエア-カイブ</h1>
     <ul class="tab ft-ika"><!--
-      --><li class="tab-item" v-class="{ 'is-active': activePane === 'record' }" v-on:click="showPane('record')">キロク</li><!--
-      --><li class="tab-item" v-class="{ 'is-active': activePane === 'user'   }" v-on:click="showPane('user')">セイセキ</li><!--
-      --><li class="tab-item" v-class="{ 'is-active': activePane === 'input'  }" v-on:click="showPane('input')">トウロク</li><!--
-      --><li class="tab-item" v-class="{ 'is-active': activePane === 'others' }" v-on:click="showPane('others')">ソノタ</li><!--
+      --><li class="tab-item" v-bind:class="{ 'is-active': activePane === 'record' }" v-on:click="showPane('record')">キロク</li><!--
+      --><li class="tab-item" v-bind:class="{ 'is-active': activePane === 'user'   }" v-on:click="showPane('user')">セイセキ</li><!--
+      --><li class="tab-item" v-bind:class="{ 'is-active': activePane === 'input'  }" v-on:click="showPane('input')">トウロク</li><!--
+      --><li class="tab-item" v-bind:class="{ 'is-active': activePane === 'others' }" v-on:click="showPane('others')">ソノタ</li><!--
     --></ul>
 
     <div v-show="activePane === 'record'" class="view-record">
