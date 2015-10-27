@@ -90,7 +90,11 @@
               </li>
               <li class="input-item">
                 <div class="stage-select">
-                  <select v-model="modStage" options="stages"></select>
+                  <select v-model="modStage">
+                    <option v-for="option in stages" v-bind:value="option.value">
+                      {{option.text}}
+                    </option>
+                  </select>
                 </div>
               </li>
               <li class="input-item fs-s">
@@ -107,7 +111,11 @@
                 </label>
               </li>
               <li class="input-item">
-                <select v-model="modRateRank" options="rates"></select>
+                <select v-model="modRateRank">
+                  <option v-for="option in rates" v-bind:value="option.value">
+                    {{option.text}}
+                  </option>
+                </select>
                 <input v-model="modRateScore" type="number" min="0" max="99">
               </li>
               <li>
@@ -224,10 +232,20 @@
           </li>
           <li class="input-item">
             <div class="stage-select">
-              <input type="radio" name="chosenStage" value="stageA" v-model="chosenStage"><select v-model="stageA" options="stages"></select>
+              <input type="radio" name="chosenStage" value="stageA" v-model="chosenStage">
+              <select v-model="stageA">
+                <option v-for="option in stages" v-bind:value="option.value">
+                  {{option.text}}
+                </option>
+              </select>
             </div>
             <div class="stage-select">
-              <input type="radio" name="chosenStage" value="stageB" v-model="chosenStage"><select v-model="stageB" options="stages"></select>
+              <input type="radio" name="chosenStage" value="stageB" v-model="chosenStage">
+              <select v-model="stageB">
+                <option v-for="option in stages" v-bind:value="option.value">
+                  {{option.text}}
+                </option>
+              </select>
             </div>
           </li>
           <li class="input-item">
@@ -244,7 +262,11 @@
             </label>
           </li>
           <li class="input-item">
-            <select v-model="rateRank" options="rates"></select>
+            <select v-model="rateRank">
+              <option v-for="option in rates" v-bind:value="option.value">
+                {{option.text}}
+              </option>
+            </select>
             <input v-model="rateScore" type="number" min="0" max="99">
           </li>
         </ul>
