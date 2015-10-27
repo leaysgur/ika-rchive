@@ -64,7 +64,7 @@
 
       <div id="js-view-list">
         <ul class="record-list wrap" v-show="recordsList.length !== 0">
-          <li class="record-list-item" v-repeat="item in recordsList | orderBy 'id' -1">
+          <li class="record-list-item" v-for="item in recordsList | orderBy 'id' -1">
             <div>[{{item.id}}] 第{{item.totalIdx}}戦 - {{item.createdAt}}</div>
             <hr class="record-list-item-spacer">
             <div>
@@ -84,7 +84,7 @@
             </div>
             <ul class="wrap mod-wrap view-input" v-show="isModifying && modifyingIdx === item.idx">
               <li class="input-item">
-                <label v-repeat="rules">
+                <label v-for="item in rules">
                   <input name="modRule{{item.idx}}" type="radio" v-model="modRule" value="{{$key}}">{{$value}}
                 </label>
               </li>
@@ -94,7 +94,7 @@
                 </div>
               </li>
               <li class="input-item fs-s">
-                <label v-repeat="results">
+                <label v-for="item in results">
                   <input name="modResult{{item.idx}}" type="radio" v-model="modResult" value="{{$key}}">{{$value}}
                 </label>
               </li>
@@ -193,7 +193,7 @@
 
         <a class="tweet-button ft-ika" target="_blank" v-attr="href: tweetUrl" v-show="canTweet">セイセキをツイート！</a>
 
-        <div v-repeat="rule in winRateDetail">
+        <div v-for="rule in winRateDetail">
         <h3 class="ft-ika">{{rule.name}}のショウリツ</h3>
         <table class="user-stat wrap fs-s">
           <tbody>
@@ -202,7 +202,7 @@
               <td class="slim">{{rule.total}}%</td>
               <td class="slim">{{rule.count}}戦</td>
             </tr>
-            <tr v-repeat="stage in rule.detail">
+            <tr v-for="stage in rule.detail">
               <td>{{stage.name}}</td>
               <td class="slim">{{stage.winRate}}%</td>
               <td class="slim">{{stage.count}}戦</td>
@@ -218,7 +218,7 @@
       <div id="js-view-input">
         <ul class="input-wrap wrap">
           <li class="input-item">
-            <label v-repeat="rules">
+            <label v-for="item in rules">
               <input name="rule" type="radio" v-model="rule" value="{{$key}}">{{$value}}
             </label>
           </li>
@@ -231,7 +231,7 @@
             </div>
           </li>
           <li class="input-item">
-            <label v-repeat="results">
+            <label v-for="item in results">
               <input name="result" type="radio" v-model="result" value="{{$key}}">{{$value}}
             </label>
           </li>
