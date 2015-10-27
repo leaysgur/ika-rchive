@@ -39,7 +39,7 @@
       <p><span class="ft-ika">イカ、よろしく〜〜〜</span></p>
     </div>
 
-    <button class="intro-button ft-ika" v-on="click: onClickOk">わかった！</button>
+    <button class="intro-button ft-ika" v-on:click="onClickOk">わかった！</button>
 
     <footer class="footer">v1.18.4 | &copy; 2015 <a href="https://twitter.com/leader22" target="_blank">leader22</a></footer>
   </div>
@@ -48,10 +48,10 @@
   <div v-show="!isFirstTime" class="view-app">
     <h1 class="ft-ika">ウデマエア-カイブ</h1>
     <ul class="tab ft-ika"><!--
-      --><li class="tab-item" v-class="{ 'is-active': activePane === 'record' }" v-on="click: showPane('record')">キロク</li><!--
-      --><li class="tab-item" v-class="{ 'is-active': activePane === 'user'   }" v-on="click: showPane('user')">セイセキ</li><!--
-      --><li class="tab-item" v-class="{ 'is-active': activePane === 'input'  }" v-on="click: showPane('input')">トウロク</li><!--
-      --><li class="tab-item" v-class="{ 'is-active': activePane === 'others' }" v-on="click: showPane('others')">ソノタ</li><!--
+      --><li class="tab-item" v-class="{ 'is-active': activePane === 'record' }" v-on:click="showPane('record')">キロク</li><!--
+      --><li class="tab-item" v-class="{ 'is-active': activePane === 'user'   }" v-on:click="showPane('user')">セイセキ</li><!--
+      --><li class="tab-item" v-class="{ 'is-active': activePane === 'input'  }" v-on:click="showPane('input')">トウロク</li><!--
+      --><li class="tab-item" v-class="{ 'is-active': activePane === 'others' }" v-on:click="showPane('others')">ソノタ</li><!--
     --></ul>
 
     <div v-show="activePane === 'record'" class="view-record">
@@ -79,8 +79,8 @@
             <hr class="record-list-item-spacer">
             <div class="ctrl-wrap">
               このキロクを
-              <span class="mod-mark" v-on="click: onClickMod(item.idx)">[シュウセイ]</span>
-              <span class="del-mark" v-on="click: onClickDel(item.idx)">[サクジョ]</span>
+              <span class="mod-mark" v-on:click="onClickMod(item.idx)">[シュウセイ]</span>
+              <span class="del-mark" v-on:click="onClickDel(item.idx)">[サクジョ]</span>
             </div>
             <ul class="wrap mod-wrap view-input" v-show="isModifying && modifyingIdx === item.idx">
               <li class="input-item">
@@ -112,7 +112,7 @@
               </li>
               <li>
                 <button v-show="!canSet" disabled class="wait-button ft-ika">シュウセイチュウ...</button>
-                <button v-show="canSet" class="set-button ft-ika" v-on="click: onClickModComplete">シュウセイ！</button>
+                <button v-show="canSet" class="set-button ft-ika" v-on:click="onClickModComplete">シュウセイ！</button>
               </li>
             </ul>
           </li>
@@ -249,7 +249,7 @@
           </li>
         </ul>
         <button v-show="!showSetReaction && !canSet" disabled class="wait-button ft-ika">ニュウリョクチュウ...</button>
-        <button v-show="!showSetReaction && canSet" class="set-button ft-ika" v-on="click: onClickSet">トウロク！</button>
+        <button v-show="!showSetReaction && canSet" class="set-button ft-ika" v-on:click="onClickSet">トウロク！</button>
         <button v-show="showSetReaction" disabled class="reaction-button ft-ika">トウロクカンリョウ！</button>
         <div class="note">※マッチング事故は、S,S,A+,A vs A-,A-,B+,Bみたいなどうしようもないマッチングや、回線落ちで4 vs 3などで負けた時に使います。</div>
       </div>
@@ -273,8 +273,8 @@
 
       <h2 class="ft-ika">ヒミツヘイキ</h2>
       <ul class="wrap list">
-        <li><a href="#" v-on="click: onClickResetBestRate">最高ウデマエをリセット</a>する</li>
-        <li><a href="#" v-on="click: onClickRestart">データ全削除</a>してはじめから</li>
+        <li><a href="#" v-on:click="onClickResetBestRate">最高ウデマエをリセット</a>する</li>
+        <li><a href="#" v-on:click="onClickRestart">データ全削除</a>してはじめから</li>
       </ul>
     </div>
 
