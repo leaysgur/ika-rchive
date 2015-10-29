@@ -12,6 +12,7 @@ module.exports = {
   data: {
     records: RECORDS,
     recordsList: [],
+    pagerList:   [],
 
     // 修正用
     modScrollY:   0,
@@ -92,8 +93,38 @@ module.exports = {
 
       window.scrollTo(0, this.modScrollY);
     },
-    _syncListData: function() {
-      this.recordsList = this._toListData(this.records);
+    onClickPaging: function(idx) {
+      this._syncListData(idx);
+    },
+    _syncListData: function(page) {
+      page = page || 0;
+
+      this.pagerList = this._toPagerData(this.records.length);
+
+      if (this.pagerList.length) {
+        let { from, to } = this.pagerList[page];
+        this.recordsList = this._toListData(this.records).slice(from, to);
+      } else {
+        this.recordsList = this._toListData(this.records);
+      }
+    },
+    _toPagerData: (recordsLen) => {
+      let pagingUnit = Const.PAGING_UNIT;
+      if (recordsLen <= pagingUnit) { return []; }
+
+      let ret = [];
+      let start = 0,
+          times = Math.ceil(recordsLen / pagingUnit);
+
+      while (start < times) {
+        ret.push({
+          from: (start * pagingUnit),
+          to:   Math.min((start + 1) * pagingUnit, recordsLen)
+        });
+        start++;
+      }
+
+      return ret.reverse();
     },
     _toListData: (records) => {
       let totalIdx = UserModel.get('totalIdx')|0;

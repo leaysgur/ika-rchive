@@ -109,6 +109,10 @@
           </li>
         </ul>
 
+        <span v-for="item in pagerList" @click="onClickPaging($index)">
+          [{{item.to}}-{{item.from+1}}]
+        </span>
+
         <ul class="record-list wrap" v-show="recordsList.length !== 0">
           <li class="record-list-item" v-for="item in recordsList | orderBy 'id' -1">
             <div>[{{item.id}}] 第{{item.totalIdx}}戦 - {{item.createdAt}}</div>
