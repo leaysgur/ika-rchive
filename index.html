@@ -109,9 +109,11 @@
           </li>
         </ul>
 
-        <span v-for="item in pagerList" v-bind:style="{ color: curPageIdx === $index ? 'red': 'blue' }" @click="onClickPaging($index)">
-          [{{item.to}}-{{item.from+1}}]
-        </span>
+        <ul class="pager-list">
+          <li v-for="item in pagerList" class="pager-list-item" v-bind:class="{ 'is-active': curPageIdx === $index }" @click="onClickPaging($index)">
+            [{{item.to}}-{{item.from+1}}]
+          </li>
+        </ul>
 
         <ul class="record-list wrap" v-show="recordsList.length !== 0">
           <li class="record-list-item" v-for="item in recordsList | orderBy 'id' -1">

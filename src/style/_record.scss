@@ -16,6 +16,26 @@
     font-weight: bold;
   }
 
+  .pager-list {
+    text-align: center;
+    margin-bottom: -.5em;
+  }
+  .pager-list-item {
+    display: inline-block;
+    cursor: pointer;
+    font-size: .75em;
+    text-decoration: underline;
+
+    &.is-active {
+      text-decoration: none;
+      pointer-events: none;
+    }
+
+    & + .pager-list-item {
+      margin-left: .25em;
+    }
+  }
+
   .record-list {
     @extend %content;
   }

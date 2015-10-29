@@ -37,8 +37,9 @@
     &:active {
       transform: scale(1.1);
     }
-  }
-  .is-active {
-    color: #77EF00;
+
+    &.is-active {
+      color: #77EF00;
+    }
   }
 }
