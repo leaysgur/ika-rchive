@@ -1,6 +1,5 @@
 'use strict';
 let Vue = require('vue');
-Vue.config.debug = true;
 
 // 何より先に環境チェック
 try {
