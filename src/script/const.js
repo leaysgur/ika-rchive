@@ -10,11 +10,11 @@ module.exports = {
   },
 
   RESULT_STR: {
-    WIN:           1,
-    LOSE:          2,
-    KO_WIN:        3,
-    KO_LOSE:       4,
-    DISCONNECTED:  5
+    WIN:          1,
+    LOSE:         2,
+    KO_WIN:       3,
+    KO_LOSE:      4,
+    DISCONNECTED: 5
   },
 
   RULE: {
@@ -58,6 +58,7 @@ module.exports = {
   MAX_RATE_INPUT: 99,
 
   RECORD_LIMIT: 200,
+  PAGING_UNIT:  50,
   SHOW_LABEL_LIMIT_PC:     100,
   SHOW_LABEL_LIMIT_MOBILE: 25,
 

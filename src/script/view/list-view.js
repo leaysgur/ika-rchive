@@ -11,9 +11,14 @@ module.exports = {
   el: '#js-view-list',
   data: {
     records: RECORDS,
+
     recordsList: [],
+    pagerList:   [],
+    curPageIdx:  0,
 
     // 修正用
+    modInitY:     0,
+    modScrollY:   0,
     isModifying:  false,
     modifyingIdx: null,
     modRule:      1,
@@ -37,6 +42,8 @@ module.exports = {
     }
   },
   events: {
+    // 20は見た目的な調整なのでMagicNumberでも良しとする
+    'hook:ready': function() { this.modInitY = this.$els.mod.offsetTop - 20; },
     'hook:created': function() { this._syncListData(); }
   },
   watch: {
@@ -48,10 +55,14 @@ module.exports = {
         this._cancelMod();
         return;
       }
+
+      this.modScrollY = window.scrollY;
+      window.scrollTo(0, this.modInitY);
+
       this.isModifying  = true;
       this.modifyingIdx = idx;
-      let item = RecordModel.getRecord(idx);
 
+      let item = RecordModel.getRecord(idx);
       this.modCreatedAt = item.createdAt;
       this.modRule      = item.rule;
       this.modStage     = item.stage;
@@ -61,6 +72,9 @@ module.exports = {
       let rateRank = ((item.rate / 100)|0) * 100;
       this.modRateRank  = rateRank;
       this.modRateScore = item.rate - rateRank;
+    },
+    onClickModCancel: function() {
+      this._cancelMod();
     },
     onClickModComplete: function() {
       let record = {
@@ -82,9 +96,42 @@ module.exports = {
     _cancelMod: function() {
       this.isModifying  = false;
       this.modifyingIdx = null;
+
+      window.scrollTo(0, this.modScrollY);
     },
-    _syncListData: function() {
-      this.recordsList = this._toListData(this.records);
+    onClickPaging: function(idx) {
+      this.curPageIdx = idx;
+      this._syncListData(idx);
+    },
+    _syncListData: function(page) {
+      page = page || this.curPageIdx;
+
+      this.pagerList = this._toPagerData(this.records.length);
+
+      if (this.pagerList.length) {
+        let { from, to } = this.pagerList[page];
+        this.recordsList = this._toListData(this.records).slice(from, to);
+      } else {
+        this.recordsList = this._toListData(this.records);
+      }
+    },
+    _toPagerData: (recordsLen) => {
+      let pagingUnit = Const.PAGING_UNIT;
+      if (recordsLen <= pagingUnit) { return []; }
+
+      let ret = [];
+      let start = 0,
+          times = Math.ceil(recordsLen / pagingUnit);
+
+      while (start < times) {
+        ret.push({
+          from: (start * pagingUnit),
+          to:   Math.min((start + 1) * pagingUnit, recordsLen)
+        });
+        start++;
+      }
+
+      return ret.reverse();
     },
     _toListData: (records) => {
       let totalIdx = UserModel.get('totalIdx')|0;
