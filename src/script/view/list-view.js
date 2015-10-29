@@ -11,11 +11,13 @@ module.exports = {
   el: '#js-view-list',
   data: {
     records: RECORDS,
+
     recordsList: [],
     pagerList:   [],
     curPageIdx:  0,
 
     // 修正用
+    modInitY:     0,
     modScrollY:   0,
     isModifying:  false,
     modifyingIdx: null,
@@ -40,6 +42,8 @@ module.exports = {
     }
   },
   events: {
+    // 20は見た目的な調整なのでMagicNumberでも良しとする
+    'hook:ready': function() { this.modInitY = this.$els.mod.offsetTop - 20; },
     'hook:created': function() { this._syncListData(); }
   },
   watch: {
@@ -51,13 +55,14 @@ module.exports = {
         this._cancelMod();
         return;
       }
+
       this.modScrollY = window.scrollY;
-      window.scrollTo(0, this.$els.mod.offsetTop - 20);
+      window.scrollTo(0, this.modInitY);
 
       this.isModifying  = true;
       this.modifyingIdx = idx;
-      let item = RecordModel.getRecord(idx);
 
+      let item = RecordModel.getRecord(idx);
       this.modCreatedAt = item.createdAt;
       this.modRule      = item.rule;
       this.modStage     = item.stage;
