@@ -14,6 +14,7 @@ module.exports = {
     recordsList: [],
 
     // 修正用
+    modScrollY:   0,
     isModifying:  false,
     modifyingIdx: null,
     modRule:      1,
@@ -48,6 +49,9 @@ module.exports = {
         this._cancelMod();
         return;
       }
+      this.modScrollY = window.scrollY;
+      window.scrollTo(0, this.$els.mod.offsetTop - 20);
+
       this.isModifying  = true;
       this.modifyingIdx = idx;
       let item = RecordModel.getRecord(idx);
@@ -61,6 +65,9 @@ module.exports = {
       let rateRank = ((item.rate / 100)|0) * 100;
       this.modRateRank  = rateRank;
       this.modRateScore = item.rate - rateRank;
+    },
+    onClickModCancel: function() {
+      this._cancelMod();
     },
     onClickModComplete: function() {
       let record = {
@@ -82,6 +89,8 @@ module.exports = {
     _cancelMod: function() {
       this.isModifying  = false;
       this.modifyingIdx = null;
+
+      window.scrollTo(0, this.modScrollY);
     },
     _syncListData: function() {
       this.recordsList = this._toListData(this.records);

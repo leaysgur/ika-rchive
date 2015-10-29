@@ -10,11 +10,11 @@ module.exports = {
   },
 
   RESULT_STR: {
-    WIN:           1,
-    LOSE:          2,
-    KO_WIN:        3,
-    KO_LOSE:       4,
-    DISCONNECTED:  5
+    WIN:          1,
+    LOSE:         2,
+    KO_WIN:       3,
+    KO_LOSE:      4,
+    DISCONNECTED: 5
   },
 
   RULE: {

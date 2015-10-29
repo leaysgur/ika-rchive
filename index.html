@@ -63,6 +63,52 @@
       </div>
 
       <div id="js-view-list">
+        <div v-el:mod></div>
+        <ul class="wrap mod-wrap view-input" v-show="isModifying">
+          <li class="input-item">
+            <label v-for="value in rules">
+              <input name="modRule" type="radio" v-model="modRule" value="{{$key}}">{{value}}
+            </label>
+          </li>
+          <li class="input-item">
+            <div class="stage-select">
+              <select v-model="modStage">
+                <option v-for="option in stages" :value="option.value">
+                  {{option.text}}
+                </option>
+              </select>
+            </div>
+          </li>
+          <li class="input-item fs-s">
+            <label v-for="value in results">
+              <input name="modResult" type="radio" v-model="modResult" value="{{$key}}">{{value}}
+            </label>
+          </li>
+          <li class="input-item fs-s">
+            <label>
+              <input type="checkbox" v-model="modMissmatch" :disabled="isDisconnected">マッチング事故
+            </label>
+            <label>
+              <input type="checkbox" v-model="modTagmatch">タッグマッチ
+            </label>
+          </li>
+          <li class="input-item">
+            <select v-model="modRateRank">
+              <option v-for="option in rates" :value="option.value">
+                {{option.text}}
+              </option>
+            </select>
+            <input v-model="modRateScore" type="number" min="0" max="99">
+          </li>
+          <li>
+            <button v-show="!canSet" disabled class="wait-button ft-ika">シュウセイチュウ...</button>
+            <button v-show="canSet" class="set-button ft-ika" @click="onClickModComplete">シュウセイ！</button>
+            <div class="ctrl-wrap">
+              <span class="mod-mark" @click="onClickModCancel">[シュウセイをキャンセル]</span>
+            </div>
+          </li>
+        </ul>
+
         <ul class="record-list wrap" v-show="recordsList.length !== 0">
           <li class="record-list-item" v-for="item in recordsList | orderBy 'id' -1">
             <div>[{{item.id}}] 第{{item.totalIdx}}戦 - {{item.createdAt}}</div>
@@ -82,47 +128,6 @@
               <span class="mod-mark" @click="onClickMod(item.idx)">[シュウセイ]</span>
               <span class="del-mark" @click="onClickDel(item.idx)">[サクジョ]</span>
             </div>
-            <ul class="wrap mod-wrap view-input" v-show="isModifying && modifyingIdx === item.idx">
-              <li class="input-item">
-                <label v-for="value in rules">
-                  <input name="modRule{{item.idx}}" type="radio" v-model="modRule" value="{{$key}}">{{value}}
-                </label>
-              </li>
-              <li class="input-item">
-                <div class="stage-select">
-                  <select v-model="modStage">
-                    <option v-for="option in stages" :value="option.value">
-                      {{option.text}}
-                    </option>
-                  </select>
-                </div>
-              </li>
-              <li class="input-item fs-s">
-                <label v-for="value in results">
-                  <input name="modResult{{item.idx}}" type="radio" v-model="modResult" value="{{$key}}">{{value}}
-                </label>
-              </li>
-              <li class="input-item fs-s">
-                <label>
-                  <input type="checkbox" v-model="modMissmatch" :disabled="isDisconnected">マッチング事故
-                </label>
-                <label>
-                  <input type="checkbox" v-model="modTagmatch">タッグマッチ
-                </label>
-              </li>
-              <li class="input-item">
-                <select v-model="modRateRank">
-                  <option v-for="option in rates" :value="option.value">
-                    {{option.text}}
-                  </option>
-                </select>
-                <input v-model="modRateScore" type="number" min="0" max="99">
-              </li>
-              <li>
-                <button v-show="!canSet" disabled class="wait-button ft-ika">シュウセイチュウ...</button>
-                <button v-show="canSet" class="set-button ft-ika" @click="onClickModComplete">シュウセイ！</button>
-              </li>
-            </ul>
           </li>
         </ul>
       </div>
