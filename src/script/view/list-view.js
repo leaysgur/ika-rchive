@@ -13,6 +13,7 @@ module.exports = {
     records: RECORDS,
     recordsList: [],
     pagerList:   [],
+    curPageIdx:  0,
 
     // 修正用
     modScrollY:   0,
@@ -94,10 +95,11 @@ module.exports = {
       window.scrollTo(0, this.modScrollY);
     },
     onClickPaging: function(idx) {
+      this.curPageIdx = idx;
       this._syncListData(idx);
     },
     _syncListData: function(page) {
-      page = page || 0;
+      page = page || this.curPageIdx;
 
       this.pagerList = this._toPagerData(this.records.length);
 

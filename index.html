@@ -109,7 +109,7 @@
           </li>
         </ul>
 
-        <span v-for="item in pagerList" @click="onClickPaging($index)">
+        <span v-for="item in pagerList" v-bind:style="{ color: curPageIdx === $index ? 'red': 'blue' }" @click="onClickPaging($index)">
           [{{item.to}}-{{item.from+1}}]
         </span>
 
