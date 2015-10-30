@@ -7,6 +7,15 @@ module.exports = {
     return 'ontouchstart' in document;
   },
 
+  getCanvasSize: () => {
+    // inner*だとなぜかiPadで値が変動する
+    // 次はPCでDevTools開きながら見ると困るけど、まぁ開発やし我慢する
+    return {
+      w: ((window.screen.width  * 0.9)|0),
+      h: ((window.screen.height * 0.4)|0)
+    };
+  },
+
   formatDate: (time) => {
     if (!time) { return ''; }
     let date = new Date(time);
