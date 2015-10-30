@@ -6,6 +6,7 @@ let Util  = require('../util');
 let RecordModel = require('../model/record-model').getInstance();
 
 let labelLimit = Util.isMobile() ? Const.SHOW_LABEL_LIMIT_MOBILE : Const.SHOW_LABEL_LIMIT_PC;
+let canvasSize = Util.getCanvasSize();
 
 // Observableなのは変数
 let RECORDS = RecordModel.get('items');
@@ -14,8 +15,8 @@ module.exports = {
   el: '#js-view-graph',
   data: {
     records:   RECORDS,
-    canvasW:   ((window.innerWidth * 0.9)|0) + 'px',
-    canvasH:   ((window.innerHeight * 0.4)|0) + 'px',
+    canvasW:   canvasSize.w,
+    canvasH:   canvasSize.h,
     _isHidden: false,
     _timer:    null
   },
