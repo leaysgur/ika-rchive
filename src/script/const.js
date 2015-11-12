@@ -64,6 +64,11 @@ module.exports = {
   SHOW_LABEL_LIMIT_PC:     100,
   SHOW_LABEL_LIMIT_MOBILE: 25,
 
+  GRAPH_SIZE_TO_SCREEN: {
+    W: 0.9,
+    H: 0.4
+  },
+
   TWITTER_URL: 'http://twitter.com/share?text='
 
 };
