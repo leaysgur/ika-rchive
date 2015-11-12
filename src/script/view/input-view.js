@@ -78,8 +78,6 @@ module.exports = {
     },
     _updateRecentRateGap: function(latestScore) {
       let gap = latestScore - lastScore;
-      this.recentRateGap = gap;
-
       switch (true) {
       case gap === 0:
         this.recentRatePfx = '±';
@@ -88,9 +86,11 @@ module.exports = {
         this.recentRatePfx = '+';
         break;
       case gap < 0:
-        this.recentRatePfx = '';
+        this.recentRatePfx = '-';
         break;
       }
+
+      this.recentRateGap = Math.abs(gap);
     }
   }
 };
