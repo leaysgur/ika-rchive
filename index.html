@@ -281,10 +281,12 @@
             <input v-model="rateScore" type="number" min="0" max="99">
           </li>
         </ul>
+        <div class="report">ウデマエ増減速報: <span class="ft-emp">{{recentRatePfx}}{{recentRateGap}}</span></div>
         <button v-show="!showSetReaction && !canSet" disabled class="wait-button ft-ika">ニュウリョクチュウ...</button>
         <button v-show="!showSetReaction && canSet" class="set-button ft-ika" @click="onClickSet">トウロク！</button>
         <button v-show="showSetReaction" disabled class="reaction-button ft-ika">トウロクカンリョウ！</button>
-        <div class="note">※マッチング事故は、S,S,A+,A vs A-,A-,B+,Bみたいなどうしようもないマッチングや、回線落ちで4 vs 3などで負けた時に使います。</div>
+        <div class="note">※マッチング事故は、S,S,A+,A vs A-,A-,B+,Bみたいな慈悲のないマッチングや、回線落ちで4 vs 3で負けた時などに使います。</div>
+        <div class="note">※ウデマエ増減速報は、ページ再読み込みでリセットされます。</div>
       </div>
     </div>
 

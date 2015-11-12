@@ -4,6 +4,10 @@ let Util  = require('../util');
 let RecordModel = require('../model/record-model').getInstance();
 let UserModel   = require('../model/user-model').getInstance();
 
+// 本セッションでの増減を見る用
+let last = RecordModel.getLatestRecord();
+let lastScore = last ? last.rate : 0;
+
 module.exports = {
   el: '#js-view-input',
   data: {
@@ -16,6 +20,9 @@ module.exports = {
     chosenStage: 'stageA',
     missmatch:   false,
     tagmatch:    false,
+
+    recentRatePfx: '±',
+    recentRateGap: 0,
 
     results: Const.RESULT,
     rules:   Const.RULE,
@@ -53,6 +60,7 @@ module.exports = {
 
       this._cleanUpInput();
       this._showReaction();
+      this._updateRecentRateGap(record.rate);
     },
     _cleanUpInput: function() {
       // input[number]なのでPCはむしろ消さないで欲しい
@@ -67,6 +75,22 @@ module.exports = {
       this._timer = setTimeout(function() {
         that.showSetReaction = false;
       }, 1000);
+    },
+    _updateRecentRateGap: function(latestScore) {
+      let gap = latestScore - lastScore;
+      switch (true) {
+      case gap === 0:
+        this.recentRatePfx = '±';
+        break;
+      case gap > 0:
+        this.recentRatePfx = '+';
+        break;
+      case gap < 0:
+        this.recentRatePfx = '-';
+        break;
+      }
+
+      this.recentRateGap = Math.abs(gap);
     }
   }
 };
