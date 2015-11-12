@@ -143,7 +143,7 @@
       <div id="js-view-user">
 
         <h2 class="ft-ika">ツウサン</h2>
-        <table class="user-stat wrap">
+        <table class="user-stat wrap fs-s">
           <tbody>
             <tr>
               <td>最高ウデマエ</td>
@@ -157,7 +157,7 @@
         </table>
 
         <h2 class="ft-ika">チョッキン</h2>
-        <table class="user-stat wrap">
+        <table class="user-stat wrap fs-s">
           <tbody>
             <tr>
               <td>全体の勝率</td>
@@ -172,7 +172,7 @@
               <td>{{winRateTag}}%</td>
             </tr>
             <tr>
-              <td class="fs-s">マッチング事故率</td>
+              <td>マッチング事故率</td>
               <td>{{missmatch}}%</td>
             </tr>
             <tr>
@@ -222,7 +222,7 @@
               <td class="slim">{{rule.count}}戦</td>
             </tr>
             <tr v-for="stage in rule.detail">
-              <td>{{stage.name}}</td>
+              <td class="fs-s">{{stage.name}}</td>
               <td class="slim">{{stage.winRate}}%</td>
               <td class="slim">{{stage.count}}戦</td>
             </tr>
