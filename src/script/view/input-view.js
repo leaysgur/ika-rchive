@@ -21,6 +21,7 @@ module.exports = {
     missmatch:   false,
     tagmatch:    false,
 
+    recentRatePfx: '±',
     recentRateGap: 0,
 
     results: Const.RESULT,
@@ -77,7 +78,19 @@ module.exports = {
     },
     _updateRecentRateGap: function(latestScore) {
       let gap = latestScore - lastScore;
-      this.recentRateGap = gap > 0 ? `+${gap}` : gap;
+      this.recentRateGap = gap;
+
+      switch (true) {
+      case gap === 0:
+        this.recentRatePfx = '±';
+        break;
+      case gap > 0:
+        this.recentRatePfx = '+';
+        break;
+      case gap < 0:
+        this.recentRatePfx = '';
+        break;
+      }
     }
   }
 };
