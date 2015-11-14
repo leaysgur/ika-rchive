@@ -197,7 +197,7 @@ module.exports = {
         winRateFree:   Util.percentage(winCount - tagWinCount, recordsLen - tagRecordsLen),
         koWinRate:     Util.percentage(koWinCount, recordsLen),
         koLoseRate:    Util.percentage(koLoseCount, recordsLen),
-        missmatch:     Util.percentage(missmatchCount, loseCount),
+        missmatch:     Util.percentage(missmatchCount, recordsLen),
         goodStage:     Const.STAGE[stageStatResult.good],
         badStage:      Const.STAGE[stageStatResult.bad],
         goodRule:      Const.RULE[ruleStatResult.good],
