@@ -63,7 +63,7 @@ module.exports = {
         bezierCurve:        false,
         scaleFontColor:     '#fff',
         scaleGridLineColor: 'rgba(255, 110, 0, .25)',
-        pointDotRadius :    1,
+        pointDotRadius:     null,
         scaleLabel:         Util.getRateStr,
         tooltipTemplate:    Util.getRateStr
       };
