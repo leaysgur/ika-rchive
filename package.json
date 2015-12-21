@@ -15,7 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "chart.js": "^1.0.2",
-    "vue": "^1.0.1"
+    "vue": "^1.0.12"
   },
   "devDependencies": {
     "babelify": "^6.3.0",
