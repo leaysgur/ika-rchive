@@ -19,9 +19,13 @@ const Master = ({ Main }) => {
           <Link to="others" activeClassName="is-active">ソノタ</Link>
         </li>
       </ul>
-      <div>{Main}</div>
+      {Main}
     </div>
   );
+};
+
+Master.propTypes = {
+  Main: React.PropTypes.element.isRequired,
 };
 
 module.exports = Master;
