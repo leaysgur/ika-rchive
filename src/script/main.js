@@ -1,6 +1,6 @@
 const ReactDOM = require('react-dom');
 const injectTapEventPlugin = require('react-tap-event-plugin');
-const UserModel = require('./model/user-model').getInstance();
+const UserModel = require('./model/user').getInstance();
 const Router = require('./router.jsx');
 
 // GAは本番でのみ動かす(return; だけ返すとbabelifyでoutside funcエラーになる)

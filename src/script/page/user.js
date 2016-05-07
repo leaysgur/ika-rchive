@@ -1,6 +1,6 @@
 const React = require('react');
-const RecordModel = require('../model/record-model').getInstance();
-const UserModel   = require('../model/user-model').getInstance();
+const RecordModel = require('../model/record').getInstance();
+const UserModel   = require('../model/user').getInstance();
 const userState = require('../util/userState');
 
 const TotalStat   = require('../component/user/total-stat.jsx');

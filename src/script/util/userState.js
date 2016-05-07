@@ -155,6 +155,7 @@ function _getWinRateDetail(winRateDetail) {
       count:  0,
       detail: []
     };
+
     let total = 0;
     let win   = 0;
     for (key2 in rule) {
@@ -167,8 +168,12 @@ function _getWinRateDetail(winRateDetail) {
       win   += stage.w;
       total += stage.t;
     }
+
+    // 勝率のいい順にする
+    res.detail.sort((a, b) => { return (a.winRate|0) > (b.winRate|0) ? -1 : 1; });
     res.total = Util.percentage(win, total);
     res.count = total;
+
     ret.push(res);
   }
 
