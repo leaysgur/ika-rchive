@@ -1,4 +1,3 @@
-.view-intro,
 .view-app {
   position: relative;
   height: auto;
@@ -16,14 +15,12 @@
   }
 }
 
-.view-intro {
+.view-app {
   .intro-button {
     @extend %button;
     margin: 1em auto;
   }
-}
 
-.view-app {
   .tab {
     text-align: center;
     margin: 1em auto;
