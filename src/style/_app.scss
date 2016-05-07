@@ -26,17 +26,23 @@
     margin: 1em auto;
     font-size: 1.4em;
   }
+
   .tab-item {
     display: inline-block;
     cursor: pointer;
     width: 25%;
 
-    &:active {
-      transform: scale(1.1);
-    }
+    & > a {
+      display: block;
+      text-decoration: none;
 
-    &.is-active {
-      color: #77EF00;
+      &:active {
+        transform: scale(1.1);
+      }
+
+      &.is-active {
+        color: #77EF00;
+      }
     }
   }
 }
