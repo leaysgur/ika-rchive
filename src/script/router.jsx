@@ -2,19 +2,20 @@ const React = require('react'); // eslint-disable-line no-unused-vars
 const {
   Router,
   Route,
-  IndexRoute,
+  IndexRedirect,
   hashHistory,
 } = require('react-router');
+
 const Master = require('./page/_master');
-const Graph  = require('./page/graph');
-const User   = require('./page/user');
+const GraphPage = require('./page/graph');
+const StatPage  = require('./page/stat');
 
 module.exports = (
   <Router history={hashHistory}>
     <Route path="/" component={Master}>
-      <IndexRoute         components={{ Main: Graph }} />
-      <Route path="graph" components={{ Main: Graph }} />
-      <Route path="user"  components={{ Main: User }} />
+      <IndexRedirect to="graph" />
+      <Route path="graph" components={{ Main: GraphPage }} />
+      <Route path="stat"  components={{ Main: StatPage }} />
     </Route>
   </Router>
 );

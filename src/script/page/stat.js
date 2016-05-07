@@ -1,17 +1,17 @@
 const React = require('react');
 const RecordModel = require('../model/record').getInstance();
 const UserModel   = require('../model/user').getInstance();
-const userState = require('../util/userState');
+const statState = require('../util/statState');
 
-const TotalStat   = require('../component/user/total-stat.jsx');
-const RecentStat  = require('../component/user/recent-stat.jsx');
-const WinRateStat = require('../component/user/win-rate-stat.jsx');
+const TotalStat   = require('../component/stat/total-stat.jsx');
+const RecentStat  = require('../component/stat/recent-stat.jsx');
+const WinRateStat = require('../component/stat/win-rate-stat.jsx');
 
-class User extends React.Component {
+class StatPage extends React.Component {
   constructor() {
     super();
 
-    this.state = userState(
+    this.state = statState(
       RecordModel.get('items'),
       UserModel.get('bestRate'),
       UserModel.get('totalIdx')
@@ -61,4 +61,4 @@ class User extends React.Component {
   }
 }
 
-module.exports = User;
+module.exports = StatPage;
