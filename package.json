@@ -7,10 +7,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "./sh/deploy.sh",
-    "dev-js": "mkdir -p ./dist && watchify src/script/main.jsx -t babelify -o dist/script.js -v",
+    "dev-js": "mkdir -p ./dist && watchify src/script/main.js -t babelify -o dist/script.js -v",
     "dev-css": "mkdir -p ./dist && node-sass -w src/style/main.scss dist/style.css",
     "build": "npm run build-js && npm run build-css",
-    "build-js": "mkdir -p ./dist && browserify src/script/main.jsx -t babelify -t uglifyify -o dist/script.js",
+    "build-js": "mkdir -p ./dist && browserify src/script/main.js -t babelify -t uglifyify -o dist/script.js",
     "build-css": "mkdir -p ./dist && node-sass --output-style compressed src/style/main.scss dist/style.css"
   },
   "author": "leader22",
