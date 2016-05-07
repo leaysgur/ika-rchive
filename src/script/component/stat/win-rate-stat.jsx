@@ -12,7 +12,7 @@ const WinRateStat = ({
             <table className="user-stat wrap fs-s">
               <tbody>
                 <tr>
-                  <td>{rule.name}合計</td>
+                  <td><span className={`fc-rule-${rule.id}`}>{rule.name}</span>合計</td>
                   <td className="slim">{rule.total}%</td>
                   <td className="slim">{rule.count}戦</td>
                 </tr>

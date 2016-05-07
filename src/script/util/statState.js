@@ -150,6 +150,7 @@ function _getWinRateDetailByRule(winRateDetail) {
   for (key in winRateDetail) {
     rule = winRateDetail[key];
     res = {
+      id:     key,
       name:   Const.RULE[key],
       total:  0,
       count:  0,
