@@ -1,4 +1,5 @@
 const ReactDOM = require('react-dom');
+const injectTapEventPlugin = require('react-tap-event-plugin');
 const UserModel = require('./model/user-model').getInstance();
 const Router = require('./router.jsx');
 
@@ -34,6 +35,8 @@ if (UserModel.get('isFirstTime')) {
 }
 
 function _boot() {
+  injectTapEventPlugin();
+
   ReactDOM.render(
     Router,
     document.getElementById('jsApp')
