@@ -34,7 +34,7 @@ class StatPage extends React.Component {
       koWinRate, koLoseRate,
       goodRule, badRule,
       goodStage, badStage,
-      winRateDetail,
+      winRateDetailByRule,
     } = this.state;
 
     return (
@@ -54,7 +54,7 @@ class StatPage extends React.Component {
 
         <a className="tweet-button ft-ika" target="_blank" href="tweetUrl" v-show="canTweet">セイセキをツイート！</a>
 
-        <WinRateStat {...{winRateDetail,}} />
+        <WinRateStat {...{winRateDetailByRule,}} />
 
       </div>
     );

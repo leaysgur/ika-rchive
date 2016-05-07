@@ -24,7 +24,7 @@ function _getUserStat(records) {
   let tagRecordsLen = 0;
   let stageStat = {};
   let ruleStat  = {};
-  let winRateDetail = {
+  let winRateDetailByRule = {
     // ルール別
     // 1: {
     //   ステージ別勝利回数
@@ -50,9 +50,9 @@ function _getUserStat(records) {
     }
 
     // ルール x ステージの勝率を出す
-    winRateDetail[item.rule] = winRateDetail[item.rule] || {};
-    winRateDetail[item.rule][item.stage] = winRateDetail[item.rule][item.stage] || { w: 0, t: 0 };
-    winRateDetail[item.rule][item.stage].t++;
+    winRateDetailByRule[item.rule] = winRateDetailByRule[item.rule] || {};
+    winRateDetailByRule[item.rule][item.stage] = winRateDetailByRule[item.rule][item.stage] || { w: 0, t: 0 };
+    winRateDetailByRule[item.rule][item.stage].t++;
 
     // 勝った
     if (Util.isWin(item.result))   {
@@ -61,7 +61,7 @@ function _getUserStat(records) {
 
       stageStat[item.stage].w++;
       ruleStat[item.rule].w++;
-      winRateDetail[item.rule][item.stage].w++;
+      winRateDetailByRule[item.rule][item.stage].w++;
 
       winStreakCount++;
       loseStreakCount = 0;
@@ -92,7 +92,7 @@ function _getUserStat(records) {
   let ruleStatResult  = _getGoodAndBad(ruleStat);
 
   // ルール別ステージ別の勝率
-  winRateDetail = _getWinRateDetail(winRateDetail);
+  winRateDetailByRule = _getWinRateDetailByRule(winRateDetailByRule);
 
   return {
     winRate:       Util.percentage(winCount, recordsLen),
@@ -108,7 +108,7 @@ function _getUserStat(records) {
     badRule:       Const.RULE[ruleStatResult.bad],
     winStreak:     longestWinStreakCount,
     loseStreak:    longestLoseStreakCount,
-    winRateDetail: winRateDetail
+    winRateDetailByRule: winRateDetailByRule
   };
 }
 
@@ -145,7 +145,7 @@ function _getGoodAndBad(stat) {
   };
 }
 
-function _getWinRateDetail(winRateDetail) {
+function _getWinRateDetailByRule(winRateDetail) {
   let key, key2, rule, stage, res, ret = [];
   for (key in winRateDetail) {
     rule = winRateDetail[key];

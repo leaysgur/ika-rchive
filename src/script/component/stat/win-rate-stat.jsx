@@ -1,14 +1,14 @@
 const React = require('react'); // eslint-disable-line no-unused-vars
 
 const WinRateStat = ({
-  winRateDetail,
+  winRateDetailByRule,
 }) => {
   return (
     <div>
-      {winRateDetail.map((rule, idx) => {
+      <h2 className="ft-ika">ルールべつ</h2>
+      {winRateDetailByRule.map((rule, idx) => {
         return (
           <div key={idx}>
-            <h3 className="ft-ika">{rule.name}のショウリツ</h3>
             <table className="user-stat wrap fs-s">
               <tbody>
                 <tr>
