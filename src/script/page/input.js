@@ -9,7 +9,10 @@ class InputPage extends React.Component {
     super();
 
     this.state = {
-      rule: '1',
+      rule:   '1',
+      stageA: '1',
+      stageB: '6',
+      stage:  'stageA',
     };
   }
 
@@ -21,6 +24,7 @@ class InputPage extends React.Component {
     const { route } = this.props;
     const {
       rule,
+      stage,
     } = this.state;
     console.info(this.state);
 
@@ -42,25 +46,33 @@ class InputPage extends React.Component {
             })}
           </li>
 
-          {/*
           <li className="input-item">
-            <div className="stage-select">
-              <input type="radio" name="chosenStage" value="stageA" v-model="chosenStage" />
-              <select v-model="stageA">
-                <option v-for="option in stages" value="option.value">
-                  {option.text}
-                </option>
-              </select>
-            </div>
-            <div className="stage-select">
-              <input type="radio" name="chosenStage" value="stageB" v-model="chosenStage" />
-              <select v-model="stageB">
-                <option v-for="option in stages" value="option.value">
-                  {option.text}
-                </option>
-              </select>
-            </div>
+            {['stageA', 'stageB'].map((stageAorB, idx) => {
+              return (
+                <div className="stage-select" key={idx}>
+                  <input
+                    type="radio" name="stage"
+                    value={stageAorB} checked={stage === stageAorB}
+                    onChange={(ev) => { this.onChange('stage', ev.target.value); }}
+                  />
+                  <select
+                    value={this.state[stageAorB]}
+                    onChange={(ev) => { this.onChange(stageAorB, ev.target.value); }}
+                  >
+                    {Object.keys(Const.STAGE).map((key, idx) => {
+                      return (
+                        <option key={idx} value={key}>
+                          {Const.STAGE[key]}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              );
+            })}
           </li>
+
+          {/*
           <li className="input-item">
             <label v-for="value in results">
               <input name="result" type="radio" v-model="result" value="{{$key}}" />{{value}}
