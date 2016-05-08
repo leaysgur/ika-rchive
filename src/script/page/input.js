@@ -1,6 +1,6 @@
 const React = require('react');
 // const RecordModel = require('../model/record').getInstance();
-// const UserModel   = require('../model/user').getInstance();
+const UserModel   = require('../model/user').getInstance();
 
 const Const = require('../const');
 const Util  = require('../util');
@@ -17,6 +17,8 @@ class InputPage extends React.Component {
       result:    '1',
       missmatch: false,
       tagmatch:  false,
+      rateRank:  (UserModel.get('lastRank')) || '600',
+      rateScore: '',
     };
   }
 
@@ -30,9 +32,10 @@ class InputPage extends React.Component {
       rule,
       stage,
       result,
+      rateRank, rateScore,
     } = this.state;
     const isDisconnected = Util.isDisconnected(result);
-    console.info(this.state);
+    console.info(JSON.stringify(this.state, null, 2));
 
     return (
       <div className={`view-${route.path}`}>
@@ -62,6 +65,7 @@ class InputPage extends React.Component {
                     onChange={(ev) => { this.onChange('stage', ev.target.value); }}
                   />
                   <select
+                    name={stageAorB}
                     value={this.state[stageAorB]}
                     onChange={(ev) => { this.onChange(stageAorB, ev.target.value); }}
                   >
@@ -100,6 +104,7 @@ class InputPage extends React.Component {
                 onChange={(ev) => { this.onChange('missmatch', ev.target.checked); }}
               />マッチング事故
             </label>
+
             <label>
               <input
                 name="tagmatch" type="checkbox"
@@ -107,16 +112,29 @@ class InputPage extends React.Component {
               />タッグマッチ
             </label>
           </li>
-          {/*
+
           <li className="input-item">
-            <select v-model="rateRank">
-              <option v-for="option in rates" value="option.value">
-                {option.text}
-              </option>
+            <select
+              name="rateRank"
+              value={rateRank}
+              onChange={(ev) => { this.onChange('rateRank', ev.target.value); }}
+            >
+              {Object.keys(Const.RATE_TABLE).map((key, idx) => {
+                return (
+                  <option key={idx} value={Const.RATE_TABLE[key]}>
+                    {key}
+                  </option>
+                );
+              })}
             </select>
-            <input v-model="rateScore" type="number" min="0" max="99" />
+
+            <input
+              name="rateScore" type="number"
+              min="0" max="99"
+              value={rateScore}
+              onChange={(ev) => { this.onChange('rateScore', ev.target.value); }}
+            />
           </li>
-          */}
         </ul>
         {/*
         <div className="report">ウデマエ増減速報: <span className="ft-emp">{{recentRatePfx}}{{recentRateGap}}</span></div>
