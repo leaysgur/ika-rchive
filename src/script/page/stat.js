@@ -18,13 +18,6 @@ class StatPage extends React.Component {
     );
   }
 
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.route.path !== this.props.route.path) {
-      return true;
-    }
-    return false;
-  }
-
   render() {
     const { route } = this.props;
     const {

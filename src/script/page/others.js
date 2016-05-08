@@ -3,13 +3,6 @@ const RecordModel = require('../model/record').getInstance();
 const UserModel   = require('../model/user').getInstance();
 
 class OthersPage extends React.Component {
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.route.path !== this.props.route.path) {
-      return true;
-    }
-    return false;
-  }
-
   render() {
     const { route } = this.props;
 
@@ -26,7 +19,6 @@ class OthersPage extends React.Component {
         <div className="wrap">
           <p>にわかガチ勢の<a href="https://twitter.com/leader22" target="_blank">@leader22</a>が、ウデマエの上下を可視化するために個人的に作ったものだ！</p>
           <p>なんか変な動きするとかこんな機能が欲しいとか、報告すれば良いことがあるかもしれないぞ！</p>
-          <p>フォントは<a className="ft-ika" href="http://aramugi.com/?page_id=807" target="_blank">イカモドキ</a>をお借りした！イカしてるぜ！</p>
         </div>
 
         <h2 className="ft-ika">ヒミツヘイキ</h2>
