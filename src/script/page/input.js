@@ -1,6 +1,6 @@
 const React = require('react');
-const RecordModel = require('../model/record').getInstance();
-const UserModel   = require('../model/user').getInstance();
+// const RecordModel = require('../model/record').getInstance();
+// const UserModel   = require('../model/user').getInstance();
 
 const Const = require('../const');
 
@@ -32,7 +32,11 @@ class InputPage extends React.Component {
             {Object.keys(Const.RULE).map((key, idx) => {
               return (
                 <label key={idx}>
-                  <input name="rule" type="radio" value={key} onChange={(ev) => { this.onChange('rule', ev.target.value); }} checked={rule === key} />{Const.RULE[key]}
+                  <input
+                    name="rule" type="radio"
+                    value={key} checked={rule === key}
+                    onChange={(ev) => { this.onChange('rule', ev.target.value); }}
+                  />{Const.RULE[key]}
                 </label>
               );
             })}
