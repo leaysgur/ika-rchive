@@ -1,9 +1,12 @@
 const React = require('react');
-// const RecordModel = require('../model/record').getInstance();
-const UserModel   = require('../model/user').getInstance();
 
+const UserModel = require('../model/user').getInstance();
 const Const = require('../const');
 const Util  = require('../util');
+
+const RuleInput   = require('../component/input/rule-input.jsx');
+const StageInput  = require('../component/input/stage-input.jsx');
+const ResultInput = require('../component/input/result-input.jsx');
 
 class InputPage extends React.Component {
   constructor() {
@@ -20,6 +23,8 @@ class InputPage extends React.Component {
       rateRank:  (UserModel.get('lastRank')) || '600',
       rateScore: '',
     };
+
+    this.onChange = this.onChange.bind(this);
   }
 
   onChange(key, val) {
@@ -30,7 +35,7 @@ class InputPage extends React.Component {
     const { route } = this.props;
     const {
       rule,
-      stage,
+      stage, stageA, stageB,
       result,
       rateRank, rateScore,
     } = this.state;
@@ -42,58 +47,28 @@ class InputPage extends React.Component {
         <ul className="input-wrap wrap">
 
           <li className="input-item">
-            {Object.keys(Const.RULE).map((key, idx) => {
-              return (
-                <label key={idx}>
-                  <input
-                    name="rule" type="radio"
-                    value={key} checked={rule === key}
-                    onChange={(ev) => { this.onChange('rule', ev.target.value); }}
-                  />{Const.RULE[key]}
-                </label>
-              );
-            })}
+            <RuleInput
+              RULE={Const.RULE}
+              rule={rule}
+              onChange={this.onChange}
+            />
           </li>
 
           <li className="input-item">
-            {['stageA', 'stageB'].map((stageAorB, idx) => {
-              return (
-                <div className="stage-select" key={idx}>
-                  <input
-                    type="radio" name="stage"
-                    value={stageAorB} checked={stage === stageAorB}
-                    onChange={(ev) => { this.onChange('stage', ev.target.value); }}
-                  />
-                  <select
-                    name={stageAorB}
-                    value={this.state[stageAorB]}
-                    onChange={(ev) => { this.onChange(stageAorB, ev.target.value); }}
-                  >
-                    {Object.keys(Const.STAGE).map((key, idx) => {
-                      return (
-                        <option key={idx} value={key}>
-                          {Const.STAGE[key]}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-              );
-            })}
+            <StageInput
+              STAGE={Const.STAGE}
+              stage={stage}
+              stageAandB={{ stageA, stageB, }}
+              onChange={this.onChange}
+            />
           </li>
 
           <li className="input-item">
-            {Object.keys(Const.RESULT).map((key, idx) => {
-              return (
-                <label key={idx}>
-                  <input
-                    name="result" type="radio"
-                    value={key} checked={result === key}
-                    onChange={(ev) => { this.onChange('result', ev.target.value); }}
-                  />{Const.RESULT[key]}
-                </label>
-              );
-            })}
+            <ResultInput
+              RESULT={Const.RESULT}
+              result={result}
+              onChange={this.onChange}
+            />
           </li>
 
           <li className="input-item">
