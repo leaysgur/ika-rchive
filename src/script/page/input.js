@@ -8,6 +8,7 @@ const RuleInput         = require('../component/input/rule-input.jsx');
 const StageInput        = require('../component/input/stage-input.jsx');
 const ResultInput       = require('../component/input/result-input.jsx');
 const ResultOptionInput = require('../component/input/result-option-input.jsx');
+const RateInput         = require('../component/input/rate-input.jsx');
 
 class InputPage extends React.Component {
   constructor() {
@@ -83,26 +84,14 @@ class InputPage extends React.Component {
           </li>
 
           <li className="input-item">
-            <select
-              name="rateRank"
-              value={rateRank}
-              onChange={(ev) => { this.onChange('rateRank', ev.target.value); }}
-            >
-              {Object.keys(Const.RATE_TABLE).map((key, idx) => {
-                return (
-                  <option key={idx} value={Const.RATE_TABLE[key]}>
-                    {key}
-                  </option>
-                );
-              })}
-            </select>
-
-            <input
-              name="rateScore" type="number"
-              min={Const.MIN_RATE_INPUT} max={Const.MAX_RATE_INPUT}
-              value={rateScore}
-              placeholder={_rateScore}
-              onChange={(ev) => { this.onChange('rateScore', ev.target.value); }}
+            <RateInput
+              RATE_TABLE={Const.RATE_TABLE}
+              rateRank={rateRank}
+              MIN_RATE_INPUT={Const.MIN_RATE_INPUT}
+              MAX_RATE_INPUT={Const.MAX_RATE_INPUT}
+              rateScore={rateScore}
+              _rateScore={_rateScore}
+              onChange={this.onChange}
             />
           </li>
         </ul>
