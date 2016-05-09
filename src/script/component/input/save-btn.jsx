@@ -1,11 +1,12 @@
 const React = require('react');
 
+let _timer = null;
+
 class SaveBtn extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      _timer:       null,
       showReaction: false
     };
 
@@ -17,9 +18,14 @@ class SaveBtn extends React.Component {
     this.props.onSave();
 
     setState({ showReaction: true });
-    this._timer = setTimeout(function() {
+    _timer = setTimeout(function() {
       setState({ showReaction: false });
     }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(_timer);
+    _timer = null;
   }
 
   render() {
