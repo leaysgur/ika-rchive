@@ -1,4 +1,4 @@
-const React = require('react'); // eslint-disable-line no-unused-vars
+const React = require('react');
 
 const TotalStat = ({
   bestRate, totalIdx,
@@ -21,6 +21,11 @@ const TotalStat = ({
       </table>
     </div>
   );
+};
+
+TotalStat.propTypes = {
+  bestRate: React.PropTypes.string.isRequired,
+  totalIdx: React.PropTypes.number.isRequired,
 };
 
 module.exports = TotalStat;

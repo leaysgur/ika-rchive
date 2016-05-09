@@ -1,7 +1,8 @@
-const React = require('react'); // eslint-disable-line no-unused-vars
+const React = require('react');
+
+const { RESULT, } = require('../../const');
 
 const ResultInput = ({
-  RESULT,
   result,
   onChange,
 }) => {
@@ -20,6 +21,11 @@ const ResultInput = ({
       })}
     </div>
   );
+};
+
+ResultInput.propTypes = {
+  result:   React.PropTypes.string.isRequired,
+  onChange: React.PropTypes.func.isRequired,
 };
 
 module.exports = ResultInput;

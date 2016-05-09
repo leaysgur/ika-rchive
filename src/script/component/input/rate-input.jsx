@@ -1,9 +1,12 @@
-const React = require('react'); // eslint-disable-line no-unused-vars
+const React = require('react');
+
+const {
+  RATE_TABLE,
+  MIN_RATE_INPUT, MAX_RATE_INPUT,
+} = require('../../const');
 
 const RateInput = ({
-  RATE_TABLE,
   rateRank,
-  MIN_RATE_INPUT, MAX_RATE_INPUT,
   rateScore, _rateScore,
   onChange,
 }) => {
@@ -32,6 +35,13 @@ const RateInput = ({
       />
     </div>
   );
+};
+
+RateInput.propTypes = {
+  rateRank:   React.PropTypes.string.isRequired,
+  rateScore:  React.PropTypes.string.isRequired,
+  _rateScore: React.PropTypes.string.isRequired,
+  onChange:   React.PropTypes.func.isRequired,
 };
 
 module.exports = RateInput;

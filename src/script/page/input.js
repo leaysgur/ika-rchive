@@ -2,8 +2,7 @@ const React = require('react');
 
 const RecordModel = require('../model/record').getInstance();
 const UserModel   = require('../model/user').getInstance();
-const Const = require('../const');
-const Util  = require('../util');
+const Util = require('../util');
 
 const RuleInput         = require('../component/input/rule-input.jsx');
 const StageInput        = require('../component/input/stage-input.jsx');
@@ -30,9 +29,9 @@ class InputPage extends React.Component {
       result:     '1',
       missmatch:  false,
       tagmatch:   false,
-      rateRank:   rate.rank || '600',
+      rateRank:   ''+rate.rank || '600',
       rateScore:  '',
-      _rateScore: rate.score, // 実体は↑で、これはplaceholder用
+      _rateScore: ''+rate.score, // 実体は↑で、これはplaceholder用
       lastScore:  last ? last.rate : 0,
       recentRateGap: Util.getRecentRateGap(0, 0),
     };
@@ -95,7 +94,6 @@ class InputPage extends React.Component {
 
           <li className="input-item">
             <RuleInput
-              RULE={Const.RULE}
               rule={rule}
               onChange={this.onChange}
             />
@@ -103,7 +101,6 @@ class InputPage extends React.Component {
 
           <li className="input-item">
             <StageInput
-              STAGE={Const.STAGE}
               stage={stage}
               stageAandB={{ stageA, stageB, }}
               onChange={this.onChange}
@@ -112,7 +109,6 @@ class InputPage extends React.Component {
 
           <li className="input-item">
             <ResultInput
-              RESULT={Const.RESULT}
               result={result}
               onChange={this.onChange}
             />
@@ -129,10 +125,7 @@ class InputPage extends React.Component {
 
           <li className="input-item">
             <RateInput
-              RATE_TABLE={Const.RATE_TABLE}
               rateRank={rateRank}
-              MIN_RATE_INPUT={Const.MIN_RATE_INPUT}
-              MAX_RATE_INPUT={Const.MAX_RATE_INPUT}
               rateScore={rateScore}
               _rateScore={_rateScore}
               onChange={this.onChange}

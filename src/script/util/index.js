@@ -100,7 +100,7 @@ module.exports = {
   },
 
   percentage: (c, p) => {
-    if (c === 0 || p === 0) { return 0; }
+    if (c === 0 || p === 0) { return '0'; }
     return ((c / p) * 100).toFixed(2);
   },
 

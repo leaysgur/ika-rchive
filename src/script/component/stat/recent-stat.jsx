@@ -1,4 +1,8 @@
-const React = require('react'); // eslint-disable-line no-unused-vars
+const React = require('react');
+
+const {
+  RULE, STAGE,
+} = require('../../const');
 
 const RecentStat = ({
   winRate, winRateFree, winRateTag,
@@ -48,24 +52,39 @@ const RecentStat = ({
           </tr>
           <tr>
             <td>得意なルール</td>
-            <td>{goodRule || '-'}</td>
+            <td>{RULE[goodRule] || '-'}</td>
           </tr>
           <tr>
             <td>苦手なルール</td>
-            <td>{badRule || '-'}</td>
+            <td>{RULE[badRule] || '-'}</td>
           </tr>
           <tr>
             <td>得意なステージ</td>
-            <td className="fs-s">{goodStage || '-'}</td>
+            <td className="fs-s">{STAGE[goodStage] || '-'}</td>
           </tr>
           <tr>
             <td>苦手なステージ</td>
-            <td className="fs-s">{badStage || '-'}</td>
+            <td className="fs-s">{STAGE[badStage] || '-'}</td>
           </tr>
         </tbody>
       </table>
     </div>
   );
+};
+
+RecentStat.propTypes = {
+  winRate:     React.PropTypes.string.isRequired,
+  winRateFree: React.PropTypes.string.isRequired,
+  winRateTag:  React.PropTypes.string.isRequired,
+  missmatch:   React.PropTypes.string.isRequired,
+  winStreak:   React.PropTypes.number.isRequired,
+  loseStreak:  React.PropTypes.number.isRequired,
+  koWinRate:   React.PropTypes.string.isRequired,
+  koLoseRate:  React.PropTypes.string.isRequired,
+  goodRule:    React.PropTypes.string.isRequired,
+  badRule:     React.PropTypes.string.isRequired,
+  goodStage:   React.PropTypes.string.isRequired,
+  badStage:    React.PropTypes.string.isRequired,
 };
 
 module.exports = RecentStat;

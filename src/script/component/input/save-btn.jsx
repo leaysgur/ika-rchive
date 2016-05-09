@@ -1,4 +1,4 @@
-const React = require('react'); // eslint-disable-line no-unused-vars
+const React = require('react');
 
 class SaveBtn extends React.Component {
   constructor() {

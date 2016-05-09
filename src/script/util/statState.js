@@ -1,6 +1,5 @@
 const assign = require('object-assign');
 const Util = require('./');
-const Const = require('../const');
 
 module.exports = (records, bestRate, totalIdx) => {
   return assign({
@@ -102,10 +101,10 @@ function _getUserStat(records) {
     koWinRate:     Util.percentage(koWinCount, recordsLen),
     koLoseRate:    Util.percentage(koLoseCount, recordsLen),
     missmatch:     Util.percentage(missmatchCount, recordsLen),
-    goodStage:     Const.STAGE[stageStatResult.good],
-    badStage:      Const.STAGE[stageStatResult.bad],
-    goodRule:      Const.RULE[ruleStatResult.good],
-    badRule:       Const.RULE[ruleStatResult.bad],
+    goodStage:     stageStatResult.good,
+    badStage:      stageStatResult.bad,
+    goodRule:      ruleStatResult.good,
+    badRule:       ruleStatResult.bad,
     winStreak:     longestWinStreakCount,
     loseStreak:    longestLoseStreakCount,
     winRateDetailByRule: winRateDetailByRule
@@ -151,7 +150,6 @@ function _getWinRateDetailByRule(winRateDetail) {
     rule = winRateDetail[key];
     res = {
       id:     key,
-      name:   Const.RULE[key],
       total:  0,
       count:  0,
       detail: []
@@ -162,7 +160,7 @@ function _getWinRateDetailByRule(winRateDetail) {
     for (key2 in rule) {
       stage = rule[key2];
       res.detail.push({
-        name:    Const.STAGE[key2],
+        id:      key2,
         count:   stage.t,
         winRate: Util.percentage(stage.w, stage.t)
       });
