@@ -1,6 +1,7 @@
 const React = require('react');
 
 const RecordModel = require('../model/record').getInstance();
+const UserModel   = require('../model/user').getInstance();
 const Const = require('../const');
 const Util  = require('../util');
 
@@ -9,6 +10,7 @@ const StageInput        = require('../component/input/stage-input.jsx');
 const ResultInput       = require('../component/input/result-input.jsx');
 const ResultOptionInput = require('../component/input/result-option-input.jsx');
 const RateInput         = require('../component/input/rate-input.jsx');
+const SaveBtn           = require('../component/input/save-btn.jsx');
 
 class InputPage extends React.Component {
   constructor() {
@@ -30,10 +32,41 @@ class InputPage extends React.Component {
     };
 
     this.onChange = this.onChange.bind(this);
+    this.onSave   = this.onSave.bind(this);
   }
 
   onChange(key, val) {
     this.setState({ [key]: val });
+  }
+
+  onSave() {
+    const record = {
+      result:    this.state.result|0,
+      missmatch: this.state.missmatch|0,
+      tagmatch:  this.state.tagmatch|0,
+      rule:      this.state.rule|0,
+      stage:     this.state[this.state.stage]|0,
+      rate:      (this.state.rateRank|0) + (this.state.rateScore|0)
+    };
+    RecordModel.setRecord(record);
+    // 通算バトル数も更新
+    UserModel.updateTotalIdx();
+    // ベストウデマエも更新
+    UserModel.updateBestRate(record.rate);
+
+    if (Util.isMobile()) {
+      this.setState({
+        rateScore: '', // モバイルでだけ消したい
+        _rateScore: this.state.rateScore,
+        missmatch: false
+      });
+    } else {
+      this.setState({
+        _rateScore: this.state.rateScore,
+        missmatch: false
+      });
+    }
+    // this._updateRecentRateGap(record.rate);
   }
 
   render() {
@@ -42,9 +75,11 @@ class InputPage extends React.Component {
       rule,
       stage, stageA, stageB,
       result,
+      missmatch, tagmatch,
       rateRank, rateScore, _rateScore,
     } = this.state;
     const isDisconnected = Util.isDisconnected(result);
+    const canInput = Util.canInput(rateScore);
     console.info(JSON.stringify(this.state, null, 2));
 
     return (
@@ -78,6 +113,8 @@ class InputPage extends React.Component {
 
           <li className="input-item">
             <ResultOptionInput
+              tagmatch={tagmatch}
+              missmatch={missmatch}
               isDisconnected={isDisconnected}
               onChange={this.onChange}
             />
@@ -98,9 +135,10 @@ class InputPage extends React.Component {
         {/*
         <div className="report">ウデマエ増減速報: <span className="ft-emp">{{recentRatePfx}}{{recentRateGap}}</span></div>
         */}
-        <button v-show="!showSetReaction && !canSet" disabled className="wait-button ft-ika">ニュウリョクチュウ...</button>
-        <button v-show="!showSetReaction && canSet" className="set-button ft-ika" click="onClickSet">トウロク！</button>
-        <button v-show="showSetReaction" disabled className="reaction-button ft-ika">トウロクカンリョウ！</button>
+        <SaveBtn
+          canInput={canInput}
+          onSave={this.onSave}
+        />
         <div className="note">※マッチング事故は、S,S,A+,A vs A-,A-,B+,Bみたいな慈悲のないマッチングや、回線落ちで4 vs 3で負けた時などに使います。</div>
         <div className="note">※ウデマエ増減速報は、ページ再読み込みでリセットされます。</div>
       </div>
