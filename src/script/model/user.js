@@ -5,7 +5,7 @@ class UserModel extends BaseModel {
     super('IA_USER', {
       isFirstTime: true,
       totalIdx:    0,
-      bestRate:    null,
+      bestRate:    0,
     });
   }
 

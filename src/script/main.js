@@ -37,6 +37,7 @@ if (UserModel.get('isFirstTime')) {
 function _boot() {
   injectTapEventPlugin();
 
+  UserModel.set('isFirstTime', false);
   ReactDOM.render(
     Router,
     document.getElementById('jsApp')

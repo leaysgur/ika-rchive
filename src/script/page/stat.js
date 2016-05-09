@@ -11,21 +11,17 @@ const TotalStat   = require('../component/stat/total-stat.jsx');
 const RecentStat  = require('../component/stat/recent-stat.jsx');
 const WinRateStat = require('../component/stat/win-rate-stat.jsx');
 
+const latestRecord = RecordModel.getLatestRecord();
+
 class StatPage extends React.Component {
   constructor() {
     super();
-
-    const latestRecord = RecordModel.getLatestRecord();
-    const tweetUrl = !!latestRecord
-      ? Util.getTweetUrl(Util.getRateStr(latestRecord.rate), UserModel.get('winRate'))
-      : null;
 
     this.state = assign(
       statState(RecordModel.get('items')),
       {
         bestRate: Util.getRateStr(UserModel.get('bestRate')),
         totalIdx: UserModel.get('totalIdx')|0,
-        tweetUrl: tweetUrl,
       }
     );
   }
@@ -41,8 +37,10 @@ class StatPage extends React.Component {
       goodRule, badRule,
       goodStage, badStage,
       winRateDetailByRule,
-      tweetUrl,
     } = this.state;
+    const tweetUrl = !!latestRecord
+      ? Util.getTweetUrl(Util.getRateStr(latestRecord.rate), winRate)
+      : null;
 
     return (
       <div className={`view-${route.path}`}>
