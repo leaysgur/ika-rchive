@@ -54,10 +54,8 @@ class InputPage extends React.Component {
       rate:      (this.state.rateRank|0) + (this.state.rateScore|0)
     };
     RecordModel.setRecord(record);
-    // 通算バトル数も更新
-    UserModel.updateTotalIdx();
-    // ベストウデマエも更新
-    UserModel.updateBestRate(record.rate);
+    // 通算バトル数 / ベストウデマエも更新
+    UserModel.setRecord(record.rate);
 
     if (Util.isMobile()) {
       this.setState({
