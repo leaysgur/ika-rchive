@@ -5,6 +5,10 @@ const gSizeW = Const.GRAPH_SIZE_TO_SCREEN.W;
 const gSizeH = Const.GRAPH_SIZE_TO_SCREEN.H;
 
 module.exports = {
+  reload: () => {
+    setTimeout(() => { location.replace(location.origin); });
+  },
+
   isMobile: () => {
     return 'ontouchstart' in document;
   },

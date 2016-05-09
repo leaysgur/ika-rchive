@@ -1,6 +1,9 @@
 const React = require('react');
+
 const RecordModel = require('../model/record').getInstance();
 const UserModel   = require('../model/user').getInstance();
+
+const Util = require('../util');
 
 class OthersPage extends React.Component {
   render() {
@@ -36,7 +39,8 @@ class OthersPage extends React.Component {
 
     if (window.confirm('変更したデータは元に戻せません。\n本当に最高ウデマエをリセットしますか？')) {
       UserModel.clearBestRate();
-      location.reload(true);
+
+      Util.reload();
     }
   }
 
@@ -46,7 +50,8 @@ class OthersPage extends React.Component {
     if (window.confirm('削除したデータは元に戻せません。\n本当に全削除しますか？')) {
       UserModel.clearAllData();
       RecordModel.clearAllData();
-      location.reload(true);
+
+      Util.reload();
     }
   }
 }
