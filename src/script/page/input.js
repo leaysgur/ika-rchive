@@ -12,23 +12,29 @@ const ResultOptionInput = require('../component/input/result-option-input.jsx');
 const RateInput         = require('../component/input/rate-input.jsx');
 const SaveBtn           = require('../component/input/save-btn.jsx');
 
+
 class InputPage extends React.Component {
   constructor() {
     super();
 
+    // 本セッションでの増減を見る用
+    const last = RecordModel.getLatestRecord();
+    // 初期表示用
     const rate = RecordModel.getLatestRate();
 
     this.state = {
-      rule:      '1',
-      stageA:    '1',
-      stageB:    '6',
-      stage:     'stageA',
-      result:    '1',
-      missmatch: false,
-      tagmatch:  false,
-      rateRank:  rate.rank || '600',
-      rateScore: '',
+      rule:       '1',
+      stageA:     '1',
+      stageB:     '6',
+      stage:      'stageA',
+      result:     '1',
+      missmatch:  false,
+      tagmatch:   false,
+      rateRank:   rate.rank || '600',
+      rateScore:  '',
       _rateScore: rate.score, // 実体は↑で、これはplaceholder用
+      lastScore:  last ? last.rate : 0,
+      recentRateGap: Util.getRecentRateGap(0, 0),
     };
 
     this.onChange = this.onChange.bind(this);
@@ -58,15 +64,16 @@ class InputPage extends React.Component {
       this.setState({
         rateScore: '', // モバイルでだけ消したい
         _rateScore: this.state.rateScore,
+        recentRateGap: Util.getRecentRateGap(record.rate, this.state.lastScore),
         missmatch: false
       });
     } else {
       this.setState({
         _rateScore: this.state.rateScore,
+        recentRateGap: Util.getRecentRateGap(record.rate, this.state.lastScore),
         missmatch: false
       });
     }
-    // this._updateRecentRateGap(record.rate);
   }
 
   render() {
@@ -77,10 +84,10 @@ class InputPage extends React.Component {
       result,
       missmatch, tagmatch,
       rateRank, rateScore, _rateScore,
+      recentRateGap,
     } = this.state;
     const isDisconnected = Util.isDisconnected(result);
     const canInput = Util.canInput(rateScore);
-    console.info(JSON.stringify(this.state, null, 2));
 
     return (
       <div className={`view-${route.path}`}>
@@ -132,15 +139,18 @@ class InputPage extends React.Component {
             />
           </li>
         </ul>
-        {/*
-        <div className="report">ウデマエ増減速報: <span className="ft-emp">{{recentRatePfx}}{{recentRateGap}}</span></div>
-        */}
+
+        <div className="report">
+          今回のウデマエ増減: <span className="ft-emp">{recentRateGap.ratePfx}{recentRateGap.rateGap}</span>
+        </div>
+
         <SaveBtn
           canInput={canInput}
           onSave={this.onSave}
         />
-        <div className="note">※マッチング事故は、S,S,A+,A vs A-,A-,B+,Bみたいな慈悲のないマッチングや、回線落ちで4 vs 3で負けた時などに使います。</div>
-        <div className="note">※ウデマエ増減速報は、ページ再読み込みでリセットされます。</div>
+
+        <div className="note">※マッチング事故は、回線落ちで4vs3で負けた時などに目印として使います。</div>
+        <div className="note">※今回のウデマエ増減は、ページ再読み込みでリセットされます。</div>
       </div>
     );
   }

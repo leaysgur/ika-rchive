@@ -1,9 +1,8 @@
-'use strict';
-let Const = require('../const');
-let rateStrReg = /(\w[+-]?)(\d+)/;
+const Const = require('../const');
+const rateStrReg = /(\w[+-]?)(\d+)/;
 
-let gSizeW = Const.GRAPH_SIZE_TO_SCREEN.W;
-let gSizeH = Const.GRAPH_SIZE_TO_SCREEN.H;
+const gSizeW = Const.GRAPH_SIZE_TO_SCREEN.W;
+const gSizeH = Const.GRAPH_SIZE_TO_SCREEN.H;
 
 module.exports = {
   isMobile: () => {
@@ -133,5 +132,28 @@ module.exports = {
       return true;
     }
     return false;
+  },
+
+  getRecentRateGap: (latestScore, lastScore) => {
+    const gap = latestScore - lastScore;
+    const ret = {
+      ratePfx: '',
+      rateGap: Math.abs(gap)
+    };
+
+    switch (true) {
+    case gap === 0:
+      ret.ratePfx = '±';
+      break;
+    case gap > 0:
+      ret.ratePfx = '+';
+      break;
+    case gap < 0:
+      ret.ratePfx = '-';
+      break;
+    default:
+    }
+
+    return ret;
   }
 };
