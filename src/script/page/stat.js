@@ -1,6 +1,10 @@
 const React = require('react');
+const assign = require('object-assign');
+
 const RecordModel = require('../model/record').getInstance();
 const UserModel   = require('../model/user').getInstance();
+
+const Util      = require('../util');
 const statState = require('../util/statState');
 
 const TotalStat   = require('../component/stat/total-stat.jsx');
@@ -11,10 +15,18 @@ class StatPage extends React.Component {
   constructor() {
     super();
 
-    this.state = statState(
-      RecordModel.get('items'),
-      UserModel.get('bestRate'),
-      UserModel.get('totalIdx')
+    const latestRecord = RecordModel.getLatestRecord();
+    const tweetUrl = !!latestRecord
+      ? Util.getTweetUrl(Util.getRateStr(latestRecord.rate), UserModel.get('winRate'))
+      : null;
+
+    this.state = assign(
+      statState(RecordModel.get('items')),
+      {
+        bestRate: Util.getRateStr(UserModel.get('bestRate')),
+        totalIdx: UserModel.get('totalIdx')|0,
+        tweetUrl: tweetUrl,
+      }
     );
   }
 
@@ -29,6 +41,7 @@ class StatPage extends React.Component {
       goodRule, badRule,
       goodStage, badStage,
       winRateDetailByRule,
+      tweetUrl,
     } = this.state;
 
     return (
@@ -46,7 +59,11 @@ class StatPage extends React.Component {
           goodStage, badStage,
         }} />
 
-        <a className="tweet-button ft-ika" target="_blank" href="tweetUrl" v-show="canTweet">セイセキをツイート！</a>
+        {
+          tweetUrl
+            ? <a className="tweet-button ft-ika" target="_blank" href={tweetUrl}>セイセキをツイート！</a>
+            : null
+        }
 
         <WinRateStat {...{winRateDetailByRule,}} />
 

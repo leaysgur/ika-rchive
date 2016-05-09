@@ -29,7 +29,7 @@ class InputPage extends React.Component {
       result:     '1',
       missmatch:  false,
       tagmatch:   false,
-      rateRank:   ''+rate.rank || '600',
+      rateRank:   ''+rate.rank || '0',
       rateScore:  '',
       _rateScore: ''+rate.score, // 実体は↑で、これはplaceholder用
       lastScore:  last ? last.rate : 0,

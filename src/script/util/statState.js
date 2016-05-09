@@ -1,11 +1,7 @@
-const assign = require('object-assign');
 const Util = require('./');
 
-module.exports = (records, bestRate, totalIdx) => {
-  return assign({
-    bestRate: Util.getRateStr(bestRate),
-    totalIdx: totalIdx|0,
-  }, _getUserStat(records));
+module.exports = (records) => {
+  return _getUserStat(records);
 };
 
 function _getUserStat(records) {

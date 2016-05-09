@@ -38,7 +38,7 @@ module.exports = {
   },
 
   getRateStr: (val) => {
-    if (typeof val === 'object') {
+    if (typeof val === 'object' && val !== null) {
       val = val.value;
     } else {
       val = val|0;
@@ -155,5 +155,12 @@ module.exports = {
     }
 
     return ret;
+  },
+
+  getTweetUrl(rateStr, winRate) {
+    const text = `ウデマエが${rateStr}になったぞ！最近の勝率は${winRate}%だ！\n#ウデマエアーカイブ`;
+
+    return Const.TWITTER_URL + encodeURIComponent(text);
   }
+
 };
