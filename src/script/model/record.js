@@ -22,9 +22,17 @@ class RecordModel extends BaseModel {
     return record;
   }
 
-  setRecord(record) {
-    // 登録日はココでいれる
-    record.createdAt = Date.now();
+  setRecord(state) {
+    const record = {
+      result:    state.result|0,
+      missmatch: state.missmatch|0,
+      tagmatch:  state.tagmatch|0,
+      rule:      state.rule|0,
+      stage:     state[state.stage]|0,
+      rate:      (state.rateRank|0) + (state.rateScore|0),
+      // 登録日はココでいれる
+      createdAt: Date.now(),
+    };
 
     let items = this.get('items');
     // リスト追加

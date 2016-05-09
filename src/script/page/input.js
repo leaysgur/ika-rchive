@@ -11,15 +11,16 @@ const ResultOptionInput = require('../component/input/result-option-input.jsx');
 const RateInput         = require('../component/input/rate-input.jsx');
 const SaveBtn           = require('../component/input/save-btn.jsx');
 
+// 本セッションでの増減はいつだってコレが基準
+const lastLastRate = (RecordModel.getLatestRecord() || {}).rate || 0;
 
 class InputPage extends React.Component {
   constructor() {
     super();
 
-    // 本セッションでの増減を見る用
-    const last = RecordModel.getLatestRecord();
     // 初期表示用
     const rate = RecordModel.getLatestRate();
+    const latestLastRate = (RecordModel.getLatestRecord() || {}).rate || 0;
 
     this.state = {
       rule:       '1',
@@ -32,8 +33,7 @@ class InputPage extends React.Component {
       rateRank:   ''+rate.rank || '0',
       rateScore:  '',
       _rateScore: ''+rate.score, // 実体は↑で、これはplaceholder用
-      lastScore:  last ? last.rate : 0,
-      recentRateGap: Util.getRecentRateGap(0, 0),
+      recentRateGap: Util.getRecentRateGap(latestLastRate, lastLastRate),
     };
 
     this.onChange = this.onChange.bind(this);
@@ -45,29 +45,28 @@ class InputPage extends React.Component {
   }
 
   onSave() {
-    const record = {
-      result:    this.state.result|0,
-      missmatch: this.state.missmatch|0,
-      tagmatch:  this.state.tagmatch|0,
-      rule:      this.state.rule|0,
-      stage:     this.state[this.state.stage]|0,
-      rate:      (this.state.rateRank|0) + (this.state.rateScore|0)
-    };
-    RecordModel.setRecord(record);
+    const {
+      rateRank,
+      rateScore,
+    } = this.state;
+    const rate = (rateRank|0) + (rateScore|0);
+
+    // まるごと渡して向こうで捌く
+    RecordModel.setRecord(this.state);
     // 通算バトル数 / ベストウデマエも更新
-    UserModel.setRecord(record.rate);
+    UserModel.setRecord(rate);
 
     if (Util.isMobile()) {
       this.setState({
         rateScore: '', // モバイルでだけ消したい
-        _rateScore: this.state.rateScore,
-        recentRateGap: Util.getRecentRateGap(record.rate, this.state.lastScore),
+        _rateScore: rateScore,
+        recentRateGap: Util.getRecentRateGap(rate, lastLastRate),
         missmatch: false
       });
     } else {
       this.setState({
-        _rateScore: this.state.rateScore,
-        recentRateGap: Util.getRecentRateGap(record.rate, this.state.lastScore),
+        _rateScore: rateScore,
+        recentRateGap: Util.getRecentRateGap(rate, lastLastRate),
         missmatch: false
       });
     }
