@@ -20,6 +20,9 @@
   &:active {
     transform: translateY(1px);
   }
+  &[disabled] {
+    cursor: default;
+  }
 }
 
 %content {
