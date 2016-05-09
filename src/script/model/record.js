@@ -1,7 +1,6 @@
-'use strict';
-let Const = require('../const');
-let Util  = require('../util');
-let BaseModel = require('./_base');
+const Const = require('../const');
+const Util  = require('../util');
+const BaseModel = require('./_base');
 
 class RecordModel extends BaseModel {
   constructor() {
@@ -57,6 +56,22 @@ class RecordModel extends BaseModel {
   getLatestRecord() {
     let items = this.get('items');
     return items[items.length - 1];
+  }
+
+  getLatestRate() {
+    const ret = {
+      rank:  '',
+      score: ''
+    };
+    const latest = this.getLatestRecord();
+    if (!latest) {
+      return ret;
+    }
+
+    const rate = '' + latest.rate;
+    ret.score = rate.slice(-2)|0;
+    ret.rank  = (rate|0) - ret.score;
+    return ret;
   }
 
   clearAllData() { this._clear(); }

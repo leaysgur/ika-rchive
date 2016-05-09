@@ -1,6 +1,6 @@
 const React = require('react');
 
-const UserModel = require('../model/user').getInstance();
+const RecordModel = require('../model/record').getInstance();
 const Const = require('../const');
 const Util  = require('../util');
 
@@ -12,6 +12,8 @@ class InputPage extends React.Component {
   constructor() {
     super();
 
+    const rate = RecordModel.getLatestRate();
+
     this.state = {
       rule:      '1',
       stageA:    '1',
@@ -20,8 +22,9 @@ class InputPage extends React.Component {
       result:    '1',
       missmatch: false,
       tagmatch:  false,
-      rateRank:  (UserModel.get('lastRank')) || '600',
+      rateRank:  rate.rank || '600',
       rateScore: '',
+      _rateScore: rate.score, // 実体は↑で、これはplaceholder用
     };
 
     this.onChange = this.onChange.bind(this);
@@ -37,7 +40,7 @@ class InputPage extends React.Component {
       rule,
       stage, stageA, stageB,
       result,
-      rateRank, rateScore,
+      rateRank, rateScore, _rateScore,
     } = this.state;
     const isDisconnected = Util.isDisconnected(result);
     console.info(JSON.stringify(this.state, null, 2));
@@ -105,8 +108,9 @@ class InputPage extends React.Component {
 
             <input
               name="rateScore" type="number"
-              min="0" max="99"
+              min={Const.MIN_RATE_INPUT} max={Const.MAX_RATE_INPUT}
               value={rateScore}
+              placeholder={_rateScore}
               onChange={(ev) => { this.onChange('rateScore', ev.target.value); }}
             />
           </li>
