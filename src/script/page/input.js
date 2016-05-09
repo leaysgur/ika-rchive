@@ -4,9 +4,10 @@ const RecordModel = require('../model/record').getInstance();
 const Const = require('../const');
 const Util  = require('../util');
 
-const RuleInput   = require('../component/input/rule-input.jsx');
-const StageInput  = require('../component/input/stage-input.jsx');
-const ResultInput = require('../component/input/result-input.jsx');
+const RuleInput         = require('../component/input/rule-input.jsx');
+const StageInput        = require('../component/input/stage-input.jsx');
+const ResultInput       = require('../component/input/result-input.jsx');
+const ResultOptionInput = require('../component/input/result-option-input.jsx');
 
 class InputPage extends React.Component {
   constructor() {
@@ -75,20 +76,10 @@ class InputPage extends React.Component {
           </li>
 
           <li className="input-item">
-            <label>
-              <input
-                name="missmatch" type="checkbox"
-                disabled={isDisconnected}
-                onChange={(ev) => { this.onChange('missmatch', ev.target.checked); }}
-              />マッチング事故
-            </label>
-
-            <label>
-              <input
-                name="tagmatch" type="checkbox"
-                onChange={(ev) => { this.onChange('tagmatch', ev.target.checked); }}
-              />タッグマッチ
-            </label>
+            <ResultOptionInput
+              isDisconnected={isDisconnected}
+              onChange={this.onChange}
+            />
           </li>
 
           <li className="input-item">
