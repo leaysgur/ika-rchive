@@ -8,6 +8,7 @@ const {
 } = require('../../const');
 
 Chart.defaults.global.responsive = false;
+Chart.defaults.global.defaultFontColor = '#fff';
 Chart.defaults.global.events = ['mousemove', 'touchstart'];
 Chart.defaults.global.legend.display = false;
 Chart.defaults.global.tooltips.callbacks.title = () => {
@@ -22,6 +23,7 @@ assign(Chart.defaults.bar.scales.xAxes[0], {
   categoryPercentage: 1,
 });
 assign(Chart.defaults.bar.scales.yAxes[0], {
+  gridLines: { color: 'rgba(255, 110, 0, .25)' },
   ticks: {
     callback: Util.getRateStr
   }
@@ -55,7 +57,7 @@ class Graph extends React.Component {
     const cData = {
       labels: labels,
       datasets: [{
-        data: data,
+        data:  data,
         label: null,
         backgroundColor: backgroundColor,
       }]
@@ -83,7 +85,7 @@ class Graph extends React.Component {
               </div>
             : null
         }
-        <canvas ref="graph" width="1800" height="270"></canvas>
+        <canvas ref="graph" width="800" height="600"></canvas>
       </div>
     );
   }
