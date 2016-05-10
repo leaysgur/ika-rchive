@@ -1,9 +1,9 @@
 const React = require('react');
-const Chartjs = require('chart.js');
-Chartjs.defaults.global.responsive = false;
-// Chartjs.defaults.bar.categoryPercentage = 0.5;
-// Chartjs.defaults.bar.barPercentage = 1.0;
-Chartjs.defaults.bar.scales.xAxes = [{
+const Chart = require('chart.js');
+Chart.defaults.global.responsive = false;
+// Chart.defaults.bar.categoryPercentage = 0.5;
+// Chart.defaults.bar.barPercentage = 1.0;
+Chart.defaults.bar.scales.xAxes = [{
   barPercentage: 0.8,
   categoryPercentage: 1
 }];
@@ -11,7 +11,7 @@ Chartjs.defaults.bar.scales.xAxes = [{
 // const Util = require('../../util');
 const { RULE_COLOR, } = require('../../const');
 
-class Chart extends React.Component {
+class Graph extends React.Component {
   componentDidMount() {
     const { records } = this.props;
     if (records.length === 0) { return; }
@@ -20,9 +20,7 @@ class Chart extends React.Component {
     const data = {
       labels: records.map((_r, idx) => { return idx++; }),
       datasets: [{
-        data: records.map((r) => {
-          return r.rate;
-        }),
+        data: records.map((r) => { return r.rate; }),
         label: '',
         backgroundColor: records.map((r) => { return RULE_COLOR[r.rule]; })
       }]
@@ -31,7 +29,7 @@ class Chart extends React.Component {
     };
 
     console.log(data, options);
-    new Chartjs(ctx, {
+    new Chart(ctx, {
       type: 'bar',
       data: data,
       options: options
@@ -56,4 +54,4 @@ class Chart extends React.Component {
   }
 }
 
-module.exports = Chart;
+module.exports = Graph;

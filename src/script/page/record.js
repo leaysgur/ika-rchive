@@ -2,9 +2,9 @@ const React = require('react');
 
 const RecordModel = require('../model/record').getInstance();
 
-const Chart = require('../component/graph/chart.jsx');
+const Graph = require('../component/record/graph.jsx');
 
-class GraphPage extends React.Component {
+class RecordPage extends React.Component {
   constructor() {
     super();
 
@@ -19,10 +19,10 @@ class GraphPage extends React.Component {
 
     return (
       <div className={`view-${route.path}`}>
-        <Chart records={records} />
+        <Graph records={records} />
       </div>
     );
   }
 }
 
-module.exports = GraphPage;
+module.exports = RecordPage;

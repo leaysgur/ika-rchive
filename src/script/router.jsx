@@ -7,7 +7,7 @@ const {
 } = require('react-router');
 
 const Master = require('./page/_master');
-const GraphPage  = require('./page/graph');
+const RecordPage = require('./page/record');
 const StatPage   = require('./page/stat');
 const InputPage  = require('./page/input');
 const OthersPage = require('./page/others');
@@ -15,8 +15,8 @@ const OthersPage = require('./page/others');
 module.exports = (
   <Router history={hashHistory}>
     <Route path="/" component={Master}>
-      <IndexRedirect to="graph" />
-      <Route path="graph"  components={{ Main: GraphPage }} />
+      <IndexRedirect to="record" />
+      <Route path="record" components={{ Main: RecordPage }} />
       <Route path="stat"   components={{ Main: StatPage }} />
       <Route path="input"  components={{ Main: InputPage }} />
       <Route path="others" components={{ Main: OthersPage }} />
