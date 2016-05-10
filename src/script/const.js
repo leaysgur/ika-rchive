@@ -1,4 +1,3 @@
-'use strict';
 module.exports = {
 
   RESULT: {
@@ -21,6 +20,12 @@ module.exports = {
     1: 'エリア',
     2: 'ヤグラ',
     3: 'ホコ'
+  },
+
+  RULE_COLOR: {
+    1: '#FD2A96',
+    2: '#00B7A4',
+    3: '#CA00DF'
   },
 
   STAGE: {

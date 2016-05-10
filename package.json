@@ -16,7 +16,7 @@
   "author": "leader22",
   "license": "MIT",
   "dependencies": {
-    "chart.js": "^1.0.2",
+    "chart.js": "^2.1.2",
     "es6-promise": "^3.1.2",
     "object-assign": "^4.1.0",
     "react": "^15.0.2",
