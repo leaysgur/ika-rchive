@@ -1,6 +1,7 @@
-.view-graph {
+.view-record {
 
   .graph-wrap {
+    margin: 0 .5em;
     position: relative;
     text-align: center;
   }
@@ -9,8 +10,8 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 0;
-    right: 0;
+    left: -.5em;
+    right: -.5em;
     height: 60px;
     margin: auto;
     font-weight: bold;

@@ -66,15 +66,12 @@ module.exports = {
   MIN_RATE_INPUT: 0,
   MAX_RATE_INPUT: 99,
 
-  RECORD_LIMIT: 200,
-  PAGING_UNIT:  50,
-  SHOW_LABEL_LIMIT_PC:     100,
-  SHOW_LABEL_LIMIT_MOBILE: 25,
-
   GRAPH_SIZE_TO_SCREEN: {
     W: 0.9,
-    H: 0.4
+    H: 0.3
   },
+
+  RECORD_LIMIT: 200,
 
   TWITTER_URL: 'http://twitter.com/share?text='
 

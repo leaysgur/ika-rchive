@@ -7,8 +7,9 @@ const {
   RULE_COLOR,
 } = require('../../const');
 
-Chart.defaults.global.responsive = false;
+// Chart.defaults.global.responsive = false;
 Chart.defaults.global.defaultFontColor = '#fff';
+Chart.defaults.global.defaultFontSize = 10;
 Chart.defaults.global.events = ['mousemove', 'touchstart'];
 Chart.defaults.global.legend.display = false;
 Chart.defaults.global.tooltips.callbacks.title = () => {
@@ -31,12 +32,11 @@ assign(Chart.defaults.bar.scales.yAxes[0], {
 
 function toGraphData(records) {
   const ret = {
-    labels:          [],
+    labels:          new Array(records.length),
     data:            [],
     backgroundColor: []
   };
-  records.forEach((item, idx) => {
-    ret.labels.push(idx + 1);
+  records.forEach((item) => {
     ret.data.push(item.rate);
     ret.backgroundColor.push(RULE_COLOR[item.rule]);
   });
@@ -75,6 +75,7 @@ class Graph extends React.Component {
 
   render() {
     const { records } = this.props;
+    const { w, h } = Util.getCanvasSize();
 
     return (
       <div className="graph-wrap">
@@ -85,7 +86,7 @@ class Graph extends React.Component {
               </div>
             : null
         }
-        <canvas ref="graph" width="800" height="600"></canvas>
+        <canvas ref="graph" width={w} height={h}></canvas>
       </div>
     );
   }

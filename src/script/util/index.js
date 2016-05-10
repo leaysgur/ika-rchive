@@ -1,6 +1,5 @@
 const Const = require('../const');
 const rateStrReg = /(\w[+-]?)(\d+)/;
-
 const gSizeW = Const.GRAPH_SIZE_TO_SCREEN.W;
 const gSizeH = Const.GRAPH_SIZE_TO_SCREEN.H;
 
@@ -13,19 +12,10 @@ module.exports = {
     return 'ontouchstart' in document;
   },
 
-  getCanvasSizePc: () => {
+  getCanvasSize: () => {
     return {
       w: ((window.innerWidth  * gSizeW)|0),
       h: ((window.innerHeight * gSizeH)|0)
-    };
-  },
-
-  getCanvasSizeOthers: () => {
-    // inner*だとなぜかiPadで値が変動する
-    // 次はPCでDevTools開きながら見ると困るけど、まぁ開発やし我慢する
-    return {
-      w: ((window.screen.width  * gSizeW)|0),
-      h: ((window.screen.height * gSizeH)|0)
     };
   },
 
