@@ -23,7 +23,7 @@ module.exports = {
   },
 
   RULE_COLOR: {
-    1: '#FD2A96',
+    1: '#FF6E00',
     2: '#00B7A4',
     3: '#CA00DF'
   },

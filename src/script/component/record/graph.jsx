@@ -1,15 +1,46 @@
 const React = require('react');
 const Chart = require('chart.js');
-Chart.defaults.global.responsive = false;
-// Chart.defaults.bar.categoryPercentage = 0.5;
-// Chart.defaults.bar.barPercentage = 1.0;
-Chart.defaults.bar.scales.xAxes = [{
-  barPercentage: 0.8,
-  categoryPercentage: 1
-}];
+const assign = require('object-assign');
 
-// const Util = require('../../util');
-const { RULE_COLOR, } = require('../../const');
+const Util = require('../../util');
+const {
+  RULE_COLOR,
+} = require('../../const');
+
+Chart.defaults.global.responsive = false;
+Chart.defaults.global.events = ['mousemove', 'touchstart'];
+Chart.defaults.global.legend.display = false;
+Chart.defaults.global.tooltips.callbacks.title = () => {
+  return '';
+};
+Chart.defaults.global.tooltips.callbacks.label = (item) => {
+  return Util.getRateStr(item.yLabel);
+};
+assign(Chart.defaults.bar.scales.xAxes[0], {
+  display: false,
+  barPercentage: .8,
+  categoryPercentage: 1,
+});
+assign(Chart.defaults.bar.scales.yAxes[0], {
+  ticks: {
+    callback: Util.getRateStr
+  }
+});
+
+function toGraphData(records) {
+  const ret = {
+    labels:          [],
+    data:            [],
+    backgroundColor: []
+  };
+  records.forEach((item, idx) => {
+    ret.labels.push(idx + 1);
+    ret.data.push(item.rate);
+    ret.backgroundColor.push(RULE_COLOR[item.rule]);
+  });
+
+  return ret;
+}
 
 class Graph extends React.Component {
   componentDidMount() {
@@ -17,22 +48,26 @@ class Graph extends React.Component {
     if (records.length === 0) { return; }
 
     const ctx = this.refs.graph.getContext('2d');
-    const data = {
-      labels: records.map((_r, idx) => { return idx++; }),
+    const {
+      labels,
+      data, backgroundColor,
+    } = toGraphData(records);
+    const cData = {
+      labels: labels,
       datasets: [{
-        data: records.map((r) => { return r.rate; }),
-        label: '',
-        backgroundColor: records.map((r) => { return RULE_COLOR[r.rule]; })
+        data: data,
+        label: null,
+        backgroundColor: backgroundColor,
       }]
     };
-    const options = {
+    const cOptions = {
     };
 
-    console.log(data, options);
+    console.log(cData, cOptions);
     new Chart(ctx, {
-      type: 'bar',
-      data: data,
-      options: options
+      type:    'bar',
+      data:    cData,
+      options: cOptions,
     });
   }
 
@@ -48,7 +83,7 @@ class Graph extends React.Component {
               </div>
             : null
         }
-        <canvas ref="graph" width="1600" height="400"></canvas>
+        <canvas ref="graph" width="1800" height="270"></canvas>
       </div>
     );
   }
