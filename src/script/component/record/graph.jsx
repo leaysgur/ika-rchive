@@ -7,9 +7,8 @@ const {
   RULE_COLOR,
 } = require('../../const');
 
-// Chart.defaults.global.responsive = false;
+Chart.defaults.global.responsive = false;
 Chart.defaults.global.defaultFontColor = '#fff';
-Chart.defaults.global.defaultFontSize = 10;
 Chart.defaults.global.events = ['mousemove', 'touchstart'];
 Chart.defaults.global.legend.display = false;
 Chart.defaults.global.tooltips.callbacks.title = () => {
@@ -20,14 +19,18 @@ Chart.defaults.global.tooltips.callbacks.label = (item) => {
 };
 assign(Chart.defaults.bar.scales.xAxes[0], {
   display: false,
-  barPercentage: .8,
-  categoryPercentage: 1,
+  barPercentage: 1.2,
+  categoryPercentage: .8,
 });
+
 assign(Chart.defaults.bar.scales.yAxes[0], {
   gridLines: { color: 'rgba(255, 110, 0, .25)' },
   ticks: {
     callback: Util.getRateStr
   }
+});
+Chart.defaults.bar.scales.yAxes[1] = assign({}, Chart.defaults.bar.scales.yAxes[0], {
+  position: 'right'
 });
 
 function toGraphData(records) {
@@ -54,15 +57,35 @@ class Graph extends React.Component {
       labels,
       data, backgroundColor,
     } = toGraphData(records);
+
     const cData = {
       labels: labels,
       datasets: [{
         data:  data,
         label: null,
         backgroundColor: backgroundColor,
+      }, {
+        data:  data,
+        label: null,
+        backgroundColor: backgroundColor,
       }]
     };
+
+    const min = Math.min.apply(null, data);
+    const max = Math.max.apply(null, data);
+
     const cOptions = {
+      scales: {
+        yAxes: [{
+          ticks: {
+            min, max,
+          }
+        },{
+          ticks: {
+            min, max,
+          }
+        }]
+      }
     };
 
     console.log(cData, cOptions);

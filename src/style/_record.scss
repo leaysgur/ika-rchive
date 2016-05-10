@@ -4,6 +4,8 @@
     margin: 0 .5em;
     position: relative;
     text-align: center;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .graph-cover {
