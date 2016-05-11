@@ -1,5 +1,4 @@
 const Const = require('../const');
-const rateStrReg = /(\w[+-]?)(\d+)/;
 const gSizeW = Const.GRAPH_SIZE_TO_SCREEN.W;
 const gSizeH = Const.GRAPH_SIZE_TO_SCREEN.H;
 
@@ -55,16 +54,10 @@ module.exports = {
       // rate  = Const.MAX_RATE_INPUT;
       // これで S+99 って出せるけど、グラフ的にしっくりこない
       // なぜなら範囲が広すぎるとこれが何個も出るからである
-      return 'MAX';
+      return '';
     }
 
     return label + rate;
-  },
-
-  getRateFromRateStr: (str) => {
-    let reg = rateStrReg.exec(str);
-    if (!reg) { return 0; }
-    return Const.RATE_TABLE[reg[1]] + (reg[2]|0);
   },
 
   isValidRate: (score) => {
@@ -72,25 +65,6 @@ module.exports = {
     let max = Const.RATE_TABLE[Const.MAX_RATE_STR] + Const.MAX_RATE_INPUT;
 
     return min <= score && score <= max;
-  },
-
-  objToOptionsArr: (obj, isReverse) => {
-    let ret = [];
-    for (let key in obj) {
-      if (isReverse) {
-        ret.push({
-          text:  key,
-          value: obj[key]
-        });
-      } else {
-        ret.push({
-          text:  obj[key],
-          value: key
-        });
-      }
-    }
-
-    return ret;
   },
 
   percentage: (c, p) => {
@@ -156,5 +130,4 @@ module.exports = {
 
     return Const.TWITTER_URL + encodeURIComponent(text);
   }
-
 };
