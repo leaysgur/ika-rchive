@@ -13,7 +13,7 @@ class GraphPage extends React.Component {
     return (
       <div className={`view-${route.path}`}>
         <Graph records={records} />
-        <Link to="record/list" activeClassName="is-active">ソノタ</Link>
+        <Link to="record/list">リストでみる</Link>
       </div>
     );
   }

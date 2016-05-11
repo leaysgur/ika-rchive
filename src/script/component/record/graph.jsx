@@ -7,6 +7,7 @@ const {
   RULE_COLOR,
 } = require('../../const');
 
+// TODO: util/toGraphState?Props?ってなるので別のなんかに
 function toGraphData(records) {
   const ret = {
     data:            [],

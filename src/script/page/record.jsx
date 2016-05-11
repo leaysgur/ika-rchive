@@ -1,5 +1,6 @@
 const React = require('react');
 
+const UserModel   = require('../model/user').getInstance();
 const RecordModel = require('../model/record').getInstance();
 
 class RecordPage extends React.Component {
@@ -7,7 +8,8 @@ class RecordPage extends React.Component {
     super();
 
     this.state = {
-      records: RecordModel.get('items')
+      records:  RecordModel.get('items'),
+      totalIdx: UserModel.get('totalIdx')|0,
     };
   }
 
@@ -16,12 +18,16 @@ class RecordPage extends React.Component {
       route,
       children,
     } = this.props;
-    const { records } = this.state;
+    const {
+      records,
+      totalIdx,
+    } = this.state;
 
     return (
       <div className={`view-${route.path}`}>
         {React.cloneElement(children, {
           records,
+          totalIdx,
         })}
       </div>
     );
