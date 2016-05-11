@@ -97,16 +97,7 @@ class Graph extends React.Component {
   }
 
   render() {
-    const { records } = this.props;
     const { w, h } = Util.getCanvasSize();
-
-    if (records.length === 0) {
-      return (
-        <div className="graph-cover">
-          <p className="wrap">まだデータが<span className="ft-ika">トウロク</span>されてないぞ！</p>
-        </div>
-      );
-    }
 
     return (
       <div className="graph-wrap">

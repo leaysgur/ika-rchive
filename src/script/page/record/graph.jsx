@@ -20,6 +20,16 @@ class GraphPage extends React.Component {
       records,
     } = this.state;
 
+    if (records.length === 0) {
+      return (
+        <div className={`view-${route.path}`}>
+          <div className="graph-cover">
+            <p className="wrap">まだデータが<span className="ft-ika">トウロク</span>されてないぞ！</p>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className={`view-${route.path}`}>
         <Link to="record/list">リストでみる</Link>

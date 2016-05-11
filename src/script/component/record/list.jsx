@@ -4,6 +4,7 @@ const {
   RULE,
   STAGE,
   RESULT,
+  RECORD_LIMIT,
 } = require('../../const');
 const Util = require('../../util');
 
@@ -19,7 +20,7 @@ class List extends React.Component {
         {records.map((item, idx) => {
           return (
             <li className="record-list-item" key={idx}>
-              <div>第{item.totalIdx}戦 - {Util.formatDate(item.createdAt)}</div>
+              <div>{records.length - idx}/{RECORD_LIMIT}戦目 - {Util.formatDate(item.createdAt)}</div>
               <hr className="record-list-item-spacer" />
               <div>
                 <span className={`fc-rule-${item.rule}`}>{RULE[item.rule]}</span> in {STAGE[item.stage]}

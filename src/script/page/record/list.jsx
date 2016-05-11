@@ -1,19 +1,13 @@
 const React = require('react');
 const { Link } = require('react-router');
 
-const UserModel   = require('../../model/user').getInstance();
 const RecordModel = require('../../model/record').getInstance();
 
 const List = require('../../component/record/list.jsx');
 
 // TODO: util/toListState?Props?ってなるので別のなんかに
-function toListData(records, totalIdx) {
-  let startIdx = totalIdx - records.length;
-  return records.map((item, idx) => {
-    item.idx      = idx;
-    item.totalIdx = startIdx + idx + 1;
-    return item;
-  }).reverse();
+function toListData(records) {
+  return records.reverse();
 }
 
 class ListPage extends React.Component {
@@ -21,8 +15,7 @@ class ListPage extends React.Component {
     super();
 
     this.state = {
-      records:  RecordModel.get('items'),
-      totalIdx: UserModel.get('totalIdx')|0,
+      records: toListData(RecordModel.get('items'))
     };
 
     this.removeRecord = this.removeRecord.bind(this);
@@ -39,14 +32,23 @@ class ListPage extends React.Component {
     const { route, } = this.props;
     const {
       records,
-      totalIdx,
     } = this.state;
+
+    if (records.length === 0) {
+      return (
+        <div className={`view-${route.path}`}>
+          <div className="graph-cover">
+            <p className="wrap">まだデータが<span className="ft-ika">トウロク</span>されてないぞ！</p>
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div className={`view-${route.path}`}>
         <Link to="record" activeClassName="is-active">グラフでみる</Link>
         <List
-          records={toListData(records, totalIdx)}
+          records={records}
           removeRecord={this.removeRecord}
         />
       </div>
