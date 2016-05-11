@@ -52,7 +52,6 @@ class Graph extends React.Component {
     const min = Math.floor(Math.min.apply(null, data) / 10) * 10;
     const max = Math.ceil(Math.max.apply(null, data) / 10) * 10;
 
-
     const cOptions = {
       responsive: false,
       events: ['mousemove', 'touchstart'],
