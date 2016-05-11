@@ -2,8 +2,6 @@ const React = require('react');
 
 const RecordModel = require('../model/record').getInstance();
 
-const Graph = require('../component/record/graph.jsx');
-
 class RecordPage extends React.Component {
   constructor() {
     super();
@@ -14,12 +12,17 @@ class RecordPage extends React.Component {
   }
 
   render() {
-    const { route } = this.props;
+    const {
+      route,
+      children,
+    } = this.props;
     const { records } = this.state;
 
     return (
       <div className={`view-${route.path}`}>
-        <Graph records={records} />
+        {React.cloneElement(children, {
+          records,
+        })}
       </div>
     );
   }

@@ -1,7 +1,7 @@
-const React = require('react'); // eslint-disable-line no-unused-vars
+const React = require('react');
 const { Link } = require('react-router');
 
-const MasterPage = ({ Main }) => {
+const MasterPage = ({ children }) => {
   return (
     <div>
       <h1 className="ft-ika">ウデマエア-カイブ</h1>
@@ -19,13 +19,13 @@ const MasterPage = ({ Main }) => {
           <Link to="others" activeClassName="is-active">ソノタ</Link>
         </li>
       </ul>
-      {Main}
+      {children}
     </div>
   );
 };
 
 MasterPage.propTypes = {
-  Main: React.PropTypes.element.isRequired,
+  children: React.PropTypes.element.isRequired,
 };
 
 module.exports = MasterPage;

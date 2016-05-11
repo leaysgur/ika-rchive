@@ -6,20 +6,26 @@ const {
   hashHistory,
 } = require('react-router');
 
-const Master = require('./page/_master');
-const RecordPage = require('./page/record');
-const StatPage   = require('./page/stat');
-const InputPage  = require('./page/input');
-const OthersPage = require('./page/others');
+const Master = require('./page/_master.jsx');
+const RecordPage = require('./page/record.jsx');
+const GraphPage  = require('./page/record/graph.jsx');
+const ListPage   = require('./page/record/list.jsx');
+const StatPage   = require('./page/stat.jsx');
+const InputPage  = require('./page/input.jsx');
+const OthersPage = require('./page/others.jsx');
 
 module.exports = (
   <Router history={hashHistory}>
     <Route path="/" component={Master}>
       <IndexRedirect to="record" />
-      <Route path="record" components={{ Main: RecordPage }} />
-      <Route path="stat"   components={{ Main: StatPage }} />
-      <Route path="input"  components={{ Main: InputPage }} />
-      <Route path="others" components={{ Main: OthersPage }} />
+      <Route path="record" component={RecordPage}>
+        <IndexRedirect to="graph" />
+        <Route path="graph" component={GraphPage} />
+        <Route path="list"  component={ListPage} />
+      </Route>
+      <Route path="stat"   component={StatPage} />
+      <Route path="input"  component={InputPage} />
+      <Route path="others" component={OthersPage} />
     </Route>
   </Router>
 );
