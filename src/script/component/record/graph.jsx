@@ -1,44 +1,19 @@
 const React = require('react');
 const Chart = require('chart.js');
-const assign = require('object-assign');
+Chart.defaults.global.defaultFontColor = '#fff';
 
 const Util = require('../../util');
 const {
   RULE_COLOR,
 } = require('../../const');
 
-Chart.defaults.global.responsive = false;
-Chart.defaults.global.defaultFontColor = '#fff';
-Chart.defaults.global.events = ['mousemove', 'touchstart'];
-Chart.defaults.global.legend.display = false;
-Chart.defaults.global.tooltips.callbacks.title = () => {
-  return '';
-};
-Chart.defaults.global.tooltips.callbacks.label = (item) => {
-  return Util.getRateStr(item.yLabel);
-};
-assign(Chart.defaults.bar.scales.xAxes[0], {
-  display: false,
-  barPercentage: 1.2,
-  categoryPercentage: .8,
-});
-
-assign(Chart.defaults.bar.scales.yAxes[0], {
-  gridLines: { color: 'rgba(255, 110, 0, .25)' },
-  ticks: {
-    callback: Util.getRateStr
-  }
-});
-Chart.defaults.bar.scales.yAxes[1] = assign({}, Chart.defaults.bar.scales.yAxes[0], {
-  position: 'right'
-});
-
 function toGraphData(records) {
   const ret = {
-    labels:          new Array(records.length),
     data:            [],
     backgroundColor: []
   };
+
+  // 1ループで必要なデータを集める
   records.forEach((item) => {
     ret.data.push(item.rate);
     ret.backgroundColor.push(RULE_COLOR[item.rule]);
@@ -51,15 +26,18 @@ class Graph extends React.Component {
   componentDidMount() {
     const { records } = this.props;
     if (records.length === 0) { return; }
+    this._drawGraph();
+  }
 
+  _drawGraph() {
+    const { records } = this.props;
     const ctx = this.refs.graph.getContext('2d');
     const {
-      labels,
       data, backgroundColor,
     } = toGraphData(records);
 
     const cData = {
-      labels: labels,
+      labels: new Array(records.length),
       datasets: [{
         data:  data,
         label: null,
@@ -71,18 +49,40 @@ class Graph extends React.Component {
       }]
     };
 
-    const min = Math.min.apply(null, data);
-    const max = Math.max.apply(null, data);
+    const min = Math.floor(Math.min.apply(null, data) / 10) * 10;
+    const max = Math.ceil(Math.max.apply(null, data) / 10) * 10;
+
 
     const cOptions = {
+      responsive: false,
+      events: ['mousemove', 'touchstart'],
+      legend: { display: false },
+      tooltips: {
+        callbacks: {
+          title: () => { return ''; },
+          label: (item) => {
+            return Util.getRateStr(item.yLabel);
+          }
+        }
+      },
       scales: {
+        xAxes: [{
+          display: false,
+          barPercentage: 1.2,
+          categoryPercentage: .8,
+        }],
         yAxes: [{
+          gridLines: { color: 'rgba(255, 110, 0, .25)' },
           ticks: {
             min, max,
+            callback: Util.getRateStr
           }
         },{
+          position: 'right',
+          gridLines: { display: false },
           ticks: {
             min, max,
+            callback: Util.getRateStr
           }
         }]
       }
