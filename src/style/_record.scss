@@ -1,23 +1,15 @@
 .view-record {
 
   .graph-wrap {
-    height: 120px;
     margin: 0 .5em;
-    position: relative;
     text-align: center;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
 
   .graph-cover {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: -.5em;
-    right: -.5em;
-    height: 60px;
-    margin: auto;
-    font-weight: bold;
+    text-align: center;
+    padding-top: 60px;
   }
 
   .pager-list {
