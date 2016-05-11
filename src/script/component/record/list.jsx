@@ -9,7 +9,10 @@ const Util = require('../../util');
 
 class List extends React.Component {
   render() {
-    const { records, } = this.props;
+    const {
+      records,
+      removeRecord
+    } = this.props;
 
     return (
       <ul className="record-list wrap">
@@ -31,7 +34,7 @@ class List extends React.Component {
               <div className="ctrl-wrap">
                 このキロクを
                 <span className="mod-mark" onTouchTap={() => { alert(item.idx); }}>[シュウセイ]</span>
-                <span className="del-mark" onTouchTap={() => { alert(item.idx); }}>[サクジョ]</span>
+                <span className="del-mark" onTouchTap={(ev) => { removeRecord(ev, item.idx); }}>[サクジョ]</span>
               </div>
             </li>
           );
