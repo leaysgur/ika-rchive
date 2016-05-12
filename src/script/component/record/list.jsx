@@ -19,9 +19,10 @@ class List extends React.Component {
     return (
       <ul className="record-list wrap">
         {records.map((item, idx) => {
+          const vIdx = records.length - idx;
           return (
             <li className="record-list-item" key={idx}>
-              <div>{records.length - idx}/{RECORD_LIMIT}戦目 - {Util.formatDate(item.createdAt)}</div>
+              <div>{vIdx}/{RECORD_LIMIT}戦目 - {Util.formatDate(item.createdAt)}</div>
               <hr className="record-list-item-spacer" />
               <div>
                 <span className={`fc-rule-${item.rule}`}>{RULE[item.rule]}</span> in {STAGE[item.stage]}
@@ -35,8 +36,8 @@ class List extends React.Component {
               <hr className="record-list-item-spacer" />
               <div className="ctrl-wrap">
                 このキロクを
-                <span className="mod-mark" onTouchTap={() => { alert(item.idx); }}>[シュウセイ]</span>
-                <span className="del-mark" onTouchTap={(ev) => { removeRecord(ev, item.idx); }}>[サクジョ]</span>
+                <span className="mod-mark" onTouchTap={() => { alert(vIdx); }}>[シュウセイ]</span>
+                <span className="del-mark" onTouchTap={(ev) => { removeRecord(ev, vIdx - 1); }}>[サクジョ]</span>
               </div>
             </li>
           );
