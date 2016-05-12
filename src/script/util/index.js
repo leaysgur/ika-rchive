@@ -61,6 +61,7 @@ module.exports = {
   },
 
   getRankAndScore: (rate) => {
+    rate = rate|0;
     const rateRank = ((rate / 100)|0) * 100;
     return {
       rateRank:  rateRank,

@@ -32,7 +32,7 @@ class InputPage extends React.Component {
       result:     '1',
       missmatch:  false,
       tagmatch:   false,
-      rateRank:   ''+rateRank || '0',
+      rateRank:   ''+rateRank,
       rateScore:  '',
       _rateScore: ''+rateScore, // 実体は↑で、これはplaceholder用
       recentRateGap: Util.getRecentRateGap(latestRecord.rate|0, lastLastRate),
