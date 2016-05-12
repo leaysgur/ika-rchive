@@ -20,6 +20,7 @@ class GraphPage extends React.Component {
       data,
       backgroundColor,
       labels,
+      tooltip,
     } = this.state;
 
     if (data.length === 0) {
@@ -36,7 +37,12 @@ class GraphPage extends React.Component {
       <div className={`view-${route.path}`}>
         <Switcher isList={false} isGraph={true} />
 
-        <Graph {...{ data, backgroundColor, labels, }} />
+        <Graph {...{
+          data,
+          backgroundColor,
+          labels,
+          tooltip,
+        }} />
       </div>
     );
   }

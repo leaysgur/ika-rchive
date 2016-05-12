@@ -1,5 +1,6 @@
 const Util = require('../../util');
 const {
+  RULE,
   RECORD_LIMIT,
   RULE_COLOR,
   LABEL_UNIT_PC,
@@ -11,7 +12,8 @@ module.exports = (records) => {
   const ret = {
     labels:          [],
     data:            [],
-    backgroundColor: []
+    tooltip:         [],
+    backgroundColor: [],
   };
 
   if (records.length === 0) { return ret; }
@@ -20,10 +22,11 @@ module.exports = (records) => {
   // グラフの体裁を合わせるため、実データより大枠を優先
   for (let i = 0, l = RECORD_LIMIT; i < l; i++) {
     let cnt = i + 1;
-    let { rate, rule } = records[i] || {};
+    let item = records[i] || {};
     ret.labels.push(cnt % LABEL_UNIT === 0 ? cnt : '');
-    ret.data.push(rate || null);
-    ret.backgroundColor.push(RULE_COLOR[rule]);
+    ret.data.push(item.rate || null);
+    ret.tooltip.push(`${RULE[item.rule]}: ${Util.getRateStr(item.rate)}`);
+    ret.backgroundColor.push(RULE_COLOR[item.rule]);
   }
 
   return ret;

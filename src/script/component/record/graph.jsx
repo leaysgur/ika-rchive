@@ -17,6 +17,7 @@ class Graph extends React.Component {
     const {
       labels,
       data, backgroundColor,
+      tooltip,
     } = this.props;
 
     const cData = {
@@ -44,9 +45,7 @@ class Graph extends React.Component {
       tooltips: {
         callbacks: {
           title: () => { return ''; },
-          label: (item) => {
-            return Util.getRateStr(item.yLabel);
-          }
+          label: (item) => { return tooltip[item.index]; }
         }
       },
       scales: {
