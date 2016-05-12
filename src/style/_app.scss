@@ -13,28 +13,20 @@
     text-align: center;
     font-size: .8em;
   }
-}
 
-.view-body {
-  opacity: 0;
-  transition: opacity .5s ease;
-  will-change: opacity;
-
-  &.is-booted {
-    opacity: 1;
-  }
-}
-
-.view-app {
   .intro-button {
     @extend %button;
     margin: 1em auto;
   }
 
+  .title {
+    font-size: 1.2em;
+  }
+
   .tab {
     text-align: center;
-    margin: 1em auto;
-    font-size: 1.4em;
+    margin: .75em auto;
+    font-size: 1.3em;
   }
 
   .tab-item {
@@ -56,3 +48,14 @@
     }
   }
 }
+
+.view-body {
+  opacity: 0;
+  transition: opacity .5s ease;
+  will-change: opacity;
+
+  &.is-booted {
+    opacity: 1;
+  }
+}
+

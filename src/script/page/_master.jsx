@@ -4,7 +4,7 @@ const { Link } = require('react-router');
 const MasterPage = ({ children }) => {
   return (
     <div>
-      <h1 className="ft-ika">ウデマエア-カイブ</h1>
+      <h1 className="title ft-ika">ウデマエア-カイブ</h1>
       <ul className="tab ft-ika">
         <li className="tab-item">
           <Link to="record" activeClassName="is-active">キロク</Link>
