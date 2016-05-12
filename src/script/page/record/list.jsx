@@ -39,7 +39,11 @@ class ListPage extends React.Component {
     });
   }
 
-  onModify() {
+  onModify(record) {
+    if (record) {
+      // Recordmodel.update();
+      console.log('update', this.state.modIdx, record);
+    }
     this.setState({
       modItem: null,
       modIdx:  null
@@ -62,7 +66,7 @@ class ListPage extends React.Component {
     const { route, } = this.props;
     const {
       records,
-      modItem, modIdx,
+      modItem,
     } = this.state;
 
     if (records.length === 0) {
@@ -81,7 +85,7 @@ class ListPage extends React.Component {
 
         {modItem
           ? <ModPopup
-              {...{ modItem, modIdx, }}
+              modItem={modItem}
               onModify={this.onModify}
             />
           : null

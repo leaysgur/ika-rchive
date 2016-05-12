@@ -60,6 +60,14 @@ module.exports = {
     return label + rate;
   },
 
+  getRankAndScore: (rate) => {
+    const rateRank = ((rate / 100)|0) * 100;
+    return {
+      rateRank:  rateRank,
+      rateScore: rate - rateRank
+    };
+  },
+
   isValidRate: (score) => {
     let min = Const.RATE_TABLE[Const.MIN_RATE_STR] + Const.MIN_RATE_INPUT;
     let max = Const.RATE_TABLE[Const.MAX_RATE_STR] + Const.MAX_RATE_INPUT;
