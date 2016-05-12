@@ -39,7 +39,7 @@
     & + .record-list-item {
       margin-top: 1em;
       padding-top: 1em;
-      border-top: 1px solid rgba(255,255,255,0.8);
+      border-top: 1px solid rgba(255, 255, 255, .8);
     }
   }
   .record-list-item-spacer {
@@ -57,8 +57,21 @@
     text-decoration: underline;
   }
 
+  .mod-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, .8);
+  }
+
   .mod-wrap {
+    position: absolute;
+    top: 25%;
     text-align: center;
+    background-color: rgba(0, 0, 0, .8);
 
     .set-button,
     .wait-button { width: 100%; }

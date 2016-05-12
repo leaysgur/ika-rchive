@@ -59,7 +59,7 @@ class ModPopup extends React.Component {
     const isDisconnected = Util.isDisconnected(result);
 
     return (
-      <div>
+      <div className="mod-layer">
         <ul className="wrap mod-wrap view-input">
           <li className="input-item">
             <RuleInput
@@ -105,10 +105,6 @@ class ModPopup extends React.Component {
               canInput={canInput}
               onSave={this.onSave}
             />
-          </li>
-
-          <li>
-            {JSON.stringify(this.state, null, 2)}
           </li>
 
           <li>
