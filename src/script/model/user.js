@@ -13,15 +13,18 @@ class UserModel extends BaseModel {
     rate = rate|0;
 
     const curIdx  = this.get('totalIdx')|0;
-    const curRate = this.get('bestRate')|0;
+    this.set('totalIdx', curIdx + 1);
+    this.updateBestRate(rate);
+  }
 
+  updateBestRate(rate) {
+    rate = rate|0;
+
+    const curRate = this.get('bestRate')|0;
     if (rate > curRate) {
       this.set({
         bestRate: rate,
-        totalIdx: curIdx + 1
       });
-    } else {
-      this.set('totalIdx', curIdx + 1);
     }
   }
 

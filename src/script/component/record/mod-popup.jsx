@@ -4,6 +4,10 @@ const assign = require('object-assign');
 const Util = require('../../util');
 
 const RuleInput         = require('../input/rule-input.jsx');
+const SingleStageInput  = require('../input/single-stage-input.jsx');
+const ResultInput       = require('../input/result-input.jsx');
+const ResultOptionInput = require('../input/result-option-input.jsx');
+const RateInput         = require('../input/rate-input.jsx');
 const SaveBtn           = require('../input/save-btn.jsx');
 
 class ModPopup extends React.Component {
@@ -11,12 +15,25 @@ class ModPopup extends React.Component {
     super();
 
     this.state = assign({}, props.modItem);
+
     this.onChange = this.onChange.bind(this);
     this.onCancel = this.onCancel.bind(this);
     this.onSave   = this.onSave.bind(this);
   }
 
   onChange(key, val) {
+    let { rateRank, rateScore } = Util.getRankAndScore(this.state.rate);
+    if (key === 'rateRank') {
+      rateRank = val|0;
+      this.setState({ rate: rateRank + rateScore });
+      return;
+    }
+    if (key === 'rateScore') {
+      rateScore = val|0;
+      this.setState({ rate: rateRank + rateScore });
+      return;
+    }
+
     this.setState({ [key]: val });
   }
 
@@ -31,10 +48,15 @@ class ModPopup extends React.Component {
   render() {
     const {
       rule,
+      stage,
+      result,
+      tagmatch,
+      missmatch,
       rate,
     } = this.state;
     const { rateRank, rateScore } = Util.getRankAndScore(rate);
     const canInput = Util.canInput(rateScore);
+    const isDisconnected = Util.isDisconnected(result);
 
     return (
       <div>
@@ -45,15 +67,50 @@ class ModPopup extends React.Component {
               onChange={this.onChange}
             />
           </li>
+
+          <li className="input-item">
+            <SingleStageInput
+              stage={''+stage}
+              onChange={this.onChange}
+            />
+          </li>
+
+          <li className="input-item">
+            <ResultInput
+              result={''+result}
+              onChange={this.onChange}
+            />
+          </li>
+
+          <li className="input-item">
+            <ResultOptionInput
+              isDisconnected={isDisconnected}
+              tagmatch={!!tagmatch}
+              missmatch={!!missmatch}
+              onChange={this.onChange}
+            />
+          </li>
+
+          <li className="input-item">
+            <RateInput
+              rateRank={''+rateRank}
+              rateScore={''+rateScore}
+              _rateScore={''+rateScore}
+              onChange={this.onChange}
+            />
+          </li>
+
           <li>
             <SaveBtn
               canInput={canInput}
               onSave={this.onSave}
             />
           </li>
+
           <li>
             {JSON.stringify(this.state, null, 2)}
           </li>
+
           <li>
             <div className="ctrl-wrap">
               <span className="mod-mark" onTouchTap={this.onCancel}>[キャンセル]</span>
