@@ -8,11 +8,12 @@ class Graph extends React.Component {
   componentDidMount() {
     const ctx = this.refs.graph.getContext('2d');
     const {
+      labels,
       data, backgroundColor,
     } = this.props;
 
     const cData = {
-      labels: new Array(data.length),
+      labels: labels,
       datasets: [{
         data:  data,
         label: null,
@@ -24,8 +25,8 @@ class Graph extends React.Component {
       }]
     };
 
-    const min = Math.floor(Math.min.apply(null, data) / 10) * 10;
-    const max = Math.ceil(Math.max.apply(null, data) / 10) * 10;
+    const min = Math.floor(Math.min.apply(null, data.filter(Boolean)) / 10) * 10;
+    const max = Math.ceil(Math.max.apply(null, data.filter(Boolean)) / 10) * 10;
 
     const cOptions = {
       responsive: false,
@@ -41,9 +42,11 @@ class Graph extends React.Component {
       },
       scales: {
         xAxes: [{
-          display: false,
           barPercentage: 1.2,
           categoryPercentage: .8,
+          ticks: {
+            autoSkip: false,
+          }
         }],
         yAxes: [{
           gridLines: { color: 'rgba(255, 110, 0, .25)' },

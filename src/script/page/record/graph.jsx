@@ -4,24 +4,37 @@ const { Link } = require('react-router');
 const RecordModel = require('../../model/record').getInstance();
 
 const {
+  RECORD_LIMIT,
   RULE_COLOR,
 } = require('../../const');
-
+const Util = require('../../util');
+const isMobile = Util.isMobile();
 
 const Graph = require('../../component/record/graph.jsx');
 
 // TODO: util/toGraphState?Props?ってなるので別のなんかに
 function toGraphData(records) {
   const ret = {
+    labels:          [],
     data:            [],
     backgroundColor: []
   };
 
+  if (records.length === 0) { return ret; }
+
   // 1ループで必要なデータを集める
-  records.forEach((item) => {
-    ret.data.push(item.rate);
-    ret.backgroundColor.push(RULE_COLOR[item.rule]);
-  });
+  // グラフの体裁を合わせるため、実データより大枠を優先
+  for (let i = 0, l = RECORD_LIMIT; i < l; i++) {
+    let cnt = i + 1;
+    let { rate, rule } = records[i] || {};
+    if (isMobile) {
+      ret.labels.push(cnt % 10 === 0 ? cnt : '');
+    } else {
+      ret.labels.push(cnt);
+    }
+    ret.data.push(rate || null);
+    ret.backgroundColor.push(RULE_COLOR[rule]);
+  }
 
   return ret;
 }
@@ -38,6 +51,7 @@ class GraphPage extends React.Component {
     const {
       data,
       backgroundColor,
+      labels,
     } = this.state;
 
     if (data.length === 0) {
@@ -53,7 +67,7 @@ class GraphPage extends React.Component {
     return (
       <div className={`view-${route.path}`}>
         <Link to="record/list">リストでみる</Link>
-        <Graph {...{ data, backgroundColor, }} />
+        <Graph {...{ data, backgroundColor, labels, }} />
       </div>
     );
   }
