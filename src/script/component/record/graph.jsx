@@ -5,6 +5,12 @@ Chart.defaults.global.defaultFontColor = '#fff';
 const Util = require('../../util');
 
 class Graph extends React.Component {
+  constructor() {
+    super();
+
+    this.chart = null;
+  }
+
   componentDidMount() {
     const ctx = this.refs.graph.getContext('2d');
     const {
@@ -14,6 +20,7 @@ class Graph extends React.Component {
 
     const cData = {
       labels: labels,
+      // 右目盛りのために同じデータを2つ渡す
       datasets: [{
         data:  data,
         label: null,
@@ -25,6 +32,7 @@ class Graph extends React.Component {
       }]
     };
 
+    // 左右の目盛りを同一にするためには、目盛りを固定する必要がある
     const min = Math.floor(Math.min.apply(null, data.filter(Boolean)) / 10) * 10;
     const max = Math.ceil(Math.max.apply(null, data.filter(Boolean)) / 10) * 10;
 
@@ -42,11 +50,11 @@ class Graph extends React.Component {
       },
       scales: {
         xAxes: [{
+          // カテゴリに対してバーがはみ出るようにすることで、
+          // 2本のバーを1本に見せかける
           barPercentage: 1.2,
           categoryPercentage: .8,
-          ticks: {
-            autoSkip: false,
-          }
+          ticks: { autoSkip: false, }
         }],
         yAxes: [{
           gridLines: { color: 'rgba(255, 110, 0, .25)' },
@@ -65,12 +73,16 @@ class Graph extends React.Component {
       }
     };
 
-    console.log(cData, cOptions);
-    new Chart(ctx, {
+    this.chart = new Chart(ctx, {
       type:    'bar',
       data:    cData,
       options: cOptions,
     });
+  }
+
+  componentWillUnmount() {
+    this.chart.destroy();
+    this.chart = null;
   }
 
   render() {
