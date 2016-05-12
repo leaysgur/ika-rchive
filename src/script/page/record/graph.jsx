@@ -1,11 +1,11 @@
 const React = require('react');
-const { Link } = require('react-router');
 
 const RecordModel = require('../../model/record').getInstance();
 
 const graphReducer = require('../../reducer/record/graph');
 
 const Graph = require('../../component/record/graph.jsx');
+const Switcher = require('../../component/record/switcher.jsx');
 
 class GraphPage extends React.Component {
   constructor() {
@@ -34,7 +34,8 @@ class GraphPage extends React.Component {
 
     return (
       <div className={`view-${route.path}`}>
-        <Link to="record/list">リストでみる</Link>
+        <Switcher isList={false} isGraph={true} />
+
         <Graph {...{ data, backgroundColor, labels, }} />
       </div>
     );

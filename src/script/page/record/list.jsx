@@ -1,6 +1,5 @@
 const React = require('react');
 const assign = require('object-assign');
-const { Link } = require('react-router');
 
 const RecordModel = require('../../model/record').getInstance();
 const UserModel   = require('../../model/user').getInstance();
@@ -8,6 +7,7 @@ const UserModel   = require('../../model/user').getInstance();
 const listReducer = require('../../reducer/record/list');
 
 const List     = require('../../component/record/list.jsx');
+const Switcher = require('../../component/record/switcher.jsx');
 const ModPopup = require('../../component/record/mod-popup.jsx');
 
 class ListPage extends React.Component {
@@ -80,7 +80,8 @@ class ListPage extends React.Component {
 
     return (
       <div className={`view-${route.path}`}>
-        <Link to="record" activeClassName="is-active">グラフでみる</Link>
+
+        <Switcher isList={true} isGraph={false} />
 
         {modItem
           ? <ModPopup

@@ -1,7 +1,10 @@
 .view-record {
+  .switcher {
+    text-align: center;
+  }
 
   .graph-wrap {
-    margin: 0 .5em;
+    margin: 1em .5em;
     text-align: center;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -10,26 +13,6 @@
   .graph-cover {
     text-align: center;
     padding-top: 60px;
-  }
-
-  .pager-list {
-    text-align: center;
-    margin-bottom: -.5em;
-  }
-  .pager-list-item {
-    display: inline-block;
-    cursor: pointer;
-    font-size: .75em;
-    text-decoration: underline;
-
-    &.is-active {
-      text-decoration: none;
-      pointer-events: none;
-    }
-
-    & + .pager-list-item {
-      margin-left: .25em;
-    }
   }
 
   .record-list {
