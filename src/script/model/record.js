@@ -66,22 +66,6 @@ class RecordModel extends BaseModel {
     return items[items.length - 1];
   }
 
-  getLatestRate() {
-    const ret = {
-      rank:  '',
-      score: ''
-    };
-    const latest = this.getLatestRecord();
-    if (!latest) {
-      return ret;
-    }
-
-    const rate = '' + latest.rate;
-    ret.score = rate.slice(-2)|0;
-    ret.rank  = (rate|0) - ret.score;
-    return ret;
-  }
-
   clearAllData() { this._clear(); }
 }
 

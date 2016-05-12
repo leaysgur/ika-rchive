@@ -12,6 +12,7 @@ const RateInput         = require('../component/input/rate-input.jsx');
 const SaveBtn           = require('../component/input/save-btn.jsx');
 
 // 本セッションでの増減はいつだってコレが基準
+// 最後にこの画面をロードした(= 前回プレイ時)
 const lastLastRate = (RecordModel.getLatestRecord() || {}).rate || 0;
 
 class InputPage extends React.Component {
@@ -19,8 +20,9 @@ class InputPage extends React.Component {
     super();
 
     // 初期表示用
-    const rate = RecordModel.getLatestRate();
-    const latestLastRate = (RecordModel.getLatestRecord() || {}).rate || 0;
+    // 最新の、最後のデータを使う
+    const latestRecord = RecordModel.getLatestRecord() || {};
+    const { rateRank, rateScore, } = Util.getRankAndScore(latestRecord.rate);
 
     this.state = {
       rule:       '1',
@@ -30,10 +32,10 @@ class InputPage extends React.Component {
       result:     '1',
       missmatch:  false,
       tagmatch:   false,
-      rateRank:   ''+rate.rank || '0',
+      rateRank:   ''+rateRank || '0',
       rateScore:  '',
-      _rateScore: ''+rate.score, // 実体は↑で、これはplaceholder用
-      recentRateGap: Util.getRecentRateGap(latestLastRate, lastLastRate),
+      _rateScore: ''+rateScore, // 実体は↑で、これはplaceholder用
+      recentRateGap: Util.getRecentRateGap(latestRecord.rate|0, lastLastRate),
     };
 
     this.onChange = this.onChange.bind(this);
