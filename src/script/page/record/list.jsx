@@ -5,19 +5,17 @@ const { Link } = require('react-router');
 const RecordModel = require('../../model/record').getInstance();
 const UserModel   = require('../../model/user').getInstance();
 
+const listReducer = require('../../reducer/record/list');
+
 const List     = require('../../component/record/list.jsx');
 const ModPopup = require('../../component/record/mod-popup.jsx');
-
-function toListData(records) {
-  return records.slice().reverse();
-}
 
 class ListPage extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      records: toListData(RecordModel.get('items')),
+      records: listReducer(RecordModel.get('items')),
       modItem: null,
       modIdx:  null,
     };
@@ -45,7 +43,7 @@ class ListPage extends React.Component {
       UserModel.updateBestRate(record.rate);
     }
     this.setState({
-      records: toListData(RecordModel.get('items')),
+      records: listReducer(RecordModel.get('items')),
       modItem: null,
       modIdx:  null
     });
@@ -59,7 +57,7 @@ class ListPage extends React.Component {
 
     RecordModel.removeRecord(idx);
     this.setState({
-      records: toListData(RecordModel.get('items'))
+      records: listReducer(RecordModel.get('items'))
     });
   }
 
