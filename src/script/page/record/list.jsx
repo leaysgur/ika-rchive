@@ -5,14 +5,17 @@ const RecordModel = require('../../model/record').getInstance();
 
 const List = require('../../component/record/list.jsx');
 
+function toListData(records) {
+  return records.slice().reverse();
+}
+
 class ListPage extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      records: [].slice.call(RecordModel.get('items'))
+      records: toListData(RecordModel.get('items'))
     };
-    console.log(this.state.records[0].rule);
 
     this.removeRecord = this.removeRecord.bind(this);
   }
@@ -23,7 +26,7 @@ class ListPage extends React.Component {
 
     RecordModel.remove(idx);
     this.setState({
-      records: [].slice.call(RecordModel.get('items'))
+      records: toListData(RecordModel.get('items'))
     });
   }
 
@@ -47,7 +50,7 @@ class ListPage extends React.Component {
       <div className={`view-${route.path}`}>
         <Link to="record" activeClassName="is-active">グラフでみる</Link>
         <List
-          records={records.reverse()}
+          records={records}
           removeRecord={this.removeRecord}
         />
       </div>
