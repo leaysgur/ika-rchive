@@ -13,7 +13,8 @@ class List extends React.Component {
   render() {
     const {
       records,
-      removeRecord
+      modifyRecord,
+      removeRecord,
     } = this.props;
 
     return (
@@ -36,7 +37,7 @@ class List extends React.Component {
               <hr className="record-list-item-spacer" />
               <div className="ctrl-wrap">
                 このキロクを
-                <span className="mod-mark" onTouchTap={() => { alert(vIdx); }}>[シュウセイ]</span>
+                <span className="mod-mark" onTouchTap={(ev) => { modifyRecord(ev, item, vIdx); }}>[シュウセイ]</span>
                 <span className="del-mark" onTouchTap={(ev) => { removeRecord(ev, vIdx - 1); }}>[サクジョ]</span>
               </div>
             </li>
