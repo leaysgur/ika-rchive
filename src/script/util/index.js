@@ -12,9 +12,15 @@ module.exports = {
   },
 
   getCanvasSize: () => {
+    const h = window.innerHeight;
+    const w = window.innerWidth;
+
+    const longSide  = h > w ? h : w;
+    const shortSide = h > w ? w : h;
+
     return {
-      w: ((window.innerWidth  * gSizeW)|0),
-      h: ((window.innerHeight * gSizeH)|0)
+      w: ((longSide  * gSizeW)|0),
+      h: ((shortSide * gSizeH)|0)
     };
   },
 

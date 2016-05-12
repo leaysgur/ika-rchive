@@ -67,9 +67,12 @@ module.exports = {
   MAX_RATE_INPUT: 99,
 
   GRAPH_SIZE_TO_SCREEN: {
-    W: 2,
-    H: 0.3
+    W: 0.9,
+    H: 0.6
   },
+
+  LABEL_UNIT_PC:     5,
+  LABEL_UNIT_MOBILE: 10,
 
   RECORD_LIMIT: 200,
 

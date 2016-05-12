@@ -3,12 +3,14 @@ const { Link } = require('react-router');
 
 const RecordModel = require('../../model/record').getInstance();
 
+const Util = require('../../util');
 const {
   RECORD_LIMIT,
   RULE_COLOR,
+  LABEL_UNIT_PC,
+  LABEL_UNIT_MOBILE,
 } = require('../../const');
-const Util = require('../../util');
-const isMobile = Util.isMobile();
+const LABEL_UNIT = Util.isMobile() ? LABEL_UNIT_MOBILE : LABEL_UNIT_PC;
 
 const Graph = require('../../component/record/graph.jsx');
 
@@ -27,11 +29,7 @@ function toGraphData(records) {
   for (let i = 0, l = RECORD_LIMIT; i < l; i++) {
     let cnt = i + 1;
     let { rate, rule } = records[i] || {};
-    if (isMobile) {
-      ret.labels.push(cnt % 10 === 0 ? cnt : '');
-    } else {
-      ret.labels.push(cnt);
-    }
+    ret.labels.push(cnt % LABEL_UNIT === 0 ? cnt : '');
     ret.data.push(rate || null);
     ret.backgroundColor.push(RULE_COLOR[rule]);
   }
