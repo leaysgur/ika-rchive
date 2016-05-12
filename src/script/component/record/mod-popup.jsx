@@ -103,7 +103,8 @@ class ModPopup extends React.Component {
           <li>
             <SaveBtn
               canInput={canInput}
-              onSave={this.onSave}
+              onSave={() => {}}
+              onAfterSave={this.onSave}
             />
           </li>
 

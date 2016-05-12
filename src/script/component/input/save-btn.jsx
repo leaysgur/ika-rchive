@@ -14,12 +14,14 @@ class SaveBtn extends React.Component {
   }
 
   onSave() {
+    const { onSave, onAfterSave } = this.props;
     const setState = this.setState.bind(this);
-    this.props.onSave();
 
+    onSave();
     setState({ showReaction: true });
     _timer = setTimeout(function() {
       setState({ showReaction: false });
+      onAfterSave();
     }, 1000);
   }
 
@@ -59,8 +61,13 @@ class SaveBtn extends React.Component {
 }
 
 SaveBtn.propTypes = {
-  canInput: React.PropTypes.bool.isRequired,
-  onSave:   React.PropTypes.func.isRequired,
+  canInput:    React.PropTypes.bool.isRequired,
+  onSave:      React.PropTypes.func.isRequired,
+  onAfterSave: React.PropTypes.func,
+};
+
+SaveBtn.defaultProps = {
+  onAfterSave: () => {},
 };
 
 module.exports = SaveBtn;
