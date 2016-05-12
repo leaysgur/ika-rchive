@@ -4,10 +4,12 @@
   }
 
   .graph-wrap {
-    margin: 1em .5em;
+    padding-top: .5em;
+    margin: 1em auto;
     text-align: center;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    background-color: rgba(0, 0, 0, .5);
   }
 
   .graph-cover {
