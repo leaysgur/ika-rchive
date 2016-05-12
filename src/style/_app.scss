@@ -15,6 +15,16 @@
   }
 }
 
+.view-body {
+  opacity: 0;
+  transition: opacity .5s ease;
+  will-change: opacity;
+
+  &.is-booted {
+    opacity: 1;
+  }
+}
+
 .view-app {
   .intro-button {
     @extend %button;

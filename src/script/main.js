@@ -27,9 +27,14 @@ try {
   alert('お使いの環境ではご利用いただけません。\nプライベートブラウズはOFFにしてください。');
 }
 
+const $app  = document.getElementById('jsApp');
+const $boot = document.getElementById('jsBootApp');
+
+// 最初は見えなくて、ふわっと起動する
+$app.classList.add('is-booted');
 
 if (UserModel.get('isFirstTime')) {
-  document.getElementById('jsBootApp').addEventListener('click', _boot, false);
+  $boot.addEventListener('click', _boot, false);
 } else {
   _boot();
 }
@@ -40,6 +45,6 @@ function _boot() {
   UserModel.set('isFirstTime', false);
   ReactDOM.render(
     Router,
-    document.getElementById('jsApp')
+    $app
   );
 }
