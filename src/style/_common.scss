@@ -68,6 +68,11 @@
   border-radius: .5em;
 }
 
+.h3 {
+  @extend %content;
+  margin-bottom: 0;
+}
+
 .note {
   margin: .25em 1em;
   font-size: .5em;

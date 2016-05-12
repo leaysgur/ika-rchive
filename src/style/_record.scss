@@ -17,6 +17,21 @@
     padding-top: 60px;
   }
 
+  .graph {
+    position: relative;
+  }
+  .graph-legend {
+    position: absolute;
+    right: .75em;
+    top: .5em;
+    font-size: .75em;
+    text-align: center;
+
+    > span + span {
+      margin-left: .5em;
+    }
+  }
+
   .record-list {
     @extend %content;
   }

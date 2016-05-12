@@ -3,7 +3,10 @@ const Chart = require('chart.js');
 Chart.defaults.global.defaultFontColor = '#fff';
 
 const Util = require('../../util');
-const { RATE_SCALE_GAP, } = require('../../const');
+const {
+  RULE,
+  RATE_SCALE_GAP,
+} = require('../../const');
 
 class Graph extends React.Component {
   constructor() {
@@ -91,8 +94,20 @@ class Graph extends React.Component {
     const { w, h } = Util.getCanvasSize();
 
     return (
-      <div className="graph-wrap">
-        <canvas ref="graph" width={w} height={h}></canvas>
+      <div className="graph">
+        <h3 className="h3 ft-ika">ウデマエ</h3>
+        <div className="graph-legend">
+          {Object.keys(RULE).map((key, idx) => {
+            return (
+              <span key={idx} className={`fc-rule-${key}`}>
+                ■<span className="ft-ika">{RULE[key]}</span>
+              </span>
+            );
+          })}
+        </div>
+        <div className="graph-wrap">
+          <canvas ref="graph" width={w} height={h}></canvas>
+        </div>
       </div>
     );
   }
