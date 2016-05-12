@@ -3,6 +3,7 @@ const assign = require('object-assign');
 const { Link } = require('react-router');
 
 const RecordModel = require('../../model/record').getInstance();
+const UserModel   = require('../../model/user').getInstance();
 
 const List     = require('../../component/record/list.jsx');
 const ModPopup = require('../../component/record/mod-popup.jsx');
@@ -41,10 +42,11 @@ class ListPage extends React.Component {
 
   onModify(record) {
     if (record) {
-      // Recordmodel.update();
-      console.log('update', this.state.modIdx, record);
+      RecordModel.updateRecord(this.state.modIdx, record);
+      UserModel.updateBestRate(record.rate);
     }
     this.setState({
+      records: toListData(RecordModel.get('items')),
       modItem: null,
       modIdx:  null
     });
@@ -56,7 +58,7 @@ class ListPage extends React.Component {
 
     if (this.state.modItem) { return; }
 
-    RecordModel.remove(idx);
+    RecordModel.removeRecord(idx);
     this.setState({
       records: toListData(RecordModel.get('items'))
     });

@@ -49,13 +49,23 @@ class RecordModel extends BaseModel {
     return this.get('items')[idx];
   }
 
-  update(idx, record) {
+  updateRecord(idx, state) {
+    const record = {
+      result:    state.result|0,
+      missmatch: state.missmatch|0,
+      tagmatch:  state.tagmatch|0,
+      rule:      state.rule|0,
+      stage:     state.stage|0,
+      rate:      state.rate|0,
+      createdAt: state.createdAt,
+    };
+
     let items = this.get('items');
     items.splice(idx, 1, this._preSave(record));
     this.set('items', items);
   }
 
-  remove(idx) {
+  removeRecord(idx) {
     let items = this.get('items');
     items.splice(idx, 1);
     this.set('items', items);
