@@ -1,10 +1,6 @@
-const Util = require('./');
+const Util = require('../util');
 
 module.exports = (records) => {
-  return _getUserStat(records);
-};
-
-function _getUserStat(records) {
   let recordsLen = records.length;
   let winStreakCount  = 0;
   let loseStreakCount = 0;
@@ -105,7 +101,7 @@ function _getUserStat(records) {
     loseStreak:    longestLoseStreakCount,
     winRateDetailByRule: winRateDetailByRule
   };
-}
+};
 
 function _getGoodAndBad(stat) {
   let good = 0,

@@ -4,8 +4,9 @@ const assign = require('object-assign');
 const RecordModel = require('../model/record').getInstance();
 const UserModel   = require('../model/user').getInstance();
 
-const Util      = require('../util');
-const statState = require('../util/statState');
+const statReducer = require('../reducer/stat');
+
+const Util = require('../util');
 
 const TotalStat   = require('../component/stat/total-stat.jsx');
 const RecentStat  = require('../component/stat/recent-stat.jsx');
@@ -18,7 +19,7 @@ class StatPage extends React.Component {
     super();
 
     this.state = assign(
-      statState(RecordModel.get('items')),
+      statReducer(RecordModel.get('items')),
       {
         bestRate: Util.getRateStr(UserModel.get('bestRate')),
         totalIdx: UserModel.get('totalIdx')|0,

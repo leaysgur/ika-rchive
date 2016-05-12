@@ -1,4 +1,4 @@
-const Const = require('../const');
+const Const = require('./const');
 const gSizeW = Const.GRAPH_SIZE_TO_SCREEN.W;
 const gSizeH = Const.GRAPH_SIZE_TO_SCREEN.H;
 
