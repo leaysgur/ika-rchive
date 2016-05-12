@@ -71,6 +71,8 @@ module.exports = {
     H: 0.6
   },
 
+  RATE_SCALE_GAP: 20,
+
   LABEL_UNIT_PC:     5,
   LABEL_UNIT_MOBILE: 10,
 

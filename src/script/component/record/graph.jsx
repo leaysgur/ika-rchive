@@ -3,6 +3,7 @@ const Chart = require('chart.js');
 Chart.defaults.global.defaultFontColor = '#fff';
 
 const Util = require('../../util');
+const { RATE_SCALE_GAP, } = require('../../const');
 
 class Graph extends React.Component {
   constructor() {
@@ -33,8 +34,8 @@ class Graph extends React.Component {
     };
 
     // 左右の目盛りを同一にするためには、目盛りを固定する必要がある
-    const min = Math.floor(Math.min.apply(null, data.filter(Boolean)) / 10) * 10;
-    const max = Math.ceil(Math.max.apply(null, data.filter(Boolean)) / 10) * 10;
+    const min = Math.floor(Math.min.apply(null, data.filter(Boolean)) / 10) * 10 - RATE_SCALE_GAP;
+    const max = Math.ceil(Math.max.apply(null, data.filter(Boolean)) / 10) * 10 + RATE_SCALE_GAP;
 
     const cOptions = {
       responsive: false,
@@ -60,14 +61,16 @@ class Graph extends React.Component {
           gridLines: { color: 'rgba(255, 110, 0, .25)' },
           ticks: {
             min, max,
-            callback: Util.getRateStr
+            callback: Util.getRateStr,
+            autoSkip: false,
           }
         },{
           position: 'right',
           gridLines: { display: false },
           ticks: {
             min, max,
-            callback: Util.getRateStr
+            callback: Util.getRateStr,
+            autoSkip: false,
           }
         }]
       }
