@@ -33,7 +33,6 @@ class ListPage extends React.Component {
 
     if (this.state.modItem) { return; }
 
-    console.log(item, idx);
     this.setState({
       modItem: assign({}, item),
       modIdx:  idx,
