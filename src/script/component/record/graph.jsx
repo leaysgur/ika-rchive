@@ -3,42 +3,16 @@ const Chart = require('chart.js');
 Chart.defaults.global.defaultFontColor = '#fff';
 
 const Util = require('../../util');
-const {
-  RULE_COLOR,
-} = require('../../const');
-
-// TODO: util/toGraphState?Props?ってなるので別のなんかに
-function toGraphData(records) {
-  const ret = {
-    data:            [],
-    backgroundColor: []
-  };
-
-  // 1ループで必要なデータを集める
-  records.forEach((item) => {
-    ret.data.push(item.rate);
-    ret.backgroundColor.push(RULE_COLOR[item.rule]);
-  });
-
-  return ret;
-}
 
 class Graph extends React.Component {
   componentDidMount() {
-    const { records } = this.props;
-    if (records.length === 0) { return; }
-    this._drawGraph();
-  }
-
-  _drawGraph() {
-    const { records } = this.props;
     const ctx = this.refs.graph.getContext('2d');
     const {
       data, backgroundColor,
-    } = toGraphData(records);
+    } = this.props;
 
     const cData = {
-      labels: new Array(records.length),
+      labels: new Array(data.length),
       datasets: [{
         data:  data,
         label: null,

@@ -8,6 +8,10 @@ const {
 } = require('../../const');
 const Util = require('../../util');
 
+function toListData(records) {
+  return records.reverse().slice();
+}
+
 class List extends React.Component {
   render() {
     const {
@@ -17,7 +21,7 @@ class List extends React.Component {
 
     return (
       <ul className="record-list wrap">
-        {records.map((item, idx) => {
+        {toListData(records).map((item, idx) => {
           return (
             <li className="record-list-item" key={idx}>
               <div>{records.length - idx}/{RECORD_LIMIT}戦目 - {Util.formatDate(item.createdAt)}</div>

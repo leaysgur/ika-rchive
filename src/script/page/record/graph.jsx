@@ -3,24 +3,44 @@ const { Link } = require('react-router');
 
 const RecordModel = require('../../model/record').getInstance();
 
+const {
+  RULE_COLOR,
+} = require('../../const');
+
+
 const Graph = require('../../component/record/graph.jsx');
+
+// TODO: util/toGraphState?Props?ってなるので別のなんかに
+function toGraphData(records) {
+  const ret = {
+    data:            [],
+    backgroundColor: []
+  };
+
+  // 1ループで必要なデータを集める
+  records.forEach((item) => {
+    ret.data.push(item.rate);
+    ret.backgroundColor.push(RULE_COLOR[item.rule]);
+  });
+
+  return ret;
+}
 
 class GraphPage extends React.Component {
   constructor() {
     super();
 
-    this.state = {
-      records: RecordModel.get('items'),
-    };
+    this.state = toGraphData(RecordModel.get('items'));
   }
 
   render() {
     const { route, } = this.props;
     const {
-      records,
+      data,
+      backgroundColor,
     } = this.state;
 
-    if (records.length === 0) {
+    if (data.length === 0) {
       return (
         <div className={`view-${route.path}`}>
           <div className="graph-cover">
@@ -33,7 +53,7 @@ class GraphPage extends React.Component {
     return (
       <div className={`view-${route.path}`}>
         <Link to="record/list">リストでみる</Link>
-        <Graph records={records} />
+        <Graph {...{ data, backgroundColor, }} />
       </div>
     );
   }
