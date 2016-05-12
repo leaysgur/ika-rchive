@@ -4,8 +4,8 @@ const RecordModel = require('../../model/record').getInstance();
 
 const graphReducer = require('../../reducer/record/graph');
 
-const Graph = require('../../component/record/graph.jsx');
-const Switcher = require('../../component/record/switcher.jsx');
+const Switcher    = require('../../component/record/switcher.jsx');
+const UdemaeGraph = require('../../component/record/udemae-graph.jsx');
 
 class GraphPage extends React.Component {
   constructor() {
@@ -37,7 +37,7 @@ class GraphPage extends React.Component {
       <div className={`view-${route.path}`}>
         <Switcher isList={false} isGraph={true} />
 
-        <Graph {...{
+        <UdemaeGraph {...{
           data,
           backgroundColor,
           labels,
