@@ -1,8 +1,7 @@
 const React = require('react');
-const Chart = require('chart.js');
-Chart.defaults.global.defaultFontColor = '#fff';
 
 const Util = require('../../util');
+const Chart = Util.getChartClass();
 const {
   RULE,
   RATE_SCALE_GAP,
@@ -42,9 +41,6 @@ class UdemaeGraph extends React.Component {
     const max = Math.ceil(Math.max.apply(null, data.filter(Boolean)) / 10) * 10 + RATE_SCALE_GAP;
 
     const cOptions = {
-      responsive: false,
-      events: ['mousemove', 'touchstart'],
-      legend: { display: false },
       tooltips: {
         callbacks: {
           title: () => { return ''; },

@@ -1,3 +1,5 @@
+const Chart = require('chart.js');
+
 const Const = require('./const');
 const gSizeW = Const.GRAPH_SIZE_TO_SCREEN.W;
 const gSizeH = Const.GRAPH_SIZE_TO_SCREEN.H;
@@ -9,6 +11,15 @@ module.exports = {
 
   isMobile: () => {
     return 'ontouchstart' in document;
+  },
+
+  getChartClass: () => {
+    Chart.defaults.global.defaultFontColor = '#fff';
+    Chart.defaults.global.responsive = false;
+    Chart.defaults.global.events = ['mousemove', 'touchstart'];
+    Chart.defaults.global.legend.display = false;
+
+    return Chart;
   },
 
   getCanvasSize: () => {
