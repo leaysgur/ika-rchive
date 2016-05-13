@@ -17,13 +17,14 @@ class GraphPage extends React.Component {
   render() {
     const { route, } = this.props;
     const {
-      data,
-      backgroundColor,
+      noData,
       labels,
-      tooltip,
+      uData,
+      uBackgroundColor,
+      uTooltip,
     } = this.state;
 
-    if (data.length === 0) {
+    if (noData) {
       return (
         <div className={`view-${route.path}`}>
           <div className="graph-cover">
@@ -37,12 +38,12 @@ class GraphPage extends React.Component {
       <div className={`view-${route.path}`}>
         <Switcher isList={false} isGraph={true} />
 
-        <UdemaeGraph {...{
-          data,
-          backgroundColor,
-          labels,
-          tooltip,
-        }} />
+        <UdemaeGraph
+          data={uData}
+          backgroundColor={uBackgroundColor}
+          labels={labels}
+          tooltip={uTooltip}
+        />
       </div>
     );
   }

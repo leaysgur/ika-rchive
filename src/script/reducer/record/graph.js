@@ -10,23 +10,37 @@ const LABEL_UNIT = Util.isMobile() ? LABEL_UNIT_MOBILE : LABEL_UNIT_PC;
 
 module.exports = (records) => {
   const ret = {
-    labels:          [],
-    data:            [],
-    tooltip:         [],
-    backgroundColor: [],
+    // 共通
+    noData:           false,
+    labels:           [],
+    // ウデマエ
+    uData:            [],
+    uTooltip:         [],
+    uBackgroundColor: [],
+    // キルレ
+    kData:            [],
+    dData:            [],
   };
 
-  if (records.length === 0) { return ret; }
+  if (records.length === 0) {
+    ret.noData = true;
+    return ret;
+  }
 
   // 1ループで必要なデータを集める
   // グラフの体裁を合わせるため、実データより大枠を優先
   for (let i = 0, l = RECORD_LIMIT; i < l; i++) {
     let cnt = i + 1;
     let item = records[i] || {};
+
     ret.labels.push(cnt % LABEL_UNIT === 0 ? cnt : '');
-    ret.data.push(item.rate || null);
-    ret.tooltip.push(`${RULE[item.rule]}: ${Util.getRateStr(item.rate)}`);
-    ret.backgroundColor.push(RULE_COLOR[item.rule]);
+
+    ret.uData.push(item.rate || null);
+    ret.uTooltip.push(`${RULE[item.rule]}: ${Util.getRateStr(item.rate)}`);
+    ret.uBackgroundColor.push(RULE_COLOR[item.rule]);
+
+    ret.kData.push(item.kill || 0);
+    ret.dData.push(item.death || 0);
   }
 
   return ret;
