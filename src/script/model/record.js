@@ -30,6 +30,8 @@ class RecordModel extends BaseModel {
       rule:      state.rule|0,
       stage:     state[state.stage]|0,
       rate:      (state.rateRank|0) + (state.rateScore|0),
+      kill:      state.kill|0,
+      death:     state.death|0,
       // 登録日はココでいれる
       createdAt: Date.now(),
     };
@@ -57,6 +59,8 @@ class RecordModel extends BaseModel {
       rule:      state.rule|0,
       stage:     state.stage|0,
       rate:      state.rate|0,
+      kill:      state.kill|0,
+      death:     state.death|0,
       createdAt: state.createdAt,
     };
 

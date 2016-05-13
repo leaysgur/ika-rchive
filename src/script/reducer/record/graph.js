@@ -40,7 +40,20 @@ module.exports = (records) => {
     ret.uBackgroundColor.push(RULE_COLOR[item.rule]);
 
     // 0になるとInfinityになっちゃうので注意
-    const ratio = (((item.kill || 1) / (item.death || 1) * 10)|0) / 10;
+    let ratio;
+    // そもそも入力してない
+    if (typeof item.kill !== 'number' && typeof item.death !== 'number') {
+      ratio = null;
+    }
+    // 0k0dは1とする
+    else if (item.kill === 0 && item.death === 0) {
+      ratio = 1;
+    }
+    else {
+      ratio = (item.death === 0)
+        ? ((item.kill * 10)|0) / 10
+        : ((item.kill / item.death * 10)|0) / 10;
+    }
     ret.kdData.push(ratio);
     ret.kdTooltip.push(`${item.kill}k / ${item.death}d`);
   }

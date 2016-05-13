@@ -9,6 +9,7 @@ const StageInput        = require('../component/input/stage-input.jsx');
 const ResultInput       = require('../component/input/result-input.jsx');
 const ResultOptionInput = require('../component/input/result-option-input.jsx');
 const RateInput         = require('../component/input/rate-input.jsx');
+const KDInput           = require('../component/input/kd-input.jsx');
 const SaveBtn           = require('../component/input/save-btn.jsx');
 
 // 本セッションでの増減はいつだってコレが基準
@@ -149,7 +150,11 @@ class InputPage extends React.Component {
             [{isOptHide ? '+' : '-'}]オプションを{isOptHide ? 'ひらく' : 'とじる'}
           </li>
           <li className="input-item" style={{ display: isOptHide ? 'none' : 'block' }}>
-            <input min="0" type="number" /> キル / <input min="0" type="number" /> デス
+            <KDInput
+              kill={kill}
+              death={death}
+              onChange={this.onChange}
+            />
           </li>
         </ul>
 
