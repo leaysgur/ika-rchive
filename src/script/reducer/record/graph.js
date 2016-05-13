@@ -18,9 +18,7 @@ module.exports = (records) => {
     uTooltip:         [],
     uBackgroundColor: [],
     // キルレ
-    kData:            [],
-    dData:            [],
-    rData:            [],
+    kdData:           [],
     kdTooltip:        [],
   };
 
@@ -32,8 +30,8 @@ module.exports = (records) => {
   // 1ループで必要なデータを集める
   // グラフの体裁を合わせるため、実データより大枠を優先
   for (let i = 0, l = RECORD_LIMIT; i < l; i++) {
-    let cnt = i + 1;
-    let item = records[i] || {};
+    const cnt = i + 1;
+    const item = records[i] || {};
 
     ret.labels.push(cnt % LABEL_UNIT === 0 ? cnt : '');
 
@@ -41,17 +39,10 @@ module.exports = (records) => {
     ret.uTooltip.push(`${RULE[item.rule]}: ${Util.getRateStr(item.rate)}`);
     ret.uBackgroundColor.push(RULE_COLOR[item.rule]);
 
-
-    // TODO: DEBUG
-    item.kill = Math.floor(Math.random()*5)+1;
-    item.death = Math.floor(Math.random()*5)+1;
-
-    // 0になるとInfinityになっちゃう
-    ret.kData.push(item.kill  || 1);
-    ret.dData.push(item.death || 1);
-    let ratio = ((item.kill / item.death * 10)|0) / 10;
-    ret.rData.push(ratio);
-    ret.kdTooltip.push(`foo`);
+    // 0になるとInfinityになっちゃうので注意
+    const ratio = (((item.kill || 1) / (item.death || 1) * 10)|0) / 10;
+    ret.kdData.push(ratio);
+    ret.kdTooltip.push(`${item.kill}k / ${item.death}d`);
   }
 
   return ret;

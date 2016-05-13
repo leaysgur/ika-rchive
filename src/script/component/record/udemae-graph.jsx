@@ -25,14 +25,16 @@ class UdemaeGraph extends React.Component {
     const cData = {
       labels: labels,
       // 右目盛りのために同じデータを2つ渡す
+      // 片方はLineチャートだが見えないので関係ない
       datasets: [{
+        type:  'bar',
         data:  data,
         label: null,
         backgroundColor: backgroundColor,
       }, {
+        type:  'line',
         data:  data,
         label: null,
-        backgroundColor: backgroundColor,
       }]
     };
 
@@ -49,10 +51,8 @@ class UdemaeGraph extends React.Component {
       },
       scales: {
         xAxes: [{
-          // カテゴリに対してバーがはみ出るようにすることで、
-          // 2本のバーを1本に見せかける
-          barPercentage: 1.2,
-          categoryPercentage: .8,
+          barPercentage: .8,
+          categoryPercentage: 1,
           ticks: { autoSkip: false, }
         }],
         yAxes: [{
@@ -75,7 +75,6 @@ class UdemaeGraph extends React.Component {
     };
 
     this.chart = new Chart(ctx, {
-      type:    'bar',
       data:    cData,
       options: cOptions,
     });

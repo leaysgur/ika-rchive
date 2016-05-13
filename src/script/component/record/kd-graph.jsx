@@ -16,27 +16,30 @@ class KDGraph extends React.Component {
     const ctx = this.refs.graph.getContext('2d');
     const {
       labels,
-      // kData, dData,
-      rData,
+      data,
       tooltip,
     } = this.props;
 
     const cData = {
       labels: labels,
       datasets: [{
-        data:  rData,
+        type:  'line',
+        data:  data,
         label: null,
         borderColor: '#FF6E00',
         borderWidth: 1,
         pointRadius: 1,
       }, {
-        data:  rData,
+        type:  'line',
+        data:  data,
         label: null,
+        borderWidth: 0,
+        pointRadius: 0,
       }]
     };
 
     const min = 0;
-    const max = Math.max.apply(null, rData);
+    const max = Math.max.apply(null, data);
 
     const cOptions = {
       tooltips: {
@@ -73,7 +76,6 @@ class KDGraph extends React.Component {
     };
 
     this.chart = new Chart(ctx, {
-      type:    'line',
       data:    cData,
       options: cOptions,
     });

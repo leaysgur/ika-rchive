@@ -22,7 +22,7 @@ class GraphPage extends React.Component {
       labels,
       uData, uBackgroundColor,
       uTooltip,
-      kData, dData, rData,
+      kdData,
       kdTooltip,
     } = this.state;
 
@@ -49,9 +49,7 @@ class GraphPage extends React.Component {
 
         <KDGraph
           labels={labels}
-          kData={kData}
-          dData={dData}
-          rData={rData}
+          data={kdData}
           tooltip={kdTooltip}
         />
       </div>
