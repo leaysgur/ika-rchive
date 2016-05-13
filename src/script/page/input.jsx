@@ -36,10 +36,22 @@ class InputPage extends React.Component {
       rateScore:  '',
       _rateScore: ''+rateScore, // 実体は↑で、これはplaceholder用
       recentRateGap: Util.getRecentRateGap(latestRecord.rate|0, lastLastRate),
+      kill:  '',
+      death: '',
+      isOptHide:  true,
     };
 
-    this.onChange = this.onChange.bind(this);
-    this.onSave   = this.onSave.bind(this);
+    this.toggleOptInput = this.toggleOptInput.bind(this);
+    this.onChange       = this.onChange.bind(this);
+    this.onSave         = this.onSave.bind(this);
+  }
+
+  toggleOptInput(ev) {
+    ev.preventDefault();
+
+    this.setState({
+      isOptHide: !this.state.isOptHide,
+    });
   }
 
   onChange(key, val) {
@@ -83,6 +95,8 @@ class InputPage extends React.Component {
       missmatch, tagmatch,
       rateRank, rateScore, _rateScore,
       recentRateGap,
+      isOptHide,
+      kill, death,
     } = this.state;
     const isDisconnected = Util.isDisconnected(result);
     const canInput = Util.canInput(rateScore);
@@ -129,6 +143,13 @@ class InputPage extends React.Component {
               _rateScore={_rateScore}
               onChange={this.onChange}
             />
+          </li>
+
+          <li className="input-item m-title" onTouchTap={this.toggleOptInput}>
+            [{isOptHide ? '+' : '-'}]オプションを{isOptHide ? 'ひらく' : 'とじる'}
+          </li>
+          <li className="input-item" style={{ display: isOptHide ? 'none' : 'block' }}>
+            <input min="0" type="number" /> キル / <input min="0" type="number" /> デス
           </li>
         </ul>
 
