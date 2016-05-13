@@ -92,7 +92,7 @@ class KDGraph extends React.Component {
 
     return (
       <div className="graph">
-        <h3 className="h3 ft-ika">キル・デス</h3>
+        <h3 className="h3 ft-ika">キル・デスのヒリツ</h3>
         <div className="graph-legend">
           {Object.keys(RULE).map((key, idx) => {
             return (

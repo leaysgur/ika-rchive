@@ -90,7 +90,7 @@ class UdemaeGraph extends React.Component {
 
     return (
       <div className="graph">
-        <h3 className="h3 ft-ika">ウデマエ</h3>
+        <h3 className="h3 ft-ika">ウデマエのスイイ</h3>
         <div className="graph-legend">
           {Object.keys(RULE).map((key, idx) => {
             return (
