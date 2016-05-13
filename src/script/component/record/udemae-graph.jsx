@@ -4,7 +4,6 @@ const Util = require('../../util');
 const Chart = Util.getChartClass();
 const {
   RULE,
-  RATE_SCALE_GAP,
 } = require('../../const');
 
 class UdemaeGraph extends React.Component {
@@ -39,8 +38,8 @@ class UdemaeGraph extends React.Component {
     };
 
     // 左右の目盛りを同一にするためには、目盛りを固定する必要がある
-    const min = Math.floor(Math.min.apply(null, data.filter(Boolean)) / 10) * 10 - RATE_SCALE_GAP;
-    const max = Math.ceil(Math.max.apply(null, data.filter(Boolean)) / 10) * 10 + RATE_SCALE_GAP;
+    const min = Util.getUdemaeScaleMin(data);
+    const max = Util.getUdemaeScaleMax(data);
 
     const cOptions = {
       tooltips: {
