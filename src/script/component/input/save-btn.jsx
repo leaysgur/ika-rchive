@@ -14,8 +14,13 @@ class SaveBtn extends React.Component {
   }
 
   onSave() {
-    const { onSave, onAfterSave } = this.props;
+    const {
+      canInput,
+      onSave, onAfterSave,
+    } = this.props;
     const setState = this.setState.bind(this);
+
+    if (!canInput) { return; }
 
     onSave();
     setState({ showReaction: true });
@@ -34,25 +39,22 @@ class SaveBtn extends React.Component {
     const { canInput, } = this.props;
     const { showReaction, } = this.state;
 
-    let disabled = true,
-        state = 'wait',
+    let state = 'wait',
         label = 'ニュウリョクチュウ...';
 
     if (canInput) {
-      disabled = false,
       state = 'set',
       label = 'トウロク！';
     }
 
     if (showReaction) {
-      disabled = true,
       state = 'reaction',
       label = 'カンリョウ！';
     }
 
     return (
       <button
-        disabled={disabled}
+        disabled={!canInput}
         className={`${state}-button ft-ika`}
         onTouchTap={this.onSave}
       >{label}</button>
