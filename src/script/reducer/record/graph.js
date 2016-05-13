@@ -20,6 +20,8 @@ module.exports = (records) => {
     // キルレ
     kData:            [],
     dData:            [],
+    rData:            [],
+    kdTooltip:        [],
   };
 
   if (records.length === 0) {
@@ -39,8 +41,17 @@ module.exports = (records) => {
     ret.uTooltip.push(`${RULE[item.rule]}: ${Util.getRateStr(item.rate)}`);
     ret.uBackgroundColor.push(RULE_COLOR[item.rule]);
 
-    ret.kData.push(item.kill || 0);
-    ret.dData.push(item.death || 0);
+
+    // TODO: DEBUG
+    item.kill = Math.floor(Math.random()*5)+1;
+    item.death = Math.floor(Math.random()*5)+1;
+
+    // 0になるとInfinityになっちゃう
+    ret.kData.push(item.kill  || 1);
+    ret.dData.push(item.death || 1);
+    let ratio = ((item.kill / item.death * 10)|0) / 10;
+    ret.rData.push(ratio);
+    ret.kdTooltip.push(`foo`);
   }
 
   return ret;

@@ -20,9 +20,10 @@ class GraphPage extends React.Component {
     const {
       noData,
       labels,
-      uData,
-      uBackgroundColor,
+      uData, uBackgroundColor,
       uTooltip,
+      kData, dData, rData,
+      kdTooltip,
     } = this.state;
 
     if (noData) {
@@ -40,17 +41,18 @@ class GraphPage extends React.Component {
         <Switcher isList={false} isGraph={true} />
 
         <UdemaeGraph
+          labels={labels}
           data={uData}
           backgroundColor={uBackgroundColor}
-          labels={labels}
           tooltip={uTooltip}
         />
 
         <KDGraph
-          data={uData}
-          backgroundColor={uBackgroundColor}
           labels={labels}
-          tooltip={uTooltip}
+          kData={kData}
+          dData={dData}
+          rData={rData}
+          tooltip={kdTooltip}
         />
       </div>
     );

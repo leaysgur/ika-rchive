@@ -3,8 +3,6 @@ const React = require('react');
 const Util = require('../../util');
 const Chart = Util.getChartClass();
 const {
-  RULE,
-  RATE_SCALE_GAP,
 } = require('../../const');
 
 class KDGraph extends React.Component {
@@ -18,27 +16,27 @@ class KDGraph extends React.Component {
     const ctx = this.refs.graph.getContext('2d');
     const {
       labels,
-      data, backgroundColor,
+      // kData, dData,
+      rData,
       tooltip,
     } = this.props;
 
     const cData = {
       labels: labels,
-      // 右目盛りのために同じデータを2つ渡す
       datasets: [{
-        data:  data,
+        data:  rData,
         label: null,
-        backgroundColor: backgroundColor,
+        borderColor: '#FF6E00',
+        borderWidth: 1,
+        pointRadius: 1,
       }, {
-        data:  data,
+        data:  rData,
         label: null,
-        backgroundColor: backgroundColor,
       }]
     };
 
-    // 左右の目盛りを同一にするためには、目盛りを固定する必要がある
-    const min = Math.floor(Math.min.apply(null, data.filter(Boolean)) / 10) * 10 - RATE_SCALE_GAP;
-    const max = Math.ceil(Math.max.apply(null, data.filter(Boolean)) / 10) * 10 + RATE_SCALE_GAP;
+    const min = 0;
+    const max = Math.max.apply(null, rData);
 
     const cOptions = {
       tooltips: {
@@ -49,26 +47,26 @@ class KDGraph extends React.Component {
       },
       scales: {
         xAxes: [{
-          // カテゴリに対してバーがはみ出るようにすることで、
-          // 2本のバーを1本に見せかける
-          barPercentage: 1.2,
-          categoryPercentage: .8,
           ticks: { autoSkip: false, }
         }],
         yAxes: [{
           gridLines: { color: 'rgba(255, 110, 0, .25)' },
           ticks: {
             min, max,
-            callback: Util.getRateStr,
-            autoSkip: false,
+            callback: (ratio) => {
+              return ` ${('0'+ratio).slice(-2)}.0`;
+            },
+            stepSize: 1,
           }
         },{
           position: 'right',
           gridLines: { display: false },
           ticks: {
             min, max,
-            callback: Util.getRateStr,
-            autoSkip: false,
+            callback: (ratio) => {
+              return ` ${('0'+ratio).slice(-2)}.0`;
+            },
+            stepSize: 1,
           }
         }]
       }
@@ -88,6 +86,7 @@ class KDGraph extends React.Component {
 
   render() {
     const { w, h } = Util.getCanvasSize();
+    const RULE = { 1: 'キル', 2: 'デス' };
 
     return (
       <div className="graph">
