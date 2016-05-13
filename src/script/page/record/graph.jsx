@@ -6,6 +6,7 @@ const graphReducer = require('../../reducer/record/graph');
 
 const Switcher    = require('../../component/record/switcher.jsx');
 const UdemaeGraph = require('../../component/record/udemae-graph.jsx');
+const KDGraph     = require('../../component/record/kd-graph.jsx');
 
 class GraphPage extends React.Component {
   constructor() {
@@ -39,6 +40,13 @@ class GraphPage extends React.Component {
         <Switcher isList={false} isGraph={true} />
 
         <UdemaeGraph
+          data={uData}
+          backgroundColor={uBackgroundColor}
+          labels={labels}
+          tooltip={uTooltip}
+        />
+
+        <KDGraph
           data={uData}
           backgroundColor={uBackgroundColor}
           labels={labels}
