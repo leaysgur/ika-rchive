@@ -61,19 +61,19 @@ const RecentStat = ({
             <td>{kdRatio}</td>
           </tr>
           <tr>
-            <td>勝てるルール</td>
+            <td>勝ってるルール</td>
             <td>{RULE[goodRule] || '-'}</td>
           </tr>
           <tr>
-            <td>負けるルール</td>
+            <td>負けてるルール</td>
             <td>{RULE[badRule] || '-'}</td>
           </tr>
           <tr>
-            <td>勝てるステージ</td>
+            <td>勝ってるステージ</td>
             <td className="fs-s">{STAGE[goodStage] || '-'}</td>
           </tr>
           <tr>
-            <td>負けるステージ</td>
+            <td>負けてるステージ</td>
             <td className="fs-s">{STAGE[badStage] || '-'}</td>
           </tr>
         </tbody>
@@ -83,6 +83,7 @@ const RecentStat = ({
 };
 
 RecentStat.propTypes = {
+  avgRate:     React.PropTypes.string.isRequired,
   winRate:     React.PropTypes.string.isRequired,
   winRateFree: React.PropTypes.string.isRequired,
   winRateTag:  React.PropTypes.string.isRequired,
@@ -95,6 +96,7 @@ RecentStat.propTypes = {
   badRule:     React.PropTypes.string.isRequired,
   goodStage:   React.PropTypes.string.isRequired,
   badStage:    React.PropTypes.string.isRequired,
+  kdRatio:     React.PropTypes.number.isRequired,
 };
 
 module.exports = RecentStat;
