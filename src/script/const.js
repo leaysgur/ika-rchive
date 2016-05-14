@@ -72,6 +72,7 @@ module.exports = {
   },
 
   RATE_SCALE_GAP: 20,
+  KD_SCALE_GAP:   1,
 
   LABEL_UNIT_PC:     5,
   LABEL_UNIT_MOBILE: 10,

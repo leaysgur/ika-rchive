@@ -53,9 +53,7 @@ class KDGraph extends React.Component {
           ticks: {
             min: scaleMin,
             max: scaleMax,
-            callback: (ratio) => {
-              return ` ${('0'+ratio).slice(-2)}.0`;
-            },
+            callback: Util.getKDRatioStr,
             stepSize: 1,
           }
         },{
@@ -64,9 +62,7 @@ class KDGraph extends React.Component {
           ticks: {
             min: scaleMin,
             max: scaleMax,
-            callback: (ratio) => {
-              return ` ${('0'+ratio).slice(-2)}.0`;
-            },
+            callback: Util.getKDRatioStr,
             stepSize: 1,
           }
         }]

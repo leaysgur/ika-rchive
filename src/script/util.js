@@ -147,6 +147,14 @@ module.exports = {
     return ret;
   },
 
+  getKDRatioStr: (val) => {
+    const vArr = (''+val).split('.');
+    if (vArr.length === 1) {
+      return ('0' + val).slice(-2) + '.0';
+    }
+    return ('0' + vArr[0]).slice(-2) + '.' + vArr[1];
+  },
+
   calcKDRatio({ kill, death }) {
     let ratio = 0;
     // 0k0dは1とする
@@ -161,7 +169,7 @@ module.exports = {
       ratio = ((kill / death * 10)|0) / 10;
     }
 
-    return ratio.toFixed(1);
+    return ratio;
   },
 
   getTweetUrl(rateStr, winRate) {

@@ -4,6 +4,7 @@ const {
   RECORD_LIMIT,
   RULE_COLOR,
   RATE_SCALE_GAP,
+  KD_SCALE_GAP,
   LABEL_UNIT_PC,
   LABEL_UNIT_MOBILE,
 } = require('../../const');
@@ -60,7 +61,7 @@ module.exports = (records) => {
   // ループ後に欲しいやつ
   ret.uScaleMax = _getUdemaeScaleMax(ret.uData);
   ret.uScaleMin = _getUdemaeScaleMin(ret.uData);
-  ret.kdScaleMax = Math.max.apply(null, ret.kdData);
+  ret.kdScaleMax = Math.max.apply(null, ret.kdData) + KD_SCALE_GAP;
   ret.kdScaleMin = 0;
 
   return ret;
