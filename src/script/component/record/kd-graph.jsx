@@ -27,7 +27,7 @@ class KDGraph extends React.Component {
         label: null,
         borderColor: '#FF6E00',
         borderWidth: 1,
-        pointRadius: 1,
+        pointRadius: 3,
       }, {
         type:  'line',
         data:  data,
