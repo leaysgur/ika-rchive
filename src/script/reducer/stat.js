@@ -24,6 +24,7 @@ module.exports = (records) => {
   };
   let killCount  = 0;
   let deathCount = 0;
+  let totalRate  = 0;
 
   // このループで用意できるものは全て用意する
   records.forEach(function(item) {
@@ -79,6 +80,8 @@ module.exports = (records) => {
 
     if ('kill'  in item) { killCount  += item.kill; }
     if ('death' in item) { deathCount += item.death; }
+
+    totalRate+= item.rate;
   });
 
   // 以下、各ステージと各ルールにおいて、
@@ -106,6 +109,7 @@ module.exports = (records) => {
     loseStreak:    longestLoseStreakCount,
     winRateDetailByRule: winRateDetailByRule,
     kdRatio:       Util.calcKDRatio({ kill: killCount, death: deathCount }),
+    avgRate:       Util.getRateStr(totalRate / recordsLen),
   };
 };
 

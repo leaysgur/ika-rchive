@@ -5,6 +5,7 @@ const {
 } = require('../../const');
 
 const RecentStat = ({
+  avgRate,
   winRate, winRateFree, winRateTag,
   missmatch,
   winStreak, loseStreak,
@@ -19,6 +20,10 @@ const RecentStat = ({
 
       <table className="user-stat wrap fs-s">
         <tbody>
+          <tr>
+            <td>適正ウデマエ</td>
+            <td>{avgRate}</td>
+          </tr>
           <tr>
             <td>全体の勝率</td>
             <td>{winRate}%</td>

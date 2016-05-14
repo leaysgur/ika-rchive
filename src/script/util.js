@@ -48,11 +48,7 @@ module.exports = {
   },
 
   getRateStr: (val) => {
-    if (typeof val === 'object' && val !== null) {
-      val = val.value;
-    } else {
-      val = val|0;
-    }
+    val = val|0;
 
     let rate = val % 100;
     let wait = val - rate;
