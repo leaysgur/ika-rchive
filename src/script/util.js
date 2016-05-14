@@ -172,8 +172,12 @@ module.exports = {
     return ratio;
   },
 
-  getTweetUrl(rateStr, winRate) {
-    const text = `ウデマエが${rateStr}になったぞ！最近の勝率は${winRate}%だ！\n#ウデマエアーカイブ`;
+  getTweetUrl(rateStr, state) {
+    const text = [
+      `ウデマエが${rateStr}になったぞ！最近の勝率は${state.winRate}%！`,
+      `${state.totalIdx}戦のキロクで、いまの適正ウデマエは${state.avgRate}だ！`,
+      `#ウデマエアーカイブ`,
+    ].join('\n');
 
     return Const.TWITTER_URL + encodeURIComponent(text);
   }

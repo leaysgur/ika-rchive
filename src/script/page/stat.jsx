@@ -42,7 +42,7 @@ class StatPage extends React.Component {
       avgRate,
     } = this.state;
     const tweetUrl = !!latestRecord
-      ? Util.getTweetUrl(Util.getRateStr(latestRecord.rate), winRate)
+      ? Util.getTweetUrl(Util.getRateStr(latestRecord.rate), this.state)
       : null;
 
     return (
