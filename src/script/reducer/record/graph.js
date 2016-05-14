@@ -3,6 +3,7 @@ const {
   RULE,
   RECORD_LIMIT,
   RULE_COLOR,
+  RATE_SCALE_GAP,
   LABEL_UNIT_PC,
   LABEL_UNIT_MOBILE,
 } = require('../../const');
@@ -17,15 +18,20 @@ module.exports = (records) => {
     uData:            [],
     uTooltip:         [],
     uBackgroundColor: [],
+    uScaleMax:        0,
+    uScaleMin:        0,
     // キルレ
     kdData:           [],
     kdTooltip:        [],
+    kdScaleMax:       0,
+    kdScaleMin:       0,
   };
 
   if (records.length === 0) {
     ret.noData = true;
     return ret;
   }
+
 
   // 1ループで必要なデータを集める
   // グラフの体裁を合わせるため、実データより大枠を優先
@@ -60,5 +66,24 @@ module.exports = (records) => {
     ret.kdTooltip.push(`${item.kill}k / ${item.death}d`);
   }
 
+  // ループ後に欲しいやつ
+  ret.uScaleMax = _getUdemaeScaleMax(ret.uData);
+  ret.uScaleMin = _getUdemaeScaleMin(ret.uData);
+  ret.kdScaleMax = Math.max.apply(null, ret.kdData);
+  ret.kdScaleMin = 0;
+
   return ret;
 };
+
+function _getUdemaeScaleMax(data) {
+  data = data.filter(Boolean);
+  return Math.ceil(Math.max.apply(null, data) / 10) * 10 + RATE_SCALE_GAP;
+}
+
+function _getUdemaeScaleMin(data) {
+  data = data.filter(Boolean);
+  return Math.max(
+    0,
+    Math.floor(Math.min.apply(null, data) / 10) * 10 - RATE_SCALE_GAP
+  );
+}

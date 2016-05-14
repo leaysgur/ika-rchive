@@ -22,8 +22,10 @@ class GraphPage extends React.Component {
       labels,
       uData, uBackgroundColor,
       uTooltip,
+      uScaleMax, uScaleMin,
       kdData,
       kdTooltip,
+      kdScaleMax, kdScaleMin,
     } = this.state;
 
     if (noData) {
@@ -45,12 +47,14 @@ class GraphPage extends React.Component {
           data={uData}
           backgroundColor={uBackgroundColor}
           tooltip={uTooltip}
+          scaleMax={uScaleMax} scaleMin={uScaleMin}
         />
 
         <KDGraph
           labels={labels}
           data={kdData}
           tooltip={kdTooltip}
+          scaleMax={kdScaleMax} scaleMin={kdScaleMin}
         />
       </div>
     );

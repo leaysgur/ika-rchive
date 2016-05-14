@@ -18,6 +18,7 @@ class KDGraph extends React.Component {
       labels,
       data,
       tooltip,
+      scaleMax, scaleMin,
     } = this.props;
 
     const cData = {
@@ -38,9 +39,6 @@ class KDGraph extends React.Component {
       }]
     };
 
-    const min = 0;
-    const max = Math.max.apply(null, data);
-
     const cOptions = {
       tooltips: {
         callbacks: {
@@ -55,7 +53,8 @@ class KDGraph extends React.Component {
         yAxes: [{
           gridLines: { color: 'rgba(255, 110, 0, .25)' },
           ticks: {
-            min, max,
+            min: scaleMin,
+            max: scaleMax,
             callback: (ratio) => {
               return ` ${('0'+ratio).slice(-2)}.0`;
             },
@@ -65,7 +64,8 @@ class KDGraph extends React.Component {
           position: 'right',
           gridLines: { display: false },
           ticks: {
-            min, max,
+            min: scaleMin,
+            max: scaleMax,
             callback: (ratio) => {
               return ` ${('0'+ratio).slice(-2)}.0`;
             },

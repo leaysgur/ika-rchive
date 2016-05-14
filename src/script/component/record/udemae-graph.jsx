@@ -19,6 +19,7 @@ class UdemaeGraph extends React.Component {
       labels,
       data, backgroundColor,
       tooltip,
+      scaleMax, scaleMin,
     } = this.props;
 
     const cData = {
@@ -37,10 +38,6 @@ class UdemaeGraph extends React.Component {
       }]
     };
 
-    // 左右の目盛りを同一にするためには、目盛りを固定する必要がある
-    const min = Util.getUdemaeScaleMin(data);
-    const max = Util.getUdemaeScaleMax(data);
-
     const cOptions = {
       tooltips: {
         callbacks: {
@@ -57,7 +54,8 @@ class UdemaeGraph extends React.Component {
         yAxes: [{
           gridLines: { color: 'rgba(255, 110, 0, .25)' },
           ticks: {
-            min, max,
+            min: scaleMin,
+            max: scaleMax,
             callback: Util.getRateStr,
             autoSkip: false,
           }
@@ -65,7 +63,8 @@ class UdemaeGraph extends React.Component {
           position: 'right',
           gridLines: { display: false },
           ticks: {
-            min, max,
+            min: scaleMin,
+            max: scaleMax,
             callback: Util.getRateStr,
             autoSkip: false,
           }

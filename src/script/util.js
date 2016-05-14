@@ -86,19 +86,6 @@ module.exports = {
     };
   },
 
-  getUdemaeScaleMax: (data) => {
-    data = data.filter(Boolean);
-    return Math.ceil(Math.max.apply(null, data) / 10) * 10 + Const.RATE_SCALE_GAP;
-  },
-
-  getUdemaeScaleMin: (data) => {
-    data = data.filter(Boolean);
-    return Math.max(
-      0,
-      Math.floor(Math.min.apply(null, data) / 10) * 10 - Const.RATE_SCALE_GAP
-    );
-  },
-
   isValidRate: (score) => {
     let min = Const.RATE_TABLE[Const.MIN_RATE_STR] + Const.MIN_RATE_INPUT;
     let max = Const.RATE_TABLE[Const.MAX_RATE_STR] + Const.MAX_RATE_INPUT;
