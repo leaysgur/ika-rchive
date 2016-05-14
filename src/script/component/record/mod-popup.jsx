@@ -8,6 +8,7 @@ const SingleStageInput  = require('../input/single-stage-input.jsx');
 const ResultInput       = require('../input/result-input.jsx');
 const ResultOptionInput = require('../input/result-option-input.jsx');
 const RateInput         = require('../input/rate-input.jsx');
+const KDInput           = require('../input/kd-input.jsx');
 const SaveBtn           = require('../input/save-btn.jsx');
 
 class ModPopup extends React.Component {
@@ -53,6 +54,7 @@ class ModPopup extends React.Component {
       tagmatch,
       missmatch,
       rate,
+      kill, death,
     } = this.state;
     const { rateRank, rateScore } = Util.getRankAndScore(rate);
     const canInput = Util.canInput(rateScore);
@@ -96,6 +98,14 @@ class ModPopup extends React.Component {
               rateRank={''+rateRank}
               rateScore={''+rateScore}
               _rateScore={''+rateScore}
+              onChange={this.onChange}
+            />
+          </li>
+
+          <li className="input-item">
+            <KDInput
+              kill={''+kill}
+              death={''+death}
               onChange={this.onChange}
             />
           </li>
