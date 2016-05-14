@@ -96,6 +96,8 @@ class ListPage extends React.Component {
           modifyRecord={this.modifyRecord}
           removeRecord={this.removeRecord}
         />
+
+        <Switcher isList={true} isGraph={false} />
       </div>
     );
   }

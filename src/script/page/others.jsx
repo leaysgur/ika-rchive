@@ -15,7 +15,7 @@ class OthersPage extends React.Component {
         <h2 className="ft-ika">つかいかた</h2>
         <div className="wrap">
           <p>バトル後に<span className="ft-ika">ウデマエ</span>を<span className="ft-ika">トウロク</span>だ！</p>
-          <p>データは<span className="ft-ika">グラフ</span>や<span className="ft-ika">セイセキ</span>から見れるぞ！</p>
+          <p>データは<span className="ft-ika">キロク</span>や<span className="ft-ika">セイセキ</span>から見れるぞ！</p>
         </div>
 
         <h2 className="ft-ika">これナニ？</h2>
