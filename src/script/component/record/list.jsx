@@ -23,16 +23,19 @@ class List extends React.Component {
           const vIdx = records.length - idx;
           return (
             <li className="record-list-item" key={idx}>
-              <div>{vIdx}/{RECORD_LIMIT}戦目 - {Util.formatDate(item.createdAt)}</div>
+              <div>
+                {vIdx}/{RECORD_LIMIT}戦目 - {Util.formatDate(item.createdAt)}
+              </div>
+              <div>
+                {item.tagmatch ? 'タッグマッチ' : '野良ガチマッチ'}
+                {item.missmatch ? ' (マッチング事故)' : ''}
+              </div>
               <hr className="record-list-item-spacer" />
               <div>
                 <span className={`fc-rule-${item.rule}`}>{RULE[item.rule]}</span> in {STAGE[item.stage]}
               </div>
               <div>
-                {RESULT[item.result]} <span className="ft-ika">-</span> {Util.getRateStr(item.rate)} / {item.tagmatch ? 'タッグマッチ' : '野良ガチマッチ'}
-              </div>
-              <div>
-                {item.missmatch ? '(マッチング事故)' : ''}
+                {RESULT[item.result]} <span className="ft-ika">-</span> {Util.getRateStr(item.rate)} [ {item.kill||0}k / {item.death||0}d ]
               </div>
               <hr className="record-list-item-spacer" />
               <div className="ctrl-wrap">
