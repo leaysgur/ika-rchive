@@ -42,17 +42,19 @@ module.exports = (records) => {
     // 0になるとInfinityになっちゃうので注意
     let ratio;
     // そもそも入力してない
-    if (typeof item.kill !== 'number' && typeof item.death !== 'number') {
+    if (!('kill' in item && 'death' in item)) {
       ratio = null;
     }
     // 0k0dは1とする
     else if (item.kill === 0 && item.death === 0) {
       ratio = 1;
     }
+    // Nk0dはそのまま
+    else if (item.death === 0) {
+      ratio = ((item.kill * 10)|0) / 10;
+    }
     else {
-      ratio = (item.death === 0)
-        ? ((item.kill * 10)|0) / 10
-        : ((item.kill / item.death * 10)|0) / 10;
+      ratio = ((item.kill / item.death * 10)|0) / 10;
     }
     ret.kdData.push(ratio);
     ret.kdTooltip.push(`${item.kill}k / ${item.death}d`);
