@@ -2,8 +2,6 @@ const React = require('react');
 
 const Util = require('../../util');
 const Chart = Util.getChartClass();
-const {
-} = require('../../const');
 
 class KDGraph extends React.Component {
   constructor() {
@@ -88,20 +86,10 @@ class KDGraph extends React.Component {
 
   render() {
     const { w, h } = Util.getCanvasSize();
-    const RULE = { 1: 'キル', 2: 'デス' };
 
     return (
       <div className="graph">
         <h3 className="h3 ft-ika">キル・デスのヒリツ</h3>
-        <div className="graph-legend">
-          {Object.keys(RULE).map((key, idx) => {
-            return (
-              <span key={idx} className={`fc-rule-${key}`}>
-                ■<span className="ft-ika">{RULE[key]}</span>
-              </span>
-            );
-          })}
-        </div>
         <div className="graph-wrap">
           <canvas ref="graph" width={w} height={h}></canvas>
         </div>
