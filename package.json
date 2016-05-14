@@ -17,7 +17,6 @@
   "license": "MIT",
   "dependencies": {
     "chart.js": "^2.1.2",
-    "es6-promise": "^3.1.2",
     "object-assign": "^4.1.0",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
