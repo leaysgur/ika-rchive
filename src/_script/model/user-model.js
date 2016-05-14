@@ -1,5 +1,4 @@
-'use strict';
-let BaseModel = require('./_base');
+const BaseModel = require('./_base');
 
 class UserModel extends BaseModel {
   constructor() {
@@ -14,26 +13,26 @@ class UserModel extends BaseModel {
 
   migrate(ver) {
     if (this.isMigrated(ver)) { return; }
-    let versions = this.get('migiratedVersions') || [];
+    const versions = this.get('migiratedVersions') || [];
     versions.push(ver);
     this.set('migiratedVersions', versions);
   }
 
   isMigrated(ver) {
-    let versions = this.get('migiratedVersions') || [];
+    const versions = this.get('migiratedVersions') || [];
     return versions.indexOf(ver) === -1 ? false : true;
   }
 
   updateBestRate(rate) {
     rate = rate|0;
-    let cur = this.get('bestRate')|0;
+    const cur = this.get('bestRate')|0;
     if (rate > cur) {
       this.set('bestRate', rate);
     }
   }
 
   updateTotalIdx() {
-    let cur = this.get('totalIdx')|0;
+    const cur = this.get('totalIdx')|0;
     this.set('totalIdx', cur + 1);
   }
 

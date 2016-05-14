@@ -21,299 +21,35 @@
   <link rel="icon" sizes="192x192" href="./img/icon.png">
   <link rel="stylesheet" href="./dist/style.css?v=1.20.4">
 </head>
-<body id="js-view-app">
-  <div v-show="isFirstTime" class="view-intro">
-    <h1 class="ft-ika">ウデマエア-カイブ</h1>
-    <div class="wrap fs-s">
-      <p><span class="ft-ika">ガチマッチ</span>の<span class="ft-ika">ウデマエ</span>を記録できるサービスだぞ！</p>
-      <p>1戦ごとに勝敗を記録して、グラフを眺めてニヤニヤしたり、苦手なステージを把握したり、連敗の兆候を感じ取ったりしよう！</p>
-    </div>
-
-    <h2 class="ft-ika">チュウイ</h2>
-    <div class="wrap fs-s">
-      <p>登録不要・ログインいらずで使えますが、データは直近の{{limit}}戦分のみを、この端末の中に保存します。(localStorage)</p>
-      <p>なので、他の環境にデータは引き継ぎ・引っ越しできません。</p>
-      <p>予告なくサービスの内容を変更したり、終了したりするかもしれません。</p>
-      <p>もしかすると動作しない環境もあるかもしれません・・。</p>
-      <p>まぁそんな適当な感じで良ければ使ってください。</p>
-      <p><span class="ft-ika">イカ、よろしく〜〜〜</span></p>
-    </div>
-
-    <button class="intro-button ft-ika" @click="onClickOk">わかった！</button>
-
-    <footer class="footer">v1.20.4 | &copy; 2015 <a href="https://twitter.com/leader22" target="_blank">leader22</a></footer>
-  </div>
-
-
-  <div v-show="!isFirstTime" class="view-app">
-    <h1 class="ft-ika">ウデマエア-カイブ</h1>
-    <ul class="tab ft-ika"><!--
-      --><li class="tab-item" :class="{ 'is-active': activePane === 'record' }" @click="showPane('record')">キロク</li><!--
-      --><li class="tab-item" :class="{ 'is-active': activePane === 'user'   }" @click="showPane('user')">セイセキ</li><!--
-      --><li class="tab-item" :class="{ 'is-active': activePane === 'input'  }" @click="showPane('input')">トウロク</li><!--
-      --><li class="tab-item" :class="{ 'is-active': activePane === 'others' }" @click="showPane('others')">ソノタ</li><!--
-    --></ul>
-
-    <div v-show="activePane === 'record'" class="view-record">
-      <div id="js-view-graph" class="graph-wrap">
-        <canvas class="graph" v-el:graph :width="canvasW" :height="canvasH"></canvas>
-        <div v-show="records.length === 0" class="graph-cover">
-          <p class="wrap">まだデータが<span class="ft-ika">トウロク</span>されてないぞ！</p>
-        </div>
+<body>
+  <div class="view-app">
+    <div class="view-body" id="jsApp">
+      <h1 class="ft-ika">ウデマエア-カイブ</h1>
+      <div class="wrap fs-s">
+        <p><span class="ft-ika">ガチマッチ</span>の<span class="ft-ika">ウデマエ</span>を記録できるサービスだぞ！</p>
+        <p>1戦ごとに勝敗を記録して、グラフを眺めてニヤニヤしたり、苦手なステージを把握したり、連敗の兆候を感じ取ったりしよう！</p>
       </div>
 
-      <div id="js-view-list">
-        <div v-el:mod><!-- ほんとはこの下の要素の位置が欲しいがdisplay: noneなせいで取れないのでその代理 --></div>
-        <ul class="wrap mod-wrap view-input" v-show="isModifying">
-          <li class="input-item">
-            <label v-for="value in rules">
-              <input name="modRule" type="radio" v-model="modRule" value="{{$key}}">{{value}}
-            </label>
-          </li>
-          <li class="input-item">
-            <div class="stage-select">
-              <select v-model="modStage">
-                <option v-for="option in stages" :value="option.value">
-                  {{option.text}}
-                </option>
-              </select>
-            </div>
-          </li>
-          <li class="input-item fs-s">
-            <label v-for="value in results">
-              <input name="modResult" type="radio" v-model="modResult" value="{{$key}}">{{value}}
-            </label>
-          </li>
-          <li class="input-item fs-s">
-            <label>
-              <input type="checkbox" v-model="modMissmatch" :disabled="isDisconnected">マッチング事故
-            </label>
-            <label>
-              <input type="checkbox" v-model="modTagmatch">タッグマッチ
-            </label>
-          </li>
-          <li class="input-item">
-            <select v-model="modRateRank">
-              <option v-for="option in rates" :value="option.value">
-                {{option.text}}
-              </option>
-            </select>
-            <input v-model="modRateScore" type="number" min="0" max="99">
-          </li>
-          <li>
-            <button v-show="!canSet" disabled class="wait-button ft-ika">シュウセイチュウ...</button>
-            <button v-show="canSet" class="set-button ft-ika" @click="onClickModComplete">シュウセイ！</button>
-            <div class="ctrl-wrap">
-              <span class="mod-mark" @click="onClickModCancel">[シュウセイをキャンセル]</span>
-            </div>
-          </li>
-        </ul>
-
-        <ul class="pager-list">
-          <li v-for="item in pagerList" class="pager-list-item" v-bind:class="{ 'is-active': curPageIdx === $index }" @click="onClickPaging($index)">
-            [{{item.to}}-{{item.from+1}}]
-          </li>
-        </ul>
-
-        <ul class="record-list wrap" v-show="recordsList.length !== 0">
-          <li class="record-list-item" v-for="item in recordsList | orderBy 'id' -1">
-            <div>[{{item.id}}] 第{{item.totalIdx}}戦 - {{item.createdAt}}</div>
-            <hr class="record-list-item-spacer">
-            <div>
-              {{item.rule}} in {{item.stage}}
-            </div>
-            <div>
-              {{item.result}} <span class="ft-ika">-</span> {{item.rate}} / {{item.tagmatch ? 'タッグマッチ' : '野良ガチマッチ'}}
-            </div>
-            <div>
-              {{item.missmatch ? '(マッチング事故)' : ''}}
-            </div>
-            <hr class="record-list-item-spacer">
-            <div class="ctrl-wrap">
-              このキロクを
-              <span class="mod-mark" @click="onClickMod(item.idx)">[シュウセイ]</span>
-              <span class="del-mark" @click="onClickDel(item.idx)">[サクジョ]</span>
-            </div>
-          </li>
-        </ul>
+      <h2 class="ft-ika">チュウイ</h2>
+      <div class="wrap fs-s">
+        <p>登録不要・ログインいらずで使えます。</p>
+        <p>ただデータは直近の200戦分のみを、この端末の中に保存します。(localStorage)</p>
+        <p>なので、他の端末にデータは引き継ぎ・引っ越しできません。</p>
+        <p>予告なくサービスの内容を変更したり、終了したりするかもしれません。</p>
+        <p>もしかすると動作しない環境もあるかもしれません・・。</p>
+        <p>まぁそんな適当な感じで良ければ使ってください。</p>
+        <p><span class="ft-ika">イカ、よろしく〜〜〜</span></p>
       </div>
+
+      <h2 class="ft-ika">サクシャ</h2>
+      <div class="wrap fs-s">
+        <p>なにかあれば<a href="https://twitter.com/leader22" target="_blank">@leader22</a>まで！</p>
+      </div>
+
+      <button class="intro-button ft-ika" id="jsBootApp">わかった！</button>
     </div>
 
-    <div v-show="activePane === 'user'" class="view-user">
-      <div id="js-view-user">
-
-        <h2 class="ft-ika">ツウサン</h2>
-        <table class="user-stat wrap fs-s">
-          <tbody>
-            <tr>
-              <td>最高ウデマエ</td>
-              <td>{{bestRate}}</td>
-            </tr>
-            <tr>
-              <td>バトル回数</td>
-              <td>{{totalIdx}}回</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h2 class="ft-ika">チョッキン</h2>
-        <table class="user-stat wrap fs-s">
-          <tbody>
-            <tr>
-              <td>全体の勝率</td>
-              <td>{{winRate}}%</td>
-            </tr>
-            <tr>
-              <td>野良の勝率</td>
-              <td>{{winRateFree}}%</td>
-            </tr>
-            <tr>
-              <td>タッグの勝率</td>
-              <td>{{winRateTag}}%</td>
-            </tr>
-            <tr>
-              <td>マッチング事故率</td>
-              <td>{{missmatch}}%</td>
-            </tr>
-            <tr>
-              <td>連勝記録</td>
-              <td>{{winStreak}}連勝</td>
-            </tr>
-            <tr>
-              <td>連敗記録</td>
-              <td>{{loseStreak}}連敗</td>
-            </tr>
-            <tr>
-              <td>KO勝ち率</td>
-              <td>{{koWinRate}}%</td>
-            </tr>
-            <tr>
-              <td>KO負け率</td>
-              <td>{{koLoseRate}}%</td>
-            </tr>
-            <tr>
-              <td>得意なルール</td>
-              <td>{{goodRule || '-'}}</td>
-            </tr>
-            <tr>
-              <td>苦手なルール</td>
-              <td>{{badRule || '-'}}</td>
-            </tr>
-            <tr>
-              <td>得意なステージ</td>
-              <td class="fs-s">{{goodStage || '-'}}</td>
-            </tr>
-            <tr>
-              <td>苦手なステージ</td>
-              <td class="fs-s">{{badStage || '-'}}</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <a class="tweet-button ft-ika" target="_blank" :href="tweetUrl" v-show="canTweet">セイセキをツイート！</a>
-
-        <div v-for="rule in winRateDetail">
-        <h3 class="ft-ika">{{rule.name}}のショウリツ</h3>
-        <table class="user-stat wrap fs-s">
-          <tbody>
-            <tr>
-              <td>{{rule.name}}合計</td>
-              <td class="slim">{{rule.total}}%</td>
-              <td class="slim">{{rule.count}}戦</td>
-            </tr>
-            <tr v-for="stage in rule.detail">
-              <td class="fs-s">{{stage.name}}</td>
-              <td class="slim">{{stage.winRate}}%</td>
-              <td class="slim">{{stage.count}}戦</td>
-            </tr>
-          </tbody>
-        </table>
-        </div>
-
-      </div>
-    </div>
-
-    <div v-show="activePane === 'input'" class="view-input">
-      <div id="js-view-input">
-        <ul class="input-wrap wrap">
-          <li class="input-item">
-            <label v-for="value in rules">
-              <input name="rule" type="radio" v-model="rule" value="{{$key}}">{{value}}
-            </label>
-          </li>
-          <li class="input-item">
-            <div class="stage-select">
-              <input type="radio" name="chosenStage" value="stageA" v-model="chosenStage">
-              <select v-model="stageA">
-                <option v-for="option in stages" :value="option.value">
-                  {{option.text}}
-                </option>
-              </select>
-            </div>
-            <div class="stage-select">
-              <input type="radio" name="chosenStage" value="stageB" v-model="chosenStage">
-              <select v-model="stageB">
-                <option v-for="option in stages" :value="option.value">
-                  {{option.text}}
-                </option>
-              </select>
-            </div>
-          </li>
-          <li class="input-item">
-            <label v-for="value in results">
-              <input name="result" type="radio" v-model="result" value="{{$key}}">{{value}}
-            </label>
-          </li>
-          <li class="input-item">
-            <label>
-              <input type="checkbox" v-model="missmatch" :disabled="isDisconnected">マッチング事故
-            </label>
-            <label>
-              <input type="checkbox" v-model="tagmatch">タッグマッチ
-            </label>
-          </li>
-          <li class="input-item">
-            <select v-model="rateRank">
-              <option v-for="option in rates" :value="option.value">
-                {{option.text}}
-              </option>
-            </select>
-            <input v-model="rateScore" type="number" min="0" max="99">
-          </li>
-        </ul>
-        <div class="report">ウデマエ増減速報: <span class="ft-emp">{{recentRatePfx}}{{recentRateGap}}</span></div>
-        <button v-show="!showSetReaction && !canSet" disabled class="wait-button ft-ika">ニュウリョクチュウ...</button>
-        <button v-show="!showSetReaction && canSet" class="set-button ft-ika" @click="onClickSet">トウロク！</button>
-        <button v-show="showSetReaction" disabled class="reaction-button ft-ika">トウロクカンリョウ！</button>
-        <div class="note">※マッチング事故は、S,S,A+,A vs A-,A-,B+,Bみたいな慈悲のないマッチングや、回線落ちで4 vs 3で負けた時などに使います。</div>
-        <div class="note">※ウデマエ増減速報は、ページ再読み込みでリセットされます。</div>
-      </div>
-    </div>
-
-    <div v-show="activePane === 'others'">
-      <h2 class="ft-ika">つかいかた</h2>
-      <div class="wrap">
-        <p>バトル後に<span class="ft-ika">ウデマエ</span>を<span class="ft-ika">トウロク</span>だ！</p>
-        <p>データは<span class="ft-ika">キロク</span>や<span class="ft-ika">セイセキ</span>から見れるぞ！</p>
-      </div>
-
-      <h2 class="ft-ika">これナニ？</h2>
-      <div class="wrap">
-        <p>にわかガチ勢の<a href="https://twitter.com/leader22" target="_blank">@leader22</a>が、ウデマエの上下を可視化するために個人的に作ったものだ！</p>
-        <p>なんか変な動きするとかこんな機能が欲しいとか、報告すれば良いことがあるかもしれないぞ！</p>
-        <p>単純に話しかけてくれるだけでも喜ぶぞ！</p>
-        <p>コードが書けるなら<a href="https://github.com/leader22/ika-rchive" target="_blank">プルリクエスト</a>だ！</p>
-        <p>フォントは<a class="ft-ika" href="http://aramugi.com/?page_id=807" target="_blank">イカモドキ</a>をお借りした！イカしてるぜ！</p>
-      </div>
-
-      <h2 class="ft-ika">ヒミツヘイキ</h2>
-      <ul class="wrap list">
-        <li><a href="#" @click="onClickResetBestRate">最高ウデマエをリセット</a>する</li>
-        <li><a href="#" @click="onClickRestart">データ全削除</a>してはじめから</li>
-      </ul>
-    </div>
-
-    <footer class="footer">v1.20.4 | &copy; 2015 <a href="https://twitter.com/leader22" target="_blank">leader22</a></footer>
+    <footer class="footer">v1.20.4 | &copy; 2015 <a href="https://twitter.com/leader22" target="_blank">@leader22</a></footer>
   </div>
 
   <script src="./dist/script.js?v=1.20.4"></script>

@@ -1,3 +1,4 @@
+'use strict';
 module.exports = {
 
   RESULT: {
@@ -20,12 +21,6 @@ module.exports = {
     1: 'エリア',
     2: 'ヤグラ',
     3: 'ホコ'
-  },
-
-  RULE_COLOR: {
-    1: '#FF6E00',
-    2: '#00B7A4',
-    3: '#CA00DF'
   },
 
   STAGE: {
@@ -66,18 +61,15 @@ module.exports = {
   MIN_RATE_INPUT: 0,
   MAX_RATE_INPUT: 99,
 
-  GRAPH_SIZE_TO_SCREEN: {
-    W: 0.95,
-    H: 0.6
-  },
-
-  RATE_SCALE_GAP: 20,
-  KD_SCALE_GAP:   1,
-
-  LABEL_UNIT_PC:     5,
-  LABEL_UNIT_MOBILE: 10,
-
   RECORD_LIMIT: 200,
+  PAGING_UNIT:  50,
+  SHOW_LABEL_LIMIT_PC:     100,
+  SHOW_LABEL_LIMIT_MOBILE: 25,
+
+  GRAPH_SIZE_TO_SCREEN: {
+    W: 0.9,
+    H: 0.4
+  },
 
   TWITTER_URL: 'http://twitter.com/share?text='
 

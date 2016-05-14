@@ -1,25 +1,7 @@
-'use strict';
-let Vue = require('vue');
-
-// 何より先に環境チェック
-try {
-  localStorage.setItem('IA_TEST', 'TEST');
-  localStorage.removeItem('IA_TEST');
-} catch(e) {
-  alert('お使いの環境ではご利用いただけません。\nプライベートブラウズはOFFにしてください。')
-}
-
-// バージョン差異を吸収するので最初に呼ぶだけが必要
-require('./model/migrator');
-
-// 各ページ
-new Vue(require('./view/graph-view'));
-new Vue(require('./view/list-view'));
-new Vue(require('./view/user-view'));
-new Vue(require('./view/input-view'));
-
-// 各ページを読み込んでから
-new Vue(require('./view/app-view'));
+const ReactDOM = require('react-dom');
+const injectTapEventPlugin = require('react-tap-event-plugin');
+const UserModel = require('./model/user').getInstance();
+const Router = require('./router.jsx');
 
 // GAは本番でのみ動かす(return; だけ返すとbabelifyでoutside funcエラーになる)
 if (location.hostname !== 'localhost') {
@@ -35,4 +17,34 @@ if (location.hostname !== 'localhost') {
     window.ga('send', 'exception', { exDescription: err });
     alert('何やらエラーが出たようです。\nごめんなさい・・。');
   };
+}
+
+// 何より先に環境チェック
+try {
+  localStorage.setItem('IA_TEST', 'TEST');
+  localStorage.removeItem('IA_TEST');
+} catch(e) {
+  alert('お使いの環境ではご利用いただけません。\nプライベートブラウズはOFFにしてください。');
+}
+
+const $app  = document.getElementById('jsApp');
+const $boot = document.getElementById('jsBootApp');
+
+// 最初は見えなくて、ふわっと起動する
+$app.classList.add('is-booted');
+
+if (UserModel.get('isFirstTime')) {
+  $boot.addEventListener('click', _boot, false);
+} else {
+  _boot();
+}
+
+function _boot() {
+  injectTapEventPlugin();
+
+  UserModel.set('isFirstTime', false);
+  ReactDOM.render(
+    Router,
+    $app
+  );
 }

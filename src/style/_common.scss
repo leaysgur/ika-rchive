@@ -12,12 +12,16 @@
   font-weight: bold;
   text-decoration: none;
   text-align: center;
+  cursor: pointer;
 
   &:hover {
     opacity: .8;
   }
   &:active {
     transform: translateY(1px);
+  }
+  &[disabled] {
+    cursor: default;
   }
 }
 
@@ -45,11 +49,28 @@
   font-size: .85em;
 }
 
+.fc-rule-1 {
+  color: #FF6E00;
+}
+
+.fc-rule-2 {
+  color: #00B7A4;
+}
+
+.fc-rule-3 {
+  color: #CA00DF;
+}
+
 .wrap {
   padding: .5em;
   margin: 1em;
   background-color: rgba(0, 0, 0, .5);
   border-radius: .5em;
+}
+
+.h3 {
+  @extend %content;
+  margin-bottom: 0;
 }
 
 .note {
