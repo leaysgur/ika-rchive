@@ -85,15 +85,6 @@ class ModPopup extends React.Component {
           </li>
 
           <li className="input-item">
-            <ResultOptionInput
-              isDisconnected={isDisconnected}
-              tagmatch={!!tagmatch}
-              missmatch={!!missmatch}
-              onChange={this.onChange}
-            />
-          </li>
-
-          <li className="input-item">
             <RateInput
               rateRank={''+rateRank}
               rateScore={''+rateScore}
@@ -103,6 +94,13 @@ class ModPopup extends React.Component {
           </li>
 
           <li className="input-item">
+            <ResultOptionInput
+              isDisconnected={isDisconnected}
+              tagmatch={!!tagmatch}
+              missmatch={!!missmatch}
+              onChange={this.onChange}
+            />
+
             <KDInput
               kill={''+kill}
               death={''+death}

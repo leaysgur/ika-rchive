@@ -11,14 +11,14 @@ const KDInput = ({
         min={0}
         value={kill}
         onChange={(ev) => { onChange('kill', ev.target.value); }}
-      /> キル
+      /> k
       /
       <input
         name="death" type="number"
         min={0}
         value={death}
         onChange={(ev) => { onChange('death', ev.target.value); }}
-      /> デス
+      /> d
     </div>
   );
 };

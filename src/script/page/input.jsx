@@ -129,15 +129,6 @@ class InputPage extends React.Component {
           </li>
 
           <li className="input-item">
-            <ResultOptionInput
-              tagmatch={tagmatch}
-              missmatch={missmatch}
-              isDisconnected={isDisconnected}
-              onChange={this.onChange}
-            />
-          </li>
-
-          <li className="input-item">
             <RateInput
               rateRank={rateRank}
               rateScore={rateScore}
@@ -150,6 +141,13 @@ class InputPage extends React.Component {
             [{isOptHide ? '+' : '-'}]オプションを{isOptHide ? 'ひらく' : 'とじる'}
           </li>
           <li className="input-item" style={{ display: isOptHide ? 'none' : 'block' }}>
+            <ResultOptionInput
+              tagmatch={tagmatch}
+              missmatch={missmatch}
+              isDisconnected={isDisconnected}
+              onChange={this.onChange}
+            />
+
             <KDInput
               kill={kill}
               death={death}
