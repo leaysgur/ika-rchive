@@ -22,11 +22,6 @@ npm run build
 python -m SimpleHTTPServer 8080
 ```
 
-## Memo
-勢いで作ったのでコードは完全にアレです。
-
-Vue.jsはもっとうまいこと使えるいいコです！！
-
 ## ライセンス的な
 MITです。
 勝手にForkして勝手にホストしてもらっても別に良いです。
