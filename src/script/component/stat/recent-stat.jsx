@@ -11,6 +11,7 @@ const RecentStat = ({
   koWinRate, koLoseRate,
   goodRule, badRule,
   goodStage, badStage,
+  kdRatio,
 }) => {
   return (
     <div>
@@ -51,19 +52,23 @@ const RecentStat = ({
             <td>{koLoseRate}%</td>
           </tr>
           <tr>
-            <td>得意なルール</td>
+            <td>キルレ</td>
+            <td>{kdRatio}</td>
+          </tr>
+          <tr>
+            <td>勝てるルール</td>
             <td>{RULE[goodRule] || '-'}</td>
           </tr>
           <tr>
-            <td>苦手なルール</td>
+            <td>負けるルール</td>
             <td>{RULE[badRule] || '-'}</td>
           </tr>
           <tr>
-            <td>得意なステージ</td>
+            <td>勝てるステージ</td>
             <td className="fs-s">{STAGE[goodStage] || '-'}</td>
           </tr>
           <tr>
-            <td>苦手なステージ</td>
+            <td>負けるステージ</td>
             <td className="fs-s">{STAGE[badStage] || '-'}</td>
           </tr>
         </tbody>

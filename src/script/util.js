@@ -151,6 +151,23 @@ module.exports = {
     return ret;
   },
 
+  calcKDRatio({ kill, death }) {
+    let ratio = 0;
+    // 0k0dは1とする
+    if (kill === 0 && death === 0) {
+      ratio = 1;
+    }
+    // Nk0dはそのまま
+    else if (death === 0) {
+      ratio = ((kill * 10)|0) / 10;
+    }
+    else {
+      ratio = ((kill / death * 10)|0) / 10;
+    }
+
+    return ratio.toFixed(1);
+  },
+
   getTweetUrl(rateStr, winRate) {
     const text = `ウデマエが${rateStr}になったぞ！最近の勝率は${winRate}%だ！\n#ウデマエアーカイブ`;
 

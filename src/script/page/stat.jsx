@@ -38,6 +38,7 @@ class StatPage extends React.Component {
       goodRule, badRule,
       goodStage, badStage,
       winRateDetailByRule,
+      kdRatio,
     } = this.state;
     const tweetUrl = !!latestRecord
       ? Util.getTweetUrl(Util.getRateStr(latestRecord.rate), winRate)
@@ -56,6 +57,7 @@ class StatPage extends React.Component {
           koWinRate, koLoseRate,
           goodRule, badRule,
           goodStage, badStage,
+           kdRatio,
         }} />
 
         {

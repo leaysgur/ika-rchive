@@ -50,17 +50,8 @@ module.exports = (records) => {
     // そもそも入力してない
     if (!('kill' in item && 'death' in item)) {
       ratio = null;
-    }
-    // 0k0dは1とする
-    else if (item.kill === 0 && item.death === 0) {
-      ratio = 1;
-    }
-    // Nk0dはそのまま
-    else if (item.death === 0) {
-      ratio = ((item.kill * 10)|0) / 10;
-    }
-    else {
-      ratio = ((item.kill / item.death * 10)|0) / 10;
+    } else {
+      ratio = Util.calcKDRatio(item);
     }
     ret.kdData.push(ratio);
     ret.kdTooltip.push(`${item.kill}k / ${item.death}d`);

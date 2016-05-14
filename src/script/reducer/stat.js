@@ -22,6 +22,8 @@ module.exports = (records) => {
     //   1: { t: 3, w: 1 }
     // }
   };
+  let killCount  = 0;
+  let deathCount = 0;
 
   // このループで用意できるものは全て用意する
   records.forEach(function(item) {
@@ -74,6 +76,9 @@ module.exports = (records) => {
     // KO勝ちとKO負け
     if (item.result === 3) { koWinCount++; }
     if (item.result === 4) { koLoseCount++; }
+
+    if ('kill'  in item) { killCount  += item.kill; }
+    if ('death' in item) { deathCount += item.death; }
   });
 
   // 以下、各ステージと各ルールにおいて、
@@ -99,7 +104,8 @@ module.exports = (records) => {
     badRule:       ruleStatResult.bad,
     winStreak:     longestWinStreakCount,
     loseStreak:    longestLoseStreakCount,
-    winRateDetailByRule: winRateDetailByRule
+    winRateDetailByRule: winRateDetailByRule,
+    kdRatio:       Util.calcKDRatio({ kill: killCount, death: deathCount }),
   };
 };
 
