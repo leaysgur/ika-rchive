@@ -15,6 +15,13 @@ const SaveBtn           = require('../component/input/save-btn.jsx');
 // 本セッションでの増減はいつだってコレが基準
 // 最後にこの画面をロードした(= 前回プレイ時)
 const lastLastRate = (RecordModel.getLatestRecord() || {}).rate || 0;
+// 本セッションでいじった内容を貯めておく(変更すると生える)
+let lastSettings = {
+  // rule,
+  // stageA,
+  // stageB,
+  // isOptHide,
+};
 
 class InputPage extends React.Component {
   constructor() {
@@ -26,9 +33,9 @@ class InputPage extends React.Component {
     const { rateRank, rateScore, } = Util.getRankAndScore(latestRecord.rate);
 
     this.state = {
-      rule:       '1',
-      stageA:     '1',
-      stageB:     '6',
+      rule:       lastSettings.rule   || '1',
+      stageA:     lastSettings.stageA || '1',
+      stageB:     lastSettings.stageB || '6',
       stage:      'stageA',
       result:     '1',
       missmatch:  false,
@@ -39,7 +46,8 @@ class InputPage extends React.Component {
       recentRateGap: Util.getRecentRateGap(latestRecord.rate|0, lastLastRate),
       kill:  '',
       death: '',
-      isOptHide:  true,
+      // boolなので
+      isOptHide:  'isOptHide' in lastSettings ? lastSettings.isOptHide : true,
     };
 
     this.toggleOptInput = this.toggleOptInput.bind(this);
@@ -50,13 +58,21 @@ class InputPage extends React.Component {
   toggleOptInput(ev) {
     ev.preventDefault();
 
+    const val = !this.state.isOptHide;
     this.setState({
-      isOptHide: !this.state.isOptHide,
+      isOptHide: val
     });
+    // このセッション中は設定を維持する
+    lastSettings.isOptHide = val;
   }
 
   onChange(key, val) {
     this.setState({ [key]: val });
+
+    // このセッション中は設定を維持する
+    if (key === 'rule' || key === 'stageA' || key === 'stageB') {
+      lastSettings[key] = val;
+    }
   }
 
   onSave() {
