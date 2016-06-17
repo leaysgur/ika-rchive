@@ -1,3 +1,4 @@
+// @flow
 const Chart = require('chart.js');
 
 const Const = require('./const');
@@ -5,11 +6,11 @@ const gSizeW = Const.GRAPH_SIZE_TO_SCREEN.W;
 const gSizeH = Const.GRAPH_SIZE_TO_SCREEN.H;
 
 module.exports = {
-  reload: () => {
+  reload: (): void => {
     setTimeout(() => { location.replace(location.origin); });
   },
 
-  isMobile: () => {
+  isMobile: (): boolean => {
     return 'ontouchstart' in document;
   },
 
@@ -22,7 +23,7 @@ module.exports = {
     return Chart;
   },
 
-  getCanvasSize: () => {
+  getCanvasSize: (): { w: number; h: number; } => {
     const h = window.innerHeight;
     const w = window.innerWidth;
 
@@ -35,7 +36,7 @@ module.exports = {
     };
   },
 
-  formatDate: (time) => {
+  formatDate: (time: string): string => {
     if (!time) { return ''; }
     let date = new Date(time);
     let YYYY = date.getFullYear();
@@ -47,8 +48,8 @@ module.exports = {
     return `${YYYY}/${MM}/${DD} ${hh}:${mm}`;
   },
 
-  getRateStr: (val) => {
-    val = val|0;
+  getRateStr: (_val: string): string => {
+    const val:number = parseInt(_val, 10);
 
     let rate = val % 100;
     let wait = val - rate;
@@ -73,8 +74,8 @@ module.exports = {
     return label + rate;
   },
 
-  getRankAndScore: (rate) => {
-    rate = rate|0;
+  getRankAndScore: (_rate: string): { rateRank: number; rateScore: number; } => {
+    const rate: number = parseInt(_rate, 10);
     const rateRank = ((rate / 100)|0) * 100;
     return {
       rateRank:  rateRank,
@@ -82,26 +83,26 @@ module.exports = {
     };
   },
 
-  isValidRate: (score) => {
+  isValidRate: (score: number): boolean => {
     let min = Const.RATE_TABLE[Const.MIN_RATE_STR] + Const.MIN_RATE_INPUT;
     let max = Const.RATE_TABLE[Const.MAX_RATE_STR] + Const.MAX_RATE_INPUT;
 
     return min <= score && score <= max;
   },
 
-  percentage: (c, p) => {
+  percentage: (c: number, p: number): string => {
     if (c === 0 || p === 0) { return '0'; }
     return ((c / p) * 100).toFixed(2);
   },
 
   // 値の入力欄のチェック
-  canInput: (rateScoreStr) => {
+  canInput: (rateScoreStr: string): boolean => {
     // 自由入力が空のとこだけでも縛る
     if (rateScoreStr.length === 0) {
       return false;
     }
     // 0 - 99以外の値は弾く
-    let score = rateScoreStr|0;
+    let score = parseInt(rateScoreStr, 10);
     if (score < Const.MIN_RATE_INPUT || Const.MAX_RATE_INPUT < score) {
       return false;
     }
@@ -109,13 +110,13 @@ module.exports = {
     return true;
   },
 
-  isDisconnected: (result) => {
-    result = result|0;
+  isDisconnected: (_result: string): boolean => {
+    const result: number = parseInt(result, 10);
     return result === Const.RESULT_STR.DISCONNECTED;
   },
 
-  isWin: (result) => {
-    result = result|0;
+  isWin: (_result: string): boolean => {
+    const result: number = parseInt(result, 10);
 
     if (result === Const.RESULT_STR.WIN ||
         result === Const.RESULT_STR.KO_WIN) {
@@ -124,7 +125,7 @@ module.exports = {
     return false;
   },
 
-  getRecentRateGap: (latestScore, lastScore) => {
+  getRecentRateGap: (latestScore: number, lastScore: number): { ratePfx: string; rateGap: number; } => {
     const gap = latestScore - lastScore;
     const ret = {
       ratePfx: '',
@@ -147,7 +148,7 @@ module.exports = {
     return ret;
   },
 
-  getKDRatioStr: (val) => {
+  getKDRatioStr: (val: number): string => {
     const vArr = (''+val).split('.');
     if (vArr.length === 1) {
       return ('0' + val).slice(-2) + '.0';
@@ -155,7 +156,7 @@ module.exports = {
     return ('0' + vArr[0]).slice(-2) + '.' + vArr[1];
   },
 
-  calcKDRatio({ kill, death }) {
+  calcKDRatio({ kill, death }: { kill: number; death: number; }): number {
     let ratio = 0;
     // 0k0dは1とする
     if (kill === 0 && death === 0) {
@@ -172,7 +173,7 @@ module.exports = {
     return ratio;
   },
 
-  getTweetUrl(rateStr, state) {
+  getTweetUrl(rateStr: string, state: Object): string {
     const text = [
       `ウデマエが${rateStr}になったぞ！最近の勝率は${state.winRate}%！`,
       `${state.totalIdx}戦のキロクで、いまの適正ウデマエは${state.avgRate}だ！`,
