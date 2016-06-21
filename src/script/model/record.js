@@ -1,44 +1,34 @@
+// @flow
 const Const = require('../const');
 const Util  = require('../util');
 const BaseModel = require('./_base');
 
 class RecordModel extends BaseModel {
+  items: Object[];
+
   constructor() {
     super('IA_RECORD', {
       'items': []
     });
   }
 
-  // といいつつ修正するコ
-  _preSave(record) {
-    // 回線落ちならミスマッチではない
-    let isDisconnected = Util.isDisconnected(record.result);
-    if (isDisconnected) { record.missmatch = false; }
-
-    // ありえない入力は0にする
-    let isValidRate = Util.isValidRate(record.rate);
-    if (!isValidRate) { record.rate = 0; }
-
-    return record;
-  }
-
-  setRecord(state) {
-    const record = {
-      result:    state.result|0,
-      missmatch: state.missmatch|0,
-      tagmatch:  state.tagmatch|0,
-      rule:      state.rule|0,
-      stage:     state[state.stage]|0,
-      rate:      (state.rateRank|0) + (state.rateScore|0),
-      kill:      state.kill|0,
-      death:     state.death|0,
-      // 登録日はココでいれる
-      createdAt: Date.now(),
-    };
+  setRecord(state: {
+    result:    Result;
+    missmatch: boolean;
+    tagmatch:  boolean;
+    rule:      Rule;
+    stage:     'stageA' | 'stageB';
+    stageA:    Stage;
+    stageB:    Stage;
+    rateRank:  string;
+    rateScore: string;
+    kill:      string;
+    death:     string;
+  }) {
 
     let items = this.get('items');
     // リスト追加
-    items.push(this._preSave(record));
+    items.push(this._preSave(state));
     // data.lengthはLIMITを超えないし、超えたら先頭が消える
     while (items.length > Const.RECORD_LIMIT) {
       items.shift();
@@ -47,11 +37,37 @@ class RecordModel extends BaseModel {
     this.set('items', items);
   }
 
-  getRecord(idx) {
+  // といいつつ修正するコ
+  _preSave(state) {
+    const record = {
+      result:    parseInt(state.result, 10),
+      missmatch: state.missmatch ? 1 : 0,
+      tagmatch:  state.tagmatch ? 1 : 0,
+      rule:      parseInt(state.rule, 10),
+      stage:     parseInt(state[state.stage], 10),
+      rate:      parseInt(state.rateRank, 10) + parseInt(state.rateScore, 10),
+      kill:      parseInt(state.kill, 10),
+      death:     parseInt(state.death, 10),
+      // 登録日はココでいれる
+      createdAt: Date.now(),
+    };
+
+    // 回線落ちならミスマッチではない
+    const isDisconnected: boolean = Util.isDisconnected(record.result);
+    if (isDisconnected) { record.missmatch = 0; }
+
+    // ありえない入力は0にする
+    let isValidRate = Util.isValidRate(record.rate);
+    if (!isValidRate) { record.rate = 0; }
+
+    return record;
+  }
+
+  getRecord(idx: number) {
     return this.get('items')[idx];
   }
 
-  updateRecord(idx, state) {
+  updateRecord(idx: number, state) {
     const record = {
       result:    state.result|0,
       missmatch: state.missmatch|0,
@@ -69,7 +85,8 @@ class RecordModel extends BaseModel {
     this.set('items', items);
   }
 
-  removeRecord(idx) {
+
+  removeRecord(idx: number) {
     let items = this.get('items');
     items.splice(idx, 1);
     this.set('items', items);
@@ -80,12 +97,12 @@ class RecordModel extends BaseModel {
     return items[items.length - 1];
   }
 
-  clearAllData() { this._clear(); }
+  clearAllData(): void { this._clear(); }
 }
 
-let instance = null;
+let instance: ?RecordModel = null;
 module.exports = {
-  getInstance: () => {
+  getInstance: (): ?RecordModel => {
     if (instance === null) {
       instance = new RecordModel();
     }
