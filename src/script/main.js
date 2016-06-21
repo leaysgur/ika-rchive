@@ -27,8 +27,8 @@ try {
   alert('お使いの環境ではご利用いただけません。\nプライベートブラウズはOFFにしてください。');
 }
 
-const $app  = document.getElementById('jsApp');
-const $boot = document.getElementById('jsBootApp');
+const $app:  HTMLElement = document.getElementById('jsApp');
+const $boot: HTMLElement = document.getElementById('jsBootApp');
 
 // 最初は見えなくて、ふわっと起動する
 $app.classList.add('is-booted');
@@ -39,7 +39,7 @@ if (UserModel.get('isFirstTime')) {
   _boot();
 }
 
-function _boot() {
+function _boot(): void {
   injectTapEventPlugin();
 
   UserModel.set('isFirstTime', false);

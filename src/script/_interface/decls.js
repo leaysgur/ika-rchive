@@ -5,3 +5,7 @@ declare module 'react-tap-event-plugin' {
 declare module 'chart.js' {
   declare function exports(): Object;
 }
+
+declare module 'react-router' {
+  declare function exports(): Object;
+}
