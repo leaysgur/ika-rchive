@@ -3,5 +3,5 @@ declare module 'react-tap-event-plugin' {
 }
 
 declare module 'chart.js' {
-  declare var exports: any;
+  declare function exports(): Object;
 }

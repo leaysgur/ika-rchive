@@ -1,9 +1,8 @@
 // @flow
 const Chart = require('chart.js');
-
 const Const = require('./const');
-const gSizeW = Const.GRAPH_SIZE_TO_SCREEN.W;
-const gSizeH = Const.GRAPH_SIZE_TO_SCREEN.H;
+const gSizeW: number = Const.GRAPH_SIZE_TO_SCREEN.W;
+const gSizeH: number = Const.GRAPH_SIZE_TO_SCREEN.H;
 
 module.exports = {
   reload: (): void => {
@@ -14,7 +13,7 @@ module.exports = {
     return 'ontouchstart' in document;
   },
 
-  getChartClass: () => {
+  getChartClass: (): Object => {
     Chart.defaults.global.defaultFontColor = '#fff';
     Chart.defaults.global.responsive = false;
     Chart.defaults.global.events = ['mousemove', 'touchstart'];
@@ -23,12 +22,15 @@ module.exports = {
     return Chart;
   },
 
-  getCanvasSize: (): { w: number; h: number; } => {
-    const h = window.innerHeight;
-    const w = window.innerWidth;
+  getCanvasSize: (): {
+    w: number;
+    h: number;
+  } => {
+    const h: number = window.innerHeight;
+    const w: number = window.innerWidth;
 
-    const longSide  = h > w ? h : w;
-    const shortSide = h > w ? w : h;
+    const longSide: number  = h > w ? h : w;
+    const shortSide: number = h > w ? w : h;
 
     return {
       w: ((longSide  * gSizeW)|0),
@@ -38,24 +40,25 @@ module.exports = {
 
   formatDate: (time: string): string => {
     if (!time) { return ''; }
-    let date = new Date(time);
-    let YYYY = date.getFullYear();
-    let MM   = ('0' + (date.getMonth() + 1)).slice(-2);
-    let DD   = ('0' + date.getDate()).slice(-2);
-    let hh   = ('0' + date.getHours()).slice(-2);
-    let mm   = ('0' + date.getMinutes()).slice(-2);
+
+    let date: Date = new Date(time);
+    let YYYY: number = date.getFullYear();
+    let MM: string   = ('0' + (date.getMonth() + 1)).slice(-2);
+    let DD: string   = ('0' + date.getDate()).slice(-2);
+    let hh: string   = ('0' + date.getHours()).slice(-2);
+    let mm: string   = ('0' + date.getMinutes()).slice(-2);
 
     return `${YYYY}/${MM}/${DD} ${hh}:${mm}`;
   },
 
   getRateStr: (_val: string): string => {
-    const val:number = parseInt(_val, 10);
+    const val: number = parseInt(_val, 10);
 
-    let rate = val % 100;
-    let wait = val - rate;
+    let rate: number = val % 100;
+    let wait: number = val - rate;
 
-    let label = '';
-    for (let k in Const.RATE_TABLE) {
+    let label: string = '';
+    for (let k: string in Const.RATE_TABLE) {
       if (wait === Const.RATE_TABLE[k]) {
         label = k;
         break;
@@ -74,9 +77,13 @@ module.exports = {
     return label + rate;
   },
 
-  getRankAndScore: (_rate: string): { rateRank: number; rateScore: number; } => {
+  getRankAndScore: (_rate: string): {
+    rateRank: number;
+    rateScore: number;
+  } => {
     const rate: number = parseInt(_rate, 10);
-    const rateRank = ((rate / 100)|0) * 100;
+    const rateRank: number = ((rate / 100)|0) * 100;
+
     return {
       rateRank:  rateRank,
       rateScore: rate - rateRank
@@ -84,8 +91,8 @@ module.exports = {
   },
 
   isValidRate: (score: number): boolean => {
-    let min = Const.RATE_TABLE[Const.MIN_RATE_STR] + Const.MIN_RATE_INPUT;
-    let max = Const.RATE_TABLE[Const.MAX_RATE_STR] + Const.MAX_RATE_INPUT;
+    let min: number = Const.RATE_TABLE[Const.MIN_RATE_STR] + Const.MIN_RATE_INPUT;
+    let max: number = Const.RATE_TABLE[Const.MAX_RATE_STR] + Const.MAX_RATE_INPUT;
 
     return min <= score && score <= max;
   },
@@ -102,7 +109,7 @@ module.exports = {
       return false;
     }
     // 0 - 99以外の値は弾く
-    let score = parseInt(rateScoreStr, 10);
+    let score: number = parseInt(rateScoreStr, 10);
     if (score < Const.MIN_RATE_INPUT || Const.MAX_RATE_INPUT < score) {
       return false;
     }
@@ -125,39 +132,45 @@ module.exports = {
     return false;
   },
 
-  getRecentRateGap: (latestScore: number, lastScore: number): { ratePfx: string; rateGap: number; } => {
-    const gap = latestScore - lastScore;
-    const ret = {
-      ratePfx: '',
-      rateGap: Math.abs(gap)
-    };
+  getRecentRateGap: (latestScore: number, lastScore: number): {
+    ratePfx: string;
+    rateGap: number;
+  } => {
+    const gap: number = latestScore - lastScore;
 
+    let ratePfx = '';
     switch (true) {
     case gap === 0:
-      ret.ratePfx = '±';
+      ratePfx = '±';
       break;
     case gap > 0:
-      ret.ratePfx = '+';
+      ratePfx = '+';
       break;
     case gap < 0:
-      ret.ratePfx = '-';
+      ratePfx = '-';
       break;
     default:
     }
 
-    return ret;
+    return {
+      ratePfx,
+      rateGap: Math.abs(gap)
+    };
   },
 
   getKDRatioStr: (val: number): string => {
-    const vArr = (''+val).split('.');
+    const vArr: string[] = (''+val).split('.');
     if (vArr.length === 1) {
       return ('0' + val).slice(-2) + '.0';
     }
     return ('0' + vArr[0]).slice(-2) + '.' + vArr[1];
   },
 
-  calcKDRatio({ kill, death }: { kill: number; death: number; }): number {
-    let ratio = 0;
+  calcKDRatio({ kill, death }: {
+    kill:  number;
+    death: number;
+  }): number {
+    let ratio: number = 0;
     // 0k0dは1とする
     if (kill === 0 && death === 0) {
       ratio = 1;
@@ -174,7 +187,7 @@ module.exports = {
   },
 
   getTweetUrl(rateStr: string, state: Object): string {
-    const text = [
+    const text: string = [
       `ウデマエが${rateStr}になったぞ！最近の勝率は${state.winRate}%！`,
       `${state.totalIdx}戦のキロクで、いまの適正ウデマエは${state.avgRate}だ！`,
       `#ウデマエアーカイブ`,
