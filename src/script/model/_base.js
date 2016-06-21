@@ -1,21 +1,26 @@
+// @flow
 'use strict';
 
 class BaseModel {
-  constructor(key, def) {
-    this.key  = key || new Error('NO KEY');
-    this.data = def || {};
+  key: string;
+  data: Object;
+
+  constructor(key: string, def: Object = {}) {
+    if (!key) { throw new Error('NO KEY!'); }
+    this.key  = key;
+    this.data = def;
 
     this._init();
   }
 
-  _init() {
+  _init(): void {
     this._fetch();
   }
 
-  _fetch() {
-    let data = localStorage.getItem(this.key);
-    if (data !== null) {
-      data = JSON.parse(data);
+  _fetch(): void {
+    const _data: string = localStorage.getItem(this.key) || '';
+    if (_data) {
+      const data: any = JSON.parse(_data);
       if (Array.isArray(data)) {
         this.data['items'] = data;
       } else {
@@ -24,15 +29,15 @@ class BaseModel {
     }
   }
 
-  _save() {
+  _save(): void {
     localStorage.setItem(this.key, JSON.stringify(this.data));
   }
 
-  _clear() {
+  _clear(): void {
     localStorage.removeItem(this.key);
   }
 
-  set(prop, value) {
+  set(prop: string | Object, value: ?any) {
     if (typeof prop === 'object' && value === undefined) {
       for (let key in prop) {
         this.data[key] = prop[key];
@@ -44,7 +49,7 @@ class BaseModel {
     this._save();
   }
 
-  get(key) {
+  get(key: string): any {
     return this.data[key];
   }
 }
