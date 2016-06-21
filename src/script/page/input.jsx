@@ -90,6 +90,8 @@ class InputPage extends React.Component {
     if (Util.isMobile()) {
       this.setState({
         rateScore: '', // モバイルでだけ消したい
+        kill:      '', // モバイルでだけ消したい
+        death:     '', // モバイルでだけ消したい
         _rateScore: rateScore,
         recentRateGap: Util.getRecentRateGap(rate, lastLastRate),
         missmatch: false
