@@ -83,20 +83,20 @@ const RecentStat = ({
 };
 
 RecentStat.propTypes = {
-  avgRate:     React.PropTypes.string.isRequired,
-  winRate:     React.PropTypes.string.isRequired,
-  winRateFree: React.PropTypes.string.isRequired,
-  winRateTag:  React.PropTypes.string.isRequired,
-  missmatch:   React.PropTypes.string.isRequired,
-  winStreak:   React.PropTypes.number.isRequired,
-  loseStreak:  React.PropTypes.number.isRequired,
-  koWinRate:   React.PropTypes.string.isRequired,
-  koLoseRate:  React.PropTypes.string.isRequired,
-  goodRule:    React.PropTypes.string.isRequired,
-  badRule:     React.PropTypes.string.isRequired,
-  goodStage:   React.PropTypes.string.isRequired,
-  badStage:    React.PropTypes.string.isRequired,
-  kdRatio:     React.PropTypes.number.isRequired,
+  avgRate:     PropTypes.string.isRequired,
+  winRate:     PropTypes.string.isRequired,
+  winRateFree: PropTypes.string.isRequired,
+  winRateTag:  PropTypes.string.isRequired,
+  missmatch:   PropTypes.string.isRequired,
+  winStreak:   PropTypes.number.isRequired,
+  loseStreak:  PropTypes.number.isRequired,
+  koWinRate:   PropTypes.string.isRequired,
+  koLoseRate:  PropTypes.string.isRequired,
+  goodRule:    PropTypes.string.isRequired,
+  badRule:     PropTypes.string.isRequired,
+  goodStage:   PropTypes.string.isRequired,
+  badStage:    PropTypes.string.isRequired,
+  kdRatio:     PropTypes.number.isRequired,
 };
 
 module.exports = RecentStat;

@@ -26,8 +26,8 @@ const SingleStageInput = ({
 };
 
 SingleStageInput.propTypes = {
-  stage:    React.PropTypes.string.isRequired,
-  onChange: React.PropTypes.func.isRequired,
+  stage:    PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 module.exports = SingleStageInput;

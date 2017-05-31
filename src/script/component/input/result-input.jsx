@@ -24,8 +24,8 @@ const ResultInput = ({
 };
 
 ResultInput.propTypes = {
-  result:   React.PropTypes.string.isRequired,
-  onChange: React.PropTypes.func.isRequired,
+  result:   PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 module.exports = ResultInput;

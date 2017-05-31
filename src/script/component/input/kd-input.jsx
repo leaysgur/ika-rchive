@@ -24,9 +24,9 @@ const KDInput = ({
 };
 
 KDInput.propTypes = {
-  kill:     React.PropTypes.string.isRequired,
-  death:    React.PropTypes.string.isRequired,
-  onChange: React.PropTypes.func.isRequired,
+  kill:     PropTypes.string.isRequired,
+  death:    PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 module.exports = KDInput;

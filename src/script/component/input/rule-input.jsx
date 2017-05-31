@@ -24,8 +24,8 @@ const RuleInput = ({
 };
 
 RuleInput.propTypes = {
-  rule:     React.PropTypes.string.isRequired,
-  onChange: React.PropTypes.func.isRequired,
+  rule:     PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 module.exports = RuleInput;

@@ -44,7 +44,7 @@ const WinRateStat = ({
 };
 
 WinRateStat.propTypes = {
-  winRateDetailByRule: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  winRateDetailByRule: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 module.exports = WinRateStat;

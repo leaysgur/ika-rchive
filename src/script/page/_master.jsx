@@ -25,7 +25,7 @@ const MasterPage = ({ children }) => {
 };
 
 MasterPage.propTypes = {
-  children: React.PropTypes.element.isRequired,
+  children: PropTypes.element.isRequired,
 };
 
 module.exports = MasterPage;

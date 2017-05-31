@@ -38,12 +38,12 @@ const StageInput = ({
 };
 
 StageInput.propTypes = {
-  stage:      React.PropTypes.oneOf(STAGE_AB).isRequired,
-  stageAandB: React.PropTypes.shape({
-    [STAGE_AB[0]]: React.PropTypes.string.isRequired,
-    [STAGE_AB[1]]: React.PropTypes.string.isRequired,
+  stage:      PropTypes.oneOf(STAGE_AB).isRequired,
+  stageAandB: PropTypes.shape({
+    [STAGE_AB[0]]: PropTypes.string.isRequired,
+    [STAGE_AB[1]]: PropTypes.string.isRequired,
   }).isRequired,
-  onChange:   React.PropTypes.func.isRequired,
+  onChange:   PropTypes.func.isRequired,
 };
 
 module.exports = StageInput;

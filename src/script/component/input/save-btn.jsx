@@ -63,9 +63,9 @@ class SaveBtn extends React.Component {
 }
 
 SaveBtn.propTypes = {
-  canInput:    React.PropTypes.bool.isRequired,
-  onSave:      React.PropTypes.func.isRequired,
-  onAfterSave: React.PropTypes.func,
+  canInput:    PropTypes.bool.isRequired,
+  onSave:      PropTypes.func.isRequired,
+  onAfterSave: PropTypes.func,
 };
 
 SaveBtn.defaultProps = {

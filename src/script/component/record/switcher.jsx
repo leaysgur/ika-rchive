@@ -20,8 +20,8 @@ const Switcher = ({
 };
 
 Switcher.propTypes = {
-  isGraph: React.PropTypes.bool.isRequired,
-  isList:  React.PropTypes.bool.isRequired,
+  isGraph: PropTypes.bool.isRequired,
+  isList:  PropTypes.bool.isRequired,
 };
 
 module.exports = Switcher;
