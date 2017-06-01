@@ -17,7 +17,7 @@ const App = () => {
   return (
     <HashRouter hashType="hashbang">
       <div>
-        <h1 className="title ft-ika">ウデマエア-カイブ2</h1>
+        <h1 className="title ft-ika">ウデマエア-カイブ<strong>2</strong></h1>
         <ul className="tab ft-ika">
           <li className="tab-item">
             <NavLink to="/record" activeClassName="is-active">キロク</NavLink>
