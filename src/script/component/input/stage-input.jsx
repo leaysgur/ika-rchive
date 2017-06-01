@@ -1,4 +1,5 @@
 const React = require('react');
+const PropTypes = require('prop-types');
 
 const { STAGE, } = require('../../const');
 const STAGE_AB = ['stageA', 'stageB'];

@@ -1,4 +1,5 @@
 const React = require('react'); // eslint-disable-line no-unused-vars
+const PropTypes = require('prop-types');
 
 const ResultOptionInput = ({
   tagmatch,
