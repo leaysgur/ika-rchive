@@ -11,11 +11,6 @@ const WinRateStat = ({
   return (
     <div>
       <h2 className="ft-ika">ルールべつ</h2>
-      {
-        winRateDetailByRule.length === 0
-          ? <p className="wrap">まだデータが<span className="ft-ika">トウロク</span>されてないぞ！</p>
-          : null
-      }
       {winRateDetailByRule.map((rule, idx) => {
         return (
           <div key={idx}>
