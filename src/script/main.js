@@ -1,7 +1,8 @@
+const React = require('react');
 const ReactDOM = require('react-dom');
 const injectTapEventPlugin = require('react-tap-event-plugin');
 const UserModel = require('./model/user').getInstance();
-const Router = require('./router.jsx');
+const App = require('./page/app.jsx');
 
 // GAは本番でのみ動かす(return; だけ返すとbabelifyでoutside funcエラーになる)
 if (location.hostname !== 'localhost') {
@@ -44,7 +45,7 @@ function _boot() {
 
   UserModel.set('isFirstTime', false);
   ReactDOM.render(
-    Router,
+    <App />,
     $app
   );
 }

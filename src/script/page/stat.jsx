@@ -28,7 +28,6 @@ class StatPage extends React.Component {
   }
 
   render() {
-    const { route } = this.props;
     const {
       bestRate, totalIdx,
       winRate, winRateFree, winRateTag,
@@ -46,7 +45,7 @@ class StatPage extends React.Component {
       : null;
 
     return (
-      <div className={`view-${route.path}`}>
+      <div className="view-stat">
         <TotalStat {...{
           bestRate, totalIdx,
         }} />

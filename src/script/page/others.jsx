@@ -7,10 +7,8 @@ const Util = require('../util');
 
 class OthersPage extends React.Component {
   render() {
-    const { route } = this.props;
-
     return (
-      <div className={`view-${route.path}`}>
+      <div className="view-others">
 
         <h2 className="ft-ika">つかいかた</h2>
         <div className="wrap">
