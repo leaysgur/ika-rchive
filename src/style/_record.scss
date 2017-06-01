@@ -2,11 +2,24 @@
   .switcher {
     text-align: center;
     padding: .25em 0;
+
+    & > a {
+      color: #fff;
+      text-decoration: none;
+
+      &:active {
+        transform: scale(1.1);
+      }
+
+      &.is-active {
+        color: #1AD118;
+      }
+    }
   }
 
   .graph-wrap {
-    padding-top: .5em;
-    margin: 1em auto;
+    border: .5em solid transparent;
+    margin: 1em 0;
     text-align: center;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;

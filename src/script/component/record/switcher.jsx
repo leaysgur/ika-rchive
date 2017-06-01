@@ -1,27 +1,18 @@
 const React = require('react');
-const { Link } = require('react-router');
+const { NavLink } = require('react-router-dom');
 
-const Switcher = ({
-  isGraph, isList,
-}) => {
+const Switcher = () => {
   return (
     <div className="switcher">
-      {isGraph
-        ? <span className="ft-ika">グラフ</span>
-        : <Link to="record/graph"><span className="ft-ika">グラフ</span></Link>
-      }
+      <NavLink to="/record/graph" activeClassName="is-active">
+        <span className="ft-ika">グラフ</span>
+      </NavLink>
       &nbsp;|&nbsp;
-      {isList
-        ? <span className="ft-ika">リスト</span>
-        : <Link to="record/list"><span className="ft-ika">リスト</span></Link>
-      }
+      <NavLink to="/record/list" activeClassName="is-active">
+        <span className="ft-ika">リスト</span>
+      </NavLink>
     </div>
   );
-};
-
-Switcher.propTypes = {
-  isGraph: React.PropTypes.bool.isRequired,
-  isList:  React.PropTypes.bool.isRequired,
 };
 
 module.exports = Switcher;

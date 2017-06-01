@@ -1,4 +1,5 @@
 const React = require('react');
+const PropTypes = require('prop-types');
 
 const {
   RATE_TABLE,
@@ -38,10 +39,10 @@ const RateInput = ({
 };
 
 RateInput.propTypes = {
-  rateRank:   React.PropTypes.string.isRequired,
-  rateScore:  React.PropTypes.string.isRequired,
-  _rateScore: React.PropTypes.string.isRequired,
-  onChange:   React.PropTypes.func.isRequired,
+  rateRank:   PropTypes.string.isRequired,
+  rateScore:  PropTypes.string.isRequired,
+  _rateScore: PropTypes.string.isRequired,
+  onChange:   PropTypes.func.isRequired,
 };
 
 module.exports = RateInput;

@@ -18,8 +18,7 @@ module.exports = {
 
   RULE: {
     1: 'エリア',
-    2: 'ヤグラ',
-    3: 'ホコ'
+    2: 'TODO',
   },
 
   RULE_COLOR: {
@@ -29,22 +28,11 @@ module.exports = {
   },
 
   STAGE: {
-   1:  'アロワナモール',
-   2:  'Bバスパーク',
-   3:  'シオノメ油田',
-   4:  'デカライン高架下',
-   5:  'ハコフグ倉庫',
-   6:  'ホッケふ頭',
-   7:  'モズク農園',
-   8:  'ネギトロ炭鉱',
-   9:  'タチウオパーキング',
-   10: 'モンガラキャンプ場',
-   11: 'ヒラメが丘団地',
-   12: 'マサバ海峡大橋',
-   13: 'キンメダイ美術館',
-   14: 'マヒマヒリゾート＆スパ',
-   15: 'ショッツル鉱山',
-   16: 'アンチョビットゲームズ'
+   1: 'バッテラストリート',
+   2: 'フジツボスポーツクラブ',
+   3: 'ガンガゼ野外音楽堂',
+   4: 'コンブトラック',
+   5: 'TODO',
   },
 
   RATE_TABLE: {
@@ -67,8 +55,8 @@ module.exports = {
   MAX_RATE_INPUT: 99,
 
   GRAPH_SIZE_TO_SCREEN: {
-    W: 0.95,
-    H: 0.6
+    W: 2.0,
+    H: 0.5
   },
 
   RATE_SCALE_GAP: 20,
@@ -77,7 +65,7 @@ module.exports = {
   LABEL_UNIT_PC:     5,
   LABEL_UNIT_MOBILE: 10,
 
-  RECORD_LIMIT: 200,
+  RECORD_LIMIT: 500,
 
   TWITTER_URL: 'http://twitter.com/share?text='
 

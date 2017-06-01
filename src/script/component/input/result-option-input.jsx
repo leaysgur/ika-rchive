@@ -1,4 +1,5 @@
 const React = require('react'); // eslint-disable-line no-unused-vars
+const PropTypes = require('prop-types');
 
 const ResultOptionInput = ({
   tagmatch,
@@ -29,10 +30,10 @@ const ResultOptionInput = ({
 };
 
 ResultOptionInput.propTypes = {
-  tagmatch:       React.PropTypes.bool.isRequired,
-  missmatch:      React.PropTypes.bool.isRequired,
-  isDisconnected: React.PropTypes.bool.isRequired,
-  onChange:       React.PropTypes.func.isRequired,
+  tagmatch:       PropTypes.bool.isRequired,
+  missmatch:      PropTypes.bool.isRequired,
+  isDisconnected: PropTypes.bool.isRequired,
+  onChange:       PropTypes.func.isRequired,
 };
 
 module.exports = ResultOptionInput;

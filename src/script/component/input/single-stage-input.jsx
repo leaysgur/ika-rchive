@@ -1,4 +1,5 @@
 const React = require('react');
+const PropTypes = require('prop-types');
 
 const { STAGE, } = require('../../const');
 
@@ -26,8 +27,8 @@ const SingleStageInput = ({
 };
 
 SingleStageInput.propTypes = {
-  stage:    React.PropTypes.string.isRequired,
-  onChange: React.PropTypes.func.isRequired,
+  stage:    PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 module.exports = SingleStageInput;

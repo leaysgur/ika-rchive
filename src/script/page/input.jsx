@@ -106,7 +106,6 @@ class InputPage extends React.Component {
   }
 
   render() {
-    const { route } = this.props;
     const {
       rule,
       stage, stageA, stageB,
@@ -121,7 +120,7 @@ class InputPage extends React.Component {
     const canInput = Util.canInput(rateScore);
 
     return (
-      <div className={`view-${route.path}`}>
+      <div className="view-input">
         <ul className="input-wrap wrap">
 
           <li className="input-item">

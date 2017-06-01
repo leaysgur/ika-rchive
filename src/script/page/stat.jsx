@@ -28,7 +28,6 @@ class StatPage extends React.Component {
   }
 
   render() {
-    const { route } = this.props;
     const {
       bestRate, totalIdx,
       winRate, winRateFree, winRateTag,
@@ -45,8 +44,18 @@ class StatPage extends React.Component {
       ? Util.getTweetUrl(Util.getRateStr(latestRecord.rate), this.state)
       : null;
 
+    if (totalIdx === 0) {
+      return (
+        <div className="view-stat">
+          <div className="stat-cover">
+            <p className="wrap">まだデータが<span className="ft-ika">トウロク</span>されてないぞ！</p>
+          </div>
+        </div>
+      );
+    }
+
     return (
-      <div className={`view-${route.path}`}>
+      <div className="view-stat">
         <TotalStat {...{
           bestRate, totalIdx,
         }} />

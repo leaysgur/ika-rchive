@@ -20,7 +20,7 @@
   }
 
   .title {
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
 
   .tab {
@@ -37,13 +37,14 @@
     & > a {
       display: block;
       text-decoration: none;
+      color: #fff;
 
       &:active {
         transform: scale(1.1);
       }
 
       &.is-active {
-        color: #77EF00;
+        color: #1AD118;
       }
     }
   }

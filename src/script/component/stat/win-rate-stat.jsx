@@ -1,4 +1,5 @@
 const React = require('react');
+const PropTypes = require('prop-types');
 
 const {
   RULE, STAGE,
@@ -10,11 +11,6 @@ const WinRateStat = ({
   return (
     <div>
       <h2 className="ft-ika">ルールべつ</h2>
-      {
-        winRateDetailByRule.length === 0
-          ? <p className="wrap">まだデータが<span className="ft-ika">トウロク</span>されてないぞ！</p>
-          : null
-      }
       {winRateDetailByRule.map((rule, idx) => {
         return (
           <div key={idx}>
@@ -44,7 +40,7 @@ const WinRateStat = ({
 };
 
 WinRateStat.propTypes = {
-  winRateDetailByRule: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  winRateDetailByRule: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 module.exports = WinRateStat;

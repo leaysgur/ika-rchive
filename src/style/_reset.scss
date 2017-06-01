@@ -28,10 +28,12 @@ h1, h2 {
 h1 {
   padding-top: .5em!important;
   font-size: 1.8em;
+  text-shadow: 1px 1px 1px #000, 3px 3px 1px #1AD118;
 }
 
 h2 {
   margin: .25em auto;
+  text-shadow: 1px 1px 1px #000;
 }
 
 p {
@@ -39,7 +41,11 @@ p {
 }
 
 a {
-  color: #fff;
+  color: #1AD118;
+}
+
+strong {
+  color: #ED2772;
 }
 
 ul {

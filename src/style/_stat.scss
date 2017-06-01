@@ -1,4 +1,8 @@
 .view-stat {
+  .stat-cover {
+    text-align: center;
+    padding-top: 60px;
+  }
 
   .user-stat {
     @extend %content;

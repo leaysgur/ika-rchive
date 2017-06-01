@@ -16,7 +16,6 @@ class GraphPage extends React.Component {
   }
 
   render() {
-    const { route, } = this.props;
     const {
       noData,
       labels,
@@ -30,17 +29,15 @@ class GraphPage extends React.Component {
 
     if (noData) {
       return (
-        <div className={`view-${route.path}`}>
-          <div className="graph-cover">
-            <p className="wrap">まだデータが<span className="ft-ika">トウロク</span>されてないぞ！</p>
-          </div>
+        <div className="graph-cover">
+          <p className="wrap">まだデータが<span className="ft-ika">トウロク</span>されてないぞ！</p>
         </div>
       );
     }
 
     return (
-      <div className={`view-${route.path}`}>
-        <Switcher isList={false} isGraph={true} />
+      <div>
+        <Switcher />
 
         <UdemaeGraph
           labels={labels}

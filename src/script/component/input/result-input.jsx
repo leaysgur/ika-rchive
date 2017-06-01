@@ -1,4 +1,5 @@
 const React = require('react');
+const PropTypes = require('prop-types');
 
 const { RESULT, } = require('../../const');
 
@@ -24,8 +25,8 @@ const ResultInput = ({
 };
 
 ResultInput.propTypes = {
-  result:   React.PropTypes.string.isRequired,
-  onChange: React.PropTypes.func.isRequired,
+  result:   PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 module.exports = ResultInput;

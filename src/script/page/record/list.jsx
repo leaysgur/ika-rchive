@@ -62,7 +62,6 @@ class ListPage extends React.Component {
   }
 
   render() {
-    const { route, } = this.props;
     const {
       records,
       modItem,
@@ -70,18 +69,15 @@ class ListPage extends React.Component {
 
     if (records.length === 0) {
       return (
-        <div className={`view-${route.path}`}>
-          <div className="graph-cover">
-            <p className="wrap">まだデータが<span className="ft-ika">トウロク</span>されてないぞ！</p>
-          </div>
+        <div className="graph-cover">
+          <p className="wrap">まだデータが<span className="ft-ika">トウロク</span>されてないぞ！</p>
         </div>
       );
     }
 
     return (
-      <div className={`view-${route.path}`}>
-
-        <Switcher isList={true} isGraph={false} />
+      <div>
+        <Switcher />
 
         {modItem
           ? <ModPopup
@@ -97,7 +93,7 @@ class ListPage extends React.Component {
           removeRecord={this.removeRecord}
         />
 
-        <Switcher isList={true} isGraph={false} />
+        <Switcher />
       </div>
     );
   }

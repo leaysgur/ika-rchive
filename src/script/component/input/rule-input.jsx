@@ -1,4 +1,5 @@
 const React = require('react');
+const PropTypes = require('prop-types');
 
 const { RULE, } = require('../../const');
 
@@ -24,8 +25,8 @@ const RuleInput = ({
 };
 
 RuleInput.propTypes = {
-  rule:     React.PropTypes.string.isRequired,
-  onChange: React.PropTypes.func.isRequired,
+  rule:     PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 module.exports = RuleInput;

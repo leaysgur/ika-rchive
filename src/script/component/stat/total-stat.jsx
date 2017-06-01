@@ -1,4 +1,5 @@
 const React = require('react');
+const PropTypes = require('prop-types');
 
 const TotalStat = ({
   bestRate, totalIdx,
@@ -24,8 +25,8 @@ const TotalStat = ({
 };
 
 TotalStat.propTypes = {
-  bestRate: React.PropTypes.string.isRequired,
-  totalIdx: React.PropTypes.number.isRequired,
+  bestRate: PropTypes.string.isRequired,
+  totalIdx: PropTypes.number.isRequired,
 };
 
 module.exports = TotalStat;
