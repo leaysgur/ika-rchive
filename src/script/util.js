@@ -176,7 +176,7 @@ module.exports = {
     const text = [
       `ウデマエが${rateStr}になったぞ！最近の勝率は${state.winRate}%！`,
       `${state.totalIdx}戦のキロクで、いまの適正ウデマエは${state.avgRate}だ！`,
-      `#ウデマエアーカイブ`,
+      `#ウデマエアーカイブ2`,
     ].join('\n');
 
     return Const.TWITTER_URL + encodeURIComponent(text);
