@@ -2,6 +2,19 @@
   .switcher {
     text-align: center;
     padding: .25em 0;
+
+    & > a {
+      color: #fff;
+      text-decoration: none;
+
+      &:active {
+        transform: scale(1.1);
+      }
+
+      &.is-active {
+        color: #1AD118;
+      }
+    }
   }
 
   .graph-wrap {

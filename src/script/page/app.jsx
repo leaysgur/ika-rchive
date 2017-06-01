@@ -12,7 +12,6 @@ const StatPage   = require('./stat.jsx');
 const InputPage  = require('./input.jsx');
 const OthersPage = require('./others.jsx');
 
-
 const App = () => {
   return (
     <HashRouter hashType="hashbang">

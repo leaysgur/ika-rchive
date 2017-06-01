@@ -37,7 +37,7 @@ class GraphPage extends React.Component {
 
     return (
       <div>
-        <Switcher isList={false} isGraph={true} />
+        <Switcher />
 
         <UdemaeGraph
           labels={labels}

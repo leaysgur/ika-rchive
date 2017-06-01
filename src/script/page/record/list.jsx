@@ -77,7 +77,7 @@ class ListPage extends React.Component {
 
     return (
       <div>
-        <Switcher isList={true} isGraph={false} />
+        <Switcher />
 
         {modItem
           ? <ModPopup
@@ -93,7 +93,7 @@ class ListPage extends React.Component {
           removeRecord={this.removeRecord}
         />
 
-        <Switcher isList={true} isGraph={false} />
+        <Switcher />
       </div>
     );
   }
