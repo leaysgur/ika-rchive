@@ -37,7 +37,7 @@ const App = () => {
           <Route exact path="/stat" component={StatPage} />
           <Route exact path="/input" component={InputPage} />
           <Route exact path="/others" component={OthersPage} />
-          <Redirect from="*" to="/stat" />
+          <Redirect from="*" to="/others" />
         </Switch>
       </div>
     </HashRouter>
