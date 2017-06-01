@@ -55,8 +55,8 @@ module.exports = {
   MAX_RATE_INPUT: 99,
 
   GRAPH_SIZE_TO_SCREEN: {
-    W: 0.95,
-    H: 0.6
+    W: 2.0,
+    H: 0.5
   },
 
   RATE_SCALE_GAP: 20,
